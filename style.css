@@ -2,24 +2,39 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 ul {
-  margin-left: 20em;
+  margin-left: 6em;
 }
 .at {
-  margin-left: -5em;
-  margin-right: 2.5em;
+  margin-left: -5.5em;
+  margin-right: 4.5em;
   width: 3em;
   text-align: right;
   display: inline-block;
+  vertical-align: top;
 }
 .type {
   width: 1.5em;
   display: inline-block;
   text-align: center;
   margin-right: 0.5em;
+  vertical-align: top;
 }
 .name {
   font-weight: bold;
+  display: inline-block;
+  vertical-align: top;
 }
 li {
-  margin: 0.5em 0;
+  margin: 0 0;
+  padding: 0.5em 0;
+  border-left: 4px solid black;
+  list-style-type: none;
+  position: relative;
+}
+li:before {
+  content: '\f111';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  left: -0.63em;
 }
