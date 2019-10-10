@@ -2,16 +2,21 @@ const fs = require('fs')
 const yaml = require('yaml')
 const formatDistance = require('./formatDistance')
 
-function route (options) {
+function route (options={}) {
   const data = yaml.parse(fs.readFileSync('wiental.yml', 'utf8'))
 
-  data.route.reverse()
+  if (typeof options.at === 'undefined') {
+    options.at = 0
+  }
+
+  let route = data.route.filter(entry => entry.at > options.at)
+  route.reverse()
 
   let result = ''
 
   result += '<ul>'
-  data.route.forEach(entry => {
-    result += '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at) + '</span><span class="type">'
+  route.forEach(entry => {
+    result += '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
     switch (entry.type) {
       case 'bikeroute':
         result += '<i class="fas fa-bicycle"></i>'
@@ -26,7 +31,7 @@ function route (options) {
         result += '<i class="fas fa-map-marker-alt"></i>'
     }
 
-    result += '</span><span class="name">' + entry.name + '</span></li>'
+    result += '</span><span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span></li>'
   })
   result += '</ul>'
 
