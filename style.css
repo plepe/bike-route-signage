@@ -31,10 +31,31 @@ li {
   list-style-type: none;
   position: relative;
 }
-li:before {
+li::before {
   content: '\f111';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   position: absolute;
-  left: -0.63em;
+  left: -0.88em;
+  width: 1.5em;
+  text-align: center;
+}
+li::after {
+  content: '';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  left: -0.88em;
+  color: white;
+  width: 1.5em;
+  text-align: center;
+}
+li.left::after {
+  content: '\f30a';
+}
+li.right::after {
+  content: '\f30b';
+}
+li.both::after {
+  content: '\f337';
 }

@@ -11,7 +11,7 @@ function route (options) {
 
   result += '<ul>'
   data.route.forEach(entry => {
-    result += '<li><span class="at">' + formatDistance(entry.at) + '</span><span class="type">'
+    result += '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at) + '</span><span class="type">'
     switch (entry.type) {
       case 'bikeroute':
         result += '<i class="fas fa-bicycle"></i>'

@@ -6,13 +6,16 @@ route:
 - name: Schleifmühlgasse
   type: bikeroute
   at: 580
+  direction: left
 - name: Kettenbrückengasse
   type: bikeroute
   ptRoutes: [ U4 ]
   at: 950
+  direction: left
 - name: Mollardgasse, Ullmannstraße
   type: bikeroute
   at: 1190
+  direction: right
 - name: Pilgramgasse
   type: ptStop
   ptRoutes: [ U2, U4 ]
@@ -20,9 +23,11 @@ route:
 - name: Spengergasse
   type: bikeroute
   at: 2050
+  direction: left
 - name: Grabnergasse, Webgasse
   type: bikeroute
   at: 2140
+  direction: right
 - name: Bruno-Kreisky-Park
   type: park
   at: 2710
@@ -33,9 +38,11 @@ route:
 - name: Gürtel (Süd)
   type: bikeroute
   at: 2840
+  direction: left
 - name: Gürtel (Nord)
   type: bikeroute
   at: 3080
+  direction: right
   connections:
   - name: Gumpendorfer Straße
     type: ptStop
@@ -43,6 +50,7 @@ route:
 - name: Malfattigasse
   type: bikeroute
   at: 3440
+  direction: left
 - name: Längenfeldgasse
   type: ptStop
   ptRoutes: [ U4, U6 ]
@@ -50,6 +58,7 @@ route:
 - name: Storchengasse
   type: bikeroute
   at: 3740
+  direction: right
 - name: Meidlinger Hauptstraße
   type: ptStop
   ptRoutes: [ U4 ]
@@ -57,9 +66,11 @@ route:
   connections:
   - name: Ullmannstraße
     type: bikeroute
+    direction: right
   - name: Meidlinger Platz
     ptRoutes: [ U6 ]
     type: place
+    direction: left
 - name: Auer-Welsbach-Park
   type: park
   at: 4860
@@ -77,6 +88,7 @@ route:
   connections:
   - name: Wiental-Highway
     type: bikeroute
+    direction: right
     connections:
     - name: Bhf. Hütteldorf
       type: ptStop
@@ -84,6 +96,7 @@ route:
       distance: 3620
   - name: Diesterweggasse
     type: bikeroute
+    direction: right
     connections:
     - name: Bhf. Penzing
       type: ptStop
