@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "numeraljs": "^1.5.6",
     "yaml": "^1.7.1"
   }
 }

@@ -1,6 +1,16 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+ul {
+  margin-left: 20em;
+}
+.at {
+  margin-left: -5em;
+  margin-right: 2.5em;
+  width: 3em;
+  text-align: right;
+  display: inline-block;
+}
 .type {
   width: 1.5em;
   display: inline-block;

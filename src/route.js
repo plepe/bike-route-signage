@@ -1,7 +1,8 @@
 const fs = require('fs')
 const yaml = require('yaml')
+const formatDistance = require('./formatDistance')
 
-function route () {
+function route (options) {
   const data = yaml.parse(fs.readFileSync('wiental.yml', 'utf8'))
 
   data.route.reverse()
@@ -10,7 +11,7 @@ function route () {
 
   result += '<ul>'
   data.route.forEach(entry => {
-    result += '<li><span class="type">'
+    result += '<li><span class="at">' + formatDistance(entry.at) + '</span><span class="type">'
     switch (entry.type) {
       case 'bikeroute':
         result += '<i class="fas fa-bicycle"></i>'
