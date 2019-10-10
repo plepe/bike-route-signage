@@ -10,7 +10,22 @@ function route () {
 
   result += '<ul>'
   data.route.forEach(entry => {
-    result += '<li>' + entry.name + '</li>'
+    result += '<li>'
+    switch (entry.type) {
+      case 'bikeroute':
+        result += '<i class="fas fa-bicycle"></i>'
+        break
+      case 'park':
+        result += '<i class="fas fa-tree"></i>'
+        break
+      case 'ptStop':
+        result += '<i class="fas fa-bus"></i>'
+        break
+      default:
+        result += '<i class="fas fa-map-marker-alt"></i>'
+    }
+
+    result += ' ' + entry.name + '</li>'
   })
   result += '</ul>'
 
