@@ -1,0 +1,38 @@
+route:
+- name: Karlsplatz
+  ptRoutes: [ U1, U4, U5 ]
+  type: place
+- name: Schleifmühlgasse
+  type: bikeroute
+- name: Kettenbrückengasse
+  type: bikeroute
+  ptRoutes: [ U4 ]
+- name: Pilgramgasse
+  type: ptStop
+  ptRoutes: [ U2, U4 ]
+- name: Spengergasse
+  type: bikeroute
+- name: Grabnergasse, Webgasse
+  type: bikeroute
+- name: Bruno-Kreisky-Park
+  type: park
+  alias:
+  - name: Margaretengürtel
+    type: ptStop
+    ptRoutes: [ U4 ]
+- name: Gürtel (Süd)
+  type: bikeroute
+- name: Gürtel (Nord)
+  type: bikeroute
+  connections:
+  - name: Gumpendorfer Straße
+    type: ptStop
+    ptRoutes: [ U6 ]
+- name: Malfattigasse
+  type: bikeroute
+- name: Längenfeldgasse
+  type: ptStop
+  ptRoutes: [ U4, U6 ]
+- name: Hietzing
+  type: ptStop
+  ptRoutes: [ U4, Bus, Bim ]
