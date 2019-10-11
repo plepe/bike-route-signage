@@ -136,6 +136,7 @@ route:
   - name: Wiental-Highway
     type: bikeroute
     direction: right
+    priority: 1
     connections:
     - name: Bhf. Hütteldorf
       type: ptStop
@@ -144,6 +145,7 @@ route:
   - name: Diesterweggasse
     type: bikeroute
     direction: right
+    priority: 3
     connections:
     - name: Bhf. Penzing
       type: ptStop

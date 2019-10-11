@@ -30,7 +30,11 @@ function route (options={}) {
   }
 
   result += '<ul>'
-  route.forEach(entry => result += formatEntry(entry, options))
+  route.forEach((entry, index) => {
+    let opt = JSON.parse(JSON.stringify(options))
+    opt.priority = toPick[route.length - index - 1]
+    result += formatEntry(entry, opt)
+  })
   result += '</ul>'
 
   return result
