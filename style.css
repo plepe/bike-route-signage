@@ -75,12 +75,19 @@ ul li ul li {
   border: none;
   padding: 0 0 0.2em 0;
 }
+ul li ul li .name {
+  font-weight: normal;
+}
 ul li ul li:last-of-type {
   padding: 0;
 }
 ul li ul li::before,
 ul li ul li::after {
   content: '';
+}
+
+ul li ul li ul {
+  font-size: 11pt;
 }
 
 span.distance {
