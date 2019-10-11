@@ -11,18 +11,19 @@ function route (options={}) {
   }
 
   let route = data.route.filter(entry => entry.at > options.at)
+  let pickIndex = 0
+  route = route.filter(entry => {
+    if ((entry.priority || 3) <= toPick[pickIndex]) {
+      pickIndex++
+      return true
+    }
+  })
   route.reverse()
 
   let result = ''
 
   result += '<ul>'
-  let pickIndex = 0
-  route.forEach(entry => {
-    if ((entry.priority || 3) < toPick[pickIndex]) {
-      result += formatEntry(entry, options)
-      pickIndex++
-    }
-  })
+  route.forEach(entry => result += formatEntry(entry, options))
   result += '</ul>'
 
   return result
