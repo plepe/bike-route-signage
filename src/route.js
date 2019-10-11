@@ -26,6 +26,10 @@ function route (options={}) {
 
   let result = ''
 
+  if (data.title) {
+    result += '<h1>' + data.title + '</h1>'
+  }
+
   result += '<ul>'
   route.forEach(entry => result += formatEntry(entry, options))
   result += '</ul>'
