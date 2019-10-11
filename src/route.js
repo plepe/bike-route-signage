@@ -1,6 +1,6 @@
 const fs = require('fs')
 const yaml = require('yaml')
-const formatDistance = require('./formatDistance')
+const formatEntry = require('./formatEntry')
 
 function route (options={}) {
   const data = yaml.parse(fs.readFileSync('wiental.yml', 'utf8'))
@@ -15,24 +15,7 @@ function route (options={}) {
   let result = ''
 
   result += '<ul>'
-  route.forEach(entry => {
-    result += '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
-    switch (entry.type) {
-      case 'bikeroute':
-        result += '<i class="fas fa-bicycle"></i>'
-        break
-      case 'park':
-        result += '<i class="fas fa-tree"></i>'
-        break
-      case 'ptStop':
-        result += '<i class="fas fa-bus"></i>'
-        break
-      default:
-        result += '<i class="fas fa-map-marker-alt"></i>'
-    }
-
-    result += '</span><span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span></li>'
-  })
+  route.forEach(entry => result += formatEntry(entry, options))
   result += '</ul>'
 
   return result
