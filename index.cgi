@@ -15,4 +15,7 @@ let options = queryString.parse(process.env.QUERY_STRING)
 
 console.log(route(options))
 
+let at = (+options.at) || 0
+console.log('<form method="get">Location: <input type="submit" name="at" value="' + (at - 100) + '"><input type="submit" name="at" value="' + (at + 100) + '"></form>')
+
 console.log('</body></html>')
