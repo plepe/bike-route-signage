@@ -35,24 +35,30 @@ route:
   at: 2140
   direction: right
   priority: 3
-- name: Bruno-Kreisky-Park
-  type: park
+- name: Margaretengürtel
+  type: ptStop
+  ptRoutes: [ U4 ]
   at: 2710
   priority: 2
-  alias:
-  - name: Margaretengürtel
-    type: ptStop
-    ptRoutes: [ U4 ]
-- name: Gürtel (Süd)
+  connections:
+  - name: Bruno-Kreisky-Park
+    type: park
+- name: Gürtelradweg
+  type: bikeroute
+  priority: 1
+  hidePriority: 3
+  at: 2840
+  direction: both
+- name: Gürtelradweg (Süd)
   type: bikeroute
   at: 2840
   direction: left
-  priority: 1
-- name: Gürtel (Nord)
+  priority: 2
+- name: Gürtelradweg (Nord)
   type: bikeroute
   at: 3080
   direction: right
-  priority: 1
+  priority: 2
   connections:
   - name: Gumpendorfer Straße
     type: ptStop
@@ -85,14 +91,14 @@ route:
     ptRoutes: [ U6 ]
     type: place
     direction: left
-- name: Auer-Welsbach-Park
-  type: park
+- name: Schönbrunn
+  type: ptStop
+  ptRoutes: [ U4 ]
   at: 4860
   priority: 2
-  alias:
-  - name: Schönbrunn
-    type: ptStop
-    ptRoutes: [ U4 ]
+  connections:
+  - name: Auer-Welsbach-Park
+    type: park
 - name: Schloß Schönbrunn
   type: sightseeing
   at: 5480

@@ -13,6 +13,10 @@ function route (options={}) {
   let route = data.route.filter(entry => entry.at > options.at)
   let pickIndex = 0
   route = route.filter(entry => {
+    if (entry.hidePriority <= toPick[pickIndex]) {
+      return false
+    }
+
     if ((entry.priority || 3) <= toPick[pickIndex]) {
       pickIndex++
       return true
