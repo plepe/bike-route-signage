@@ -82,3 +82,8 @@ ul li ul li::before,
 ul li ul li::after {
   content: '';
 }
+
+span.distance {
+  margin-left: 0.2em;
+  font-style: italic;
+}

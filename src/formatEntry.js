@@ -18,6 +18,10 @@ module.exports = function formatEntry (entry, options={}) {
 
   result += '</span><span class="content"><span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span>'
 
+  if (entry.distance) {
+    result += '<span class="distance">' + formatDistance(entry.distance) + '</span>'
+  }
+
   if (entry.connections) {
     let connections = entry.connections
 
