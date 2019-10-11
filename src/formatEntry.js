@@ -1,4 +1,5 @@
 const formatDistance = require('./formatDistance')
+const filterPriority = require('./filterPriority')
 
 module.exports = function formatEntry (entry, options={}) {
   let result = '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'

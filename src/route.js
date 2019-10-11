@@ -1,6 +1,7 @@
 const fs = require('fs')
 const yaml = require('yaml')
 const formatEntry = require('./formatEntry')
+const filterPriority = require('./filterPriority')
 const toPick = [ 4, 3, 2, 1, 1 ]
 
 function route (options={}) {
@@ -13,14 +14,12 @@ function route (options={}) {
   let route = data.route.filter(entry => entry.at > options.at)
   let pickIndex = 0
   route = route.filter(entry => {
-    if (entry.hidePriority <= toPick[pickIndex]) {
-      return false
+    let result = filterPriority(entry, toPick[pickIndex])
+    if (result) {
+      pickIndex++
     }
 
-    if ((entry.priority || 3) <= toPick[pickIndex]) {
-      pickIndex++
-      return true
-    }
+    return result
   })
   route.reverse()
 
