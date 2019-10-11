@@ -10,22 +10,45 @@ route:
   at: 580
   direction: left
   priority: 3
+  connections:
+  - name: Schwarzenbergplatz
+    type: place
+    distance: 1000
 - name: Kettenbrückengasse
-  type: bikeroute
+  type: ptStop
   ptRoutes: [ U4 ]
   at: 950
   direction: left
-  priority: 3
+  priority: 2
+  connections:
+  - name: Kettenbrückengasse
+    type: bikeroute
+    priority: 3
 - name: Mollardgasse, Ullmannstraße
   type: bikeroute
   at: 1190
   direction: right
   priority: 3
+  connections:
+  - name: Mariahilferstraße
+    type: place
+    distance: 830
+    direction: right
+  - name: Gumpendorfer Straße
+    type: ptStop
+    ptRoutes: [ U6 ]
+    distance: 2030
+    direction: right
 - name: Pilgramgasse
   type: ptStop
   ptRoutes: [ U2, U4 ]
   at: 1670
   priority: 2
+  connections:
+  - name: Margaretenplatz
+    type: place
+    distance: 300
+    direction: left
 - name: Spengergasse
   type: bikeroute
   at: 2050

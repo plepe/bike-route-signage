@@ -7,6 +7,10 @@ function roundToPrecision(x, precision) {
 }
 
 module.exports = function formatDistance (distance) {
+  if (isNaN(distance)) {
+    return ''
+  }
+
   if (distance < 100) {
     return numeral(roundToPrecision(distance, 5)).format('0') + 'm'
   }

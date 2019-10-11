@@ -46,6 +46,7 @@ li::after {
   font-weight: 900;
   position: absolute;
   left: -0.88em;
+  top: 0.5em;
   color: white;
   width: 1.5em;
   text-align: center;
@@ -65,4 +66,19 @@ a {
 }
 a:hover, a:active {
   text-decoration: underline;
+}
+
+ul li ul {
+  margin-left: 0;
+}
+ul li ul li {
+  border: none;
+  padding: 0 0 0.2em 0;
+}
+ul li ul li:last-of-type {
+  padding: 0;
+}
+ul li ul li::before,
+ul li ul li::after {
+  content: '';
 }
