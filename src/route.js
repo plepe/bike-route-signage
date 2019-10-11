@@ -1,6 +1,7 @@
 const fs = require('fs')
 const yaml = require('yaml')
 const formatEntry = require('./formatEntry')
+const toPick = [ 4, 3, 2, 1, 1 ]
 
 function route (options={}) {
   const data = yaml.parse(fs.readFileSync('wiental.yml', 'utf8'))
@@ -15,7 +16,13 @@ function route (options={}) {
   let result = ''
 
   result += '<ul>'
-  route.forEach(entry => result += formatEntry(entry, options))
+  let pickIndex = 0
+  route.forEach(entry => {
+    if ((entry.priority || 3) < toPick[pickIndex]) {
+      result += formatEntry(entry, options)
+      pickIndex++
+    }
+  })
   result += '</ul>'
 
   return result
