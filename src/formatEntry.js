@@ -5,7 +5,7 @@ module.exports = function formatEntry (entry, options={}) {
   let result = '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
   switch (entry.type) {
     case 'bikeroute':
-      result += '<i class="fas fa-bicycle"></i>'
+      result += '<i class="fas fa-biking"></i>'
       break
     case 'park':
       result += '<i class="fas fa-tree"></i>'

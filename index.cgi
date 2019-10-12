@@ -10,10 +10,12 @@ console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesom
 console.log('  <link rel="stylesheet" href="style.css">')
 console.log('</head><body>')
 
+console.log('<div id="route-sign">')
 const route = require('./src/route')
 let options = queryString.parse(process.env.QUERY_STRING)
 
 console.log(route(options))
+console.log('</div>')
 
 let at = (+options.at) || 0
 console.log('<form method="get">Location: <input type="submit" name="at" value="' + (at - 100) + '"><input type="submit" name="at" value="' + (at + 100) + '"></form>')
