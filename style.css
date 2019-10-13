@@ -167,3 +167,11 @@ span.distance {
 #menu form {
   display: inline;
 }
+
+#at {
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 3em;
+  font-size: 100%;
+  text-align: right;
+}
