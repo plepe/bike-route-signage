@@ -12,13 +12,13 @@ module.exports = function formatDistance (distance) {
   }
 
   if (distance < 100) {
-    return numeral(roundToPrecision(distance, 5)).format('0') + 'm'
+    return numeral(roundToPrecision(distance, 5)).format('0') + '&#x202F;m'
   }
   if (distance < 800) {
-    return numeral(roundToPrecision(distance, 50)).format('0') + 'm'
+    return numeral(roundToPrecision(distance, 50)).format('0') + '&#x202F;m'
   }
   if (distance < 4000) {
-    return numeral(roundToPrecision(distance / 1000, 0.1)).format('0.0') + 'km'
+    return numeral(roundToPrecision(distance / 1000, 0.1)).format('0.0') + '&#x202F;km'
   }
-  return numeral(roundToPrecision(distance / 1000, 1)).format('0') + 'km'
+  return numeral(roundToPrecision(distance / 1000, 1)).format('0') + '&#x202F;km'
 }
