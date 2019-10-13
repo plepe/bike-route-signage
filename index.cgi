@@ -10,11 +10,14 @@ console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesom
 console.log('  <link rel="stylesheet" href="style.css">')
 console.log('</head><body>')
 
+console.log('<div id="environment">')
 console.log('<div id="route-sign">')
 const route = require('./src/route')
 let options = queryString.parse(process.env.QUERY_STRING)
 
 console.log(route(options))
+console.log('</div>')
+console.log('<div id="floor">')
 console.log('</div>')
 
 let at = (+options.at) || 0

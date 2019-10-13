@@ -3,12 +3,14 @@ body {
 }
 
 #route-sign {
-  width: 25em;
+  box-sizing: border-box;
+  width: 100%;
   padding: 0.1em;
   border: 0.1em solid grey;
+  border-bottom: none;
   background: black;
   color: white;
-  height: 50em;
+  height: 100%;
 }
 #route-sign h1:before {
   content: '\f84a';
@@ -21,6 +23,24 @@ body {
   padding: 0.25em;
   background: red;
 }
+#environment {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  background: lightblue;
+  padding: 1em 1em 1em 1em;
+  width: 25em;
+}
+#floor {
+  height: 1em;
+  background: lightgreen;
+  border-top: 0.1em solid green;
+  margin-left: -1em;
+  margin-right: -1em;
+  margin-top: 0em;
+}
+  
 
 ul {
   margin-left: 6em;
