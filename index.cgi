@@ -19,8 +19,16 @@ console.log(route(options))
 console.log('</div>')
 console.log('<div id="floor">')
 console.log('</div>')
+console.log('</div>')
 
 let at = (+options.at) || 0
-console.log('<form method="get">Location: <input type="submit" name="at" value="' + (at - 100) + '"><input type="submit" name="at" value="' + (at + 100) + '"></form>')
+console.log('<div id="menu">')
+console.log('Location: ')
+console.log('<form method="get"><input type="hidden" name="at" value="' + (at - 100) + '"><input type="submit" value="-100m"></form>')
+console.log('<form method="get"><input type="hidden" name="at" value="' + (at - 25) + '"><input type="submit" value="-25m"></form>')
+console.log(at + 'm')
+console.log('<form method="get"><input type="hidden" name="at" value="' + (at + 25) + '"><input type="submit" value="+25m"></form>')
+console.log('<form method="get"><input type="hidden" name="at" value="' + (at + 100) + '"><input type="submit" value="+100m"></form>')
+console.log('</div>')
 
 console.log('</body></html>')
