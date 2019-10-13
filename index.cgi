@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 var queryString = require('query-string')
+const yaml = require('yaml')
+const fs = require('fs')
 
 console.log('Content-Type: text/html; charset=utf8')
 console.log('')
@@ -13,10 +15,11 @@ console.log('</head><body lang="de">')
 
 console.log('<div id="environment">')
 console.log('<div id="route-sign">')
-const route = require('./src/route')
+const Route = require('./src/Route')
+const route = new Route(yaml.parse(fs.readFileSync('wiental.yml', 'utf8')))
 let options = queryString.parse(process.env.QUERY_STRING)
 
-console.log(route(options))
+console.log(route.render(options))
 console.log('</div>')
 console.log('<div id="floor">')
 console.log('</div>')
