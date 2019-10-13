@@ -45,10 +45,10 @@ body {
 }
   
 
-ul {
+#route-sign ul {
   margin-left: 4em;
 }
-.at {
+#route-sign .at {
   margin-left: -5.5em;
   margin-right: 4.5em;
   width: 3em;
@@ -56,30 +56,30 @@ ul {
   display: inline-block;
   vertical-align: top;
 }
-.type {
+#route-sign .type {
   width: 1.5em;
   display: inline-block;
   text-align: center;
   margin-right: 0.5em;
   vertical-align: top;
 }
-.content {
+#route-sign .content {
   display: inline-block;
   width: 13.5em;
 }
-.name {
+#route-sign .name {
   font-weight: bold;
   display: inline;
   vertical-align: top;
 }
-li {
+#route-sign li {
   margin: 0 0;
   padding: 0.5em 0;
   border-left: 4px solid white;
   list-style-type: none;
   position: relative;
 }
-li::before {
+#route-sign li::before {
   content: '\f111';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -88,7 +88,7 @@ li::before {
   width: 1.5em;
   text-align: center;
 }
-li::after {
+#route-sign li::after {
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -99,62 +99,64 @@ li::after {
   width: 1.5em;
   text-align: center;
 }
-li.left::after {
+#route-sign li.left::after {
   content: '\f30a';
 }
-li.right::after {
+#route-sign li.right::after {
   content: '\f30b';
 }
-li.both::after {
+#route-sign li.both::after {
   content: '\f337';
 }
-a {
+#route-sign a {
   color: white;
+}
+#route-sign a {
   text-decoration: none;
 }
-a:hover, a:active {
+#route-sign a:hover, #route-sign a:active {
   text-decoration: underline;
 }
 
-ul li ul {
+#route-sign ul li ul {
   margin-left: 0;
   padding-left: 0;
 }
-ul li ul li {
+#route-sign ul li ul li {
   border: none;
   padding: 0 0 0.2em 0;
 }
-ul li ul li .name {
+#route-sign ul li ul li .name {
   font-weight: normal;
 }
-ul li ul li .at {
+#route-sign ul li ul li .at {
   display: none;
 }
-ul li ul li .content {
+#route-sign ul li ul li .content {
   width: 11em;
 }
-ul li ul li ul li .content {
+#route-sign ul li ul li ul li .content {
   width: 10em;
 }
-ul li ul li .distance {
+#route-sign ul li ul li .distance {
   float: right;
 }
-ul li ul li:last-of-type {
+#route-sign ul li ul li:last-of-type {
   padding: 0;
 }
-ul li ul li::before,
-ul li ul li::after,
-ul li ul li.right::after,
-ul li ul li.both::after,
-ul li ul li.left::after {
+#route-sign ul li ul li::before,
+#route-sign ul li ul li::after,
+#route-sign ul li ul li.right::after,
+#route-sign ul li ul li.both::after,
+#route-sign ul li ul li.left::after {
   content: '';
 }
 
-ul li ul li ul {
+#route-sign ul li ul li ul {
   font-size: 11pt;
 }
 
-span.distance {
+#route-sign span.distance {
   margin-left: 0.2em;
   font-style: italic;
 }
