@@ -2,9 +2,9 @@ const fs = require('fs')
 const yaml = require('yaml')
 const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
-const toPick = [ 4, 3, 2, 1, 1 ]
+const toPick = [4, 3, 2, 1, 1]
 
-function route (options={}) {
+function route (options = {}) {
   const data = yaml.parse(fs.readFileSync('wiental.yml', 'utf8'))
 
   if (typeof options.at === 'undefined') {
@@ -14,7 +14,7 @@ function route (options={}) {
   let route = data.route.filter(entry => entry.at > options.at)
   let pickIndex = 0
   route = route.filter(entry => {
-    let result = filterPriority(entry, toPick[pickIndex])
+    const result = filterPriority(entry, toPick[pickIndex])
     if (result) {
       pickIndex++
     }
@@ -31,7 +31,7 @@ function route (options={}) {
 
   result += '<ul>'
   route.forEach((entry, index) => {
-    let opt = JSON.parse(JSON.stringify(options))
+    const opt = JSON.parse(JSON.stringify(options))
     opt.priority = toPick[route.length - index - 1]
     result += formatEntry(entry, opt)
   })

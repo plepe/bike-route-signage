@@ -1,9 +1,9 @@
 const numeral = require('numeraljs')
 
 // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-function roundToPrecision(x, precision) {
-    var y = +x + (precision === undefined ? 0.5 : precision/2)
-    return y - (y % (precision === undefined ? 1 : +precision))
+function roundToPrecision (x, precision) {
+  var y = +x + (precision === undefined ? 0.5 : precision / 2)
+  return y - (y % (precision === undefined ? 1 : +precision))
 }
 
 module.exports = function formatDistance (distance) {

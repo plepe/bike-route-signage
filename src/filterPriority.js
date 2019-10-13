@@ -1,4 +1,4 @@
-module.exports = function filterPriority (entry, priority, defaultPriority=3) {
+module.exports = function filterPriority (entry, priority, defaultPriority = 3) {
   if (entry.hidePriority <= priority) {
     return false
   }

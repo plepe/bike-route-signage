@@ -1,7 +1,7 @@
 const formatDistance = require('./formatDistance')
 const filterPriority = require('./filterPriority')
 
-module.exports = function formatEntry (entry, options={}) {
+module.exports = function formatEntry (entry, options = {}) {
   let result = '<li class="' + (entry.direction ? entry.direction : '') + '"><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
   switch (entry.type) {
     case 'bikeroute':
@@ -24,10 +24,12 @@ module.exports = function formatEntry (entry, options={}) {
   result += '<span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span>'
 
   if (entry.connections) {
-    let connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
+    const connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
 
     result += '<ul>'
-    connections.forEach(connection => result += formatEntry(connection, options))
+    connections.forEach(connection => {
+      result += formatEntry(connection, options)
+    })
     result += '</ul>'
   }
 
