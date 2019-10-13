@@ -8,6 +8,7 @@ console.log('<!DOCTYPE html>')
 console.log('<html><head>')
 console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">')
 console.log('  <link rel="stylesheet" href="style.css">')
+console.log('  <script src="dist/app.js"></script>')
 console.log('</head><body lang="de">')
 
 console.log('<div id="environment">')

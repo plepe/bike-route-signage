@@ -6,9 +6,13 @@
     "yaml": "^1.7.1"
   },
   "devDependencies": {
-    "standard": "^14.3.1"
+    "browserify": "^16.5.0",
+    "standard": "^14.3.1",
+    "watchify": "^3.11.1"
   },
   "scripts": {
-    "lint": "standard --fix src/*.js"
+    "lint": "standard --fix src/*.js",
+    "build": "browserify src/index.js -o dist/app.js",
+    "watch": "watchify --debug src/index.js -o dist/app.js -v"
   }
 }
