@@ -17,11 +17,11 @@ module.exports = function formatEntry (entry, options={}) {
       result += '<i class="fas fa-map-marker-alt"></i>'
   }
 
-  result += '</span><span class="content"><span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span>'
-
+  result += '</span><span class="content">'
   if (entry.distance) {
     result += '<span class="distance">' + formatDistance(entry.distance) + '</span>'
   }
+  result += '<span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span>'
 
   if (entry.connections) {
     let connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))

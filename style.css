@@ -43,7 +43,7 @@ body {
   
 
 ul {
-  margin-left: 6em;
+  margin-left: 4em;
 }
 .at {
   margin-left: -5.5em;
@@ -60,9 +60,13 @@ ul {
   margin-right: 0.5em;
   vertical-align: top;
 }
+.content {
+  display: inline-block;
+  width: 13.5em;
+}
 .name {
   font-weight: bold;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
 li {
@@ -88,7 +92,7 @@ li::after {
   position: absolute;
   left: -0.88em;
   top: 0.5em;
-  color: white;
+  color: black;
   width: 1.5em;
   text-align: center;
 }
@@ -111,6 +115,7 @@ a:hover, a:active {
 
 ul li ul {
   margin-left: 0;
+  padding-left: 0;
 }
 ul li ul li {
   border: none;
@@ -119,11 +124,26 @@ ul li ul li {
 ul li ul li .name {
   font-weight: normal;
 }
+ul li ul li .at {
+  display: none;
+}
+ul li ul li .content {
+  width: 11em;
+}
+ul li ul li ul li .content {
+  width: 10em;
+}
+ul li ul li .distance {
+  float: right;
+}
 ul li ul li:last-of-type {
   padding: 0;
 }
 ul li ul li::before,
-ul li ul li::after {
+ul li ul li::after,
+ul li ul li.right::after,
+ul li ul li.both::after,
+ul li ul li.left::after {
   content: '';
 }
 
