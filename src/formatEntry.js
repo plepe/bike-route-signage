@@ -27,7 +27,7 @@ module.exports = function formatEntry (entry, options={}) {
     let connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
 
     result += '<ul>'
-    connections.forEach(connection => result += formatEntry(connection))
+    connections.forEach(connection => result += formatEntry(connection, options))
     result += '</ul>'
   }
 
