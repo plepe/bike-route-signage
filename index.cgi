@@ -11,6 +11,7 @@ console.log('')
 console.log('<!DOCTYPE html>')
 console.log('<html><head>')
 console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">')
+console.log('  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">')
 console.log('  <link rel="stylesheet" href="style.css">')
 console.log('  <script src="dist/app.js"></script>')
 console.log('</head><body lang="de">')
@@ -50,6 +51,7 @@ if (!(options.file)) {
   console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at+25" name="at" value="' + (at + 25) + '"><input type="submit" value="+25&#x202F;m"></form>')
   console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at+100" name="at" value="' + (at + 100) + '"><input type="submit" value="+100&#x202F;m"></form>')
   console.log('</div>')
+  console.log('<div id="map-container"></div>')
 }
 
 console.log('</body></html>')

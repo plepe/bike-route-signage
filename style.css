@@ -177,3 +177,15 @@ body {
   font-size: 100%;
   text-align: right;
 }
+
+#map-container {
+  position: absolute;
+  top: 50%;
+  left: 28em;
+  right: 0;
+  bottom: 0;
+}
+#map {
+  width: 100%;
+  height: 100%;
+}

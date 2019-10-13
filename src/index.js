@@ -3,6 +3,7 @@ const yaml = require('yaml')
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
+const showMap = require('./showMap')
 
 let options
 let route
@@ -32,6 +33,8 @@ function load () {
 
     route = new Route(yaml.parse(result.body))
     document.getElementById('route-sign').innerHTML = route.render(options)
+
+    showMap(route)
   })
 }
 
