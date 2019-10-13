@@ -27,7 +27,7 @@ function updateStatus (data) {
 window.onload = function () {
   current = queryString.parse(location.search)
 
-  httpGet('wiental.yml', {}, (err, result) => {
+  httpGet('data/wiental.yml', {}, (err, result) => {
     if (err) {
       return alert(err)
     }
