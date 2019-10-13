@@ -1,5 +1,11 @@
 const queryString = require('query-string')
+const yaml = require('yaml')
+
+const Route = require('./Route')
+const httpGet = require('./httpGet')
+
 let current
+let route
 
 function updateStatus (data) {
   if ('at' in data) {
@@ -12,10 +18,23 @@ function updateStatus (data) {
   }
 
   history.replaceState(current, "", "?" + queryString.stringify(current))
+
+  if (route) {
+    document.getElementById('route-sign').innerHTML = route.render(current)
+  }
 }
 
 window.onload = function () {
   current = queryString.parse(location.search)
+
+  httpGet('wiental.yml', {}, (err, result) => {
+    if (err) {
+      return alert(err)
+    }
+
+    route = new Route(yaml.parse(result.body))
+    document.getElementById('route-sign').innerHTML = route.render(current)
+  })
 
   const forms = document.getElementsByTagName('form')
   for (let i = 0; i < forms.length; i++) {
