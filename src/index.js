@@ -4,7 +4,7 @@ const yaml = require('yaml')
 const Route = require('./Route')
 const httpGet = require('./httpGet')
 
-let current
+let options
 let route
 
 function updateStatus (data) {
@@ -14,27 +14,33 @@ function updateStatus (data) {
     document.getElementById('at-25').value = +data.at - 25
     document.getElementById('at+25').value = +data.at + 25
     document.getElementById('at+100').value = +data.at + 100
-    current.at = data.at
+    options.at = data.at
   }
 
-  history.replaceState(current, "", "?" + queryString.stringify(current))
+  history.replaceState(options, "", "?" + queryString.stringify(options))
 
   if (route) {
-    document.getElementById('route-sign').innerHTML = route.render(current)
+    document.getElementById('route-sign').innerHTML = route.render(options)
   }
 }
 
-window.onload = function () {
-  current = queryString.parse(location.search)
-
-  httpGet('data/wiental.yml', {}, (err, result) => {
+function load () {
+  httpGet('data/' + options.file + '.yml', {}, (err, result) => {
     if (err) {
       return alert(err)
     }
 
     route = new Route(yaml.parse(result.body))
-    document.getElementById('route-sign').innerHTML = route.render(current)
+    document.getElementById('route-sign').innerHTML = route.render(options)
   })
+}
+
+window.onload = function () {
+  options = queryString.parse(location.search)
+
+  if (options.file) {
+    load()
+  }
 
   const forms = document.getElementsByTagName('form')
   for (let i = 0; i < forms.length; i++) {
