@@ -1,4 +1,5 @@
 require('leaflet')
+require('leaflet-draw')
 
 const turf = {
   along: require('@turf/along').default
@@ -16,6 +17,30 @@ module.exports = class Map {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(this.map)
 
+    this.layers = new L.FeatureGroup()
+    this.map.addLayer(this.layers)
+
+    this.drawControl = new L.Control.Draw({
+      draw: {
+        polyline: false,
+        circle: false,
+        circlemarker: false,
+        rectangle: false,
+        polygon: false,
+        marker: false
+      },
+      edit: {
+        featureGroup: this.layers,
+        remove: false
+      }
+    })
+    this.map.addControl(this.drawControl)
+
+    this.map.on(L.Draw.Event.EDITED, () => {
+      let geojson = this.path.toGeoJSON()
+      this.route.data.coordinates = geojson.geometry.coordinates
+    })
+
     this.map.setView([ 48.20837, 16.37239 ], 10)
   }
 
@@ -23,10 +48,10 @@ module.exports = class Map {
     this.route = route
 
     if (this.route.data.coordinates) {
-      let path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
-      path.addTo(this.map)
+      this.path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
+      this.layers.addLayer(this.path)
 
-      this.map.fitBounds(path.getBounds())
+      this.map.fitBounds(this.path.getBounds())
 
       this.routeGeoJSON = {
         type: 'Feature',
