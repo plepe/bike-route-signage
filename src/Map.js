@@ -1,5 +1,9 @@
 require('leaflet')
 
+const turf = {
+  along: require('@turf/along').default
+}
+
 module.exports = class Map {
   constructor () {
     const div = document.createElement('div')
@@ -23,6 +27,27 @@ module.exports = class Map {
       path.addTo(this.map)
 
       this.map.fitBounds(path.getBounds())
+
+      this.routeGeoJSON = {
+        type: 'Feature',
+        geometry: {
+          type: 'LineStrings',
+          coordinates: this.route.data.coordinates
+        }
+      }
     }
+  }
+
+  updateStatus (options) {
+    let poi = turf.along(this.routeGeoJSON, (options.at < 0 ? 0 : options.at) / 1000)
+    let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
+
+    if (this.locationIndicator) {
+      this.locationIndicator.setLatLng(latlng)
+    } else {
+      this.locationIndicator = L.circleMarker(latlng, { color: '#0000ff', radius: 5 }).addTo(this.map)
+    }
+
+    this.map.panTo(latlng)
   }
 }

@@ -24,6 +24,8 @@ function updateStatus (data) {
   if (route) {
     document.getElementById('route-sign').innerHTML = route.render(options)
   }
+
+  map.updateStatus(options)
 }
 
 function load () {
@@ -36,6 +38,8 @@ function load () {
     document.getElementById('route-sign').innerHTML = route.render(options)
 
     map.setRoute(route)
+
+    map.updateStatus(options)
   })
 }
 
