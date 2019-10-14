@@ -5,7 +5,8 @@ const Route = require('./Route')
 const httpGet = require('./httpGet')
 const Modules = [
   require('./Map'),
-  require('./Menu')
+  require('./Menu'),
+  require('./Edit')
 ]
 
 let modules = []

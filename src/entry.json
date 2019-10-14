@@ -1,0 +1,189 @@
+{
+  "name": {
+    "type": "text",
+    "name": "Name",
+    "include_data": "not_null"
+  },
+  "type": {
+    "type": "select",
+    "name": "Typ des Knotens",
+    "values": [
+      "place",
+      "bikeroute",
+      "ptStop",
+      "park"
+    ],
+    "include_data": "not_null",
+    "default": "place"
+  },
+  "at": {
+    "type": "float",
+    "name": "Position",
+    "help": "Meter vom Start der Route",
+    "req": true
+  },
+  "ptRoutes": {
+    "type": "keywords",
+    "name": "Umsteigen, öffentlicher Verkehr",
+    "include_data": "not_null"
+  },
+  "priority": {
+    "name": "Priorität",
+    "type": "select",
+    "include_data": "not_null",
+    "values": {
+      "1": "Wichtig",
+      "2": "Mittel",
+      "3": "Lokal",
+      "4": "Gering (nur für Hinweise)"
+    }
+  },
+  "hidePriority": {
+    "name": "Verstecke unter Priorität",
+    "type": "select",
+    "include_data": "not_null",
+    "placeholder": "nie",
+    "values": {
+      "1": "Wichtig",
+      "2": "Mittel",
+      "3": "Lokal",
+      "4": "Gering (nur für Hinweise)"
+    }
+  },
+  "direction": {
+    "name": "Richtung",
+    "type": "select",
+    "include_data": "not_null",
+    "values": {
+      "left": "links",
+      "right": "rechts",
+      "both": "beide"
+    }
+  },
+  "connections": {
+    "name": "Verbindungen",
+    "help": "Weitere Ziele, von hier erreichbar",
+    "type": "array",
+    "include_data": "not_null",
+    "index_type": "array",
+    "default": 0,
+    "def": {
+      "type": "form",
+      "def": {
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "include_data": "not_null"
+        },
+        "type": {
+          "type": "select",
+          "name": "Typ des Knotens",
+          "values": [
+            "place",
+            "bikeroute",
+            "ptStop",
+            "park"
+          ],
+          "include_data": "not_null",
+          "default": "place"
+        },
+        "distance": {
+          "type": "float",
+          "name": "Entfernung",
+          "include_data": "not_null",
+          "help": "Meter vom Knoten"
+        },
+        "ptRoutes": {
+          "type": "keywords",
+          "name": "Umsteigen, öffentlicher Verkehr",
+          "include_data": "not_null"
+        },
+        "priority": {
+          "name": "Priorität",
+          "type": "select",
+          "include_data": "not_null",
+          "values": {
+            "1": "Wichtig",
+            "2": "Mittel",
+            "3": "Lokal",
+            "4": "Gering (nur für Hinweise)"
+          }
+        },
+        "hidePriority": {
+          "name": "Verstecke unter Priorität",
+          "type": "select",
+          "include_data": "not_null",
+          "placeholder": "nie",
+          "values": {
+            "1": "Wichtig",
+            "2": "Mittel",
+            "3": "Lokal",
+            "4": "Gering (nur für Hinweise)"
+          }
+        },
+        "direction": {
+          "name": "Richtung",
+          "type": "select",
+          "include_data": "not_null",
+          "values": {
+            "left": "links",
+            "right": "rechts",
+            "both": "beide"
+          }
+        },
+        "connections": {
+          "name": "Verbindungen",
+          "help": "Weitere Ziele",
+          "type": "array",
+          "include_data": "not_null",
+          "index_type": "array",
+          "default": 0,
+          "def": {
+            "type": "form",
+            "def": {
+              "name": {
+                "type": "text",
+                "name": "Name",
+                "include_data": "not_null"
+              },
+              "type": {
+                "type": "select",
+                "name": "Typ des Knotens",
+                "values": [
+                  "place",
+                  "bikeroute",
+                  "ptStop",
+                  "park"
+                ],
+                "include_data": "not_null",
+                "default": "place"
+              },
+              "distance": {
+                "type": "float",
+                "name": "Entfernung",
+                "include_data": "not_null",
+                "help": "Meter vom Knoten"
+              },
+              "ptRoutes": {
+                "type": "keywords",
+                "name": "Umsteigen, öffentlicher Verkehr",
+                "include_data": "not_null"
+              },
+              "priority": {
+                "name": "Priorität",
+                "type": "select",
+                "include_data": "not_null",
+                "values": {
+                  "1": "Wichtig",
+                  "2": "Mittel",
+                  "3": "Lokal",
+                  "4": "Gering (nur für Hinweise)"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
