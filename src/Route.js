@@ -57,7 +57,7 @@ class Route {
       result += 'coordinates:\n'
 
       this.data.coordinates.forEach(coord => {
-        result += '- [ ' + coord[0] + ', ' + coord[1] + ' ]\n'
+        result += '  - [ ' + coord[0] + ', ' + coord[1] + ' ]\n'
       })
     }
 
