@@ -35,11 +35,21 @@ module.exports = class Map {
           coordinates: this.route.data.coordinates
         }
       }
+
+      this.route.data.route.forEach(entry => {
+        let poi = turf.along(this.routeGeoJSON, entry.at / 1000)
+        let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
+        L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1 }).addTo(this.map)
+      })
     }
   }
 
+  getPosition (at) {
+    return turf.along(this.routeGeoJSON, (at < 0 ? 0 : at) / 1000)
+  }
+
   updateStatus (options) {
-    let poi = turf.along(this.routeGeoJSON, (options.at < 0 ? 0 : options.at) / 1000)
+    let poi = this.getPosition(options.at)
     let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
 
     if (this.locationIndicator) {
