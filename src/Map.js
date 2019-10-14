@@ -39,12 +39,27 @@ module.exports = class Map {
     this.map.on(L.Draw.Event.EDITED, () => {
       let geojson = this.path.toGeoJSON()
       this.route.data.coordinates = geojson.geometry.coordinates
+      this.setRoute(this.route)
     })
 
     this.map.setView([ 48.20837, 16.37239 ], 10)
   }
 
+  clear () {
+    if (this.path) {
+      this.layers.removeLayer(this.path)
+      delete this.path
+    }
+    if (this.markers) {
+      this.markers.forEach(marker => {
+        this.map.removeLayer(marker)
+      })
+      delete this.markers
+    }
+  }
+
   setRoute (route) {
+    this.clear()
     this.route = route
 
     if (this.route.data.coordinates) {
@@ -61,11 +76,13 @@ module.exports = class Map {
         }
       }
 
+      this.markers = []
       this.route.data.route.forEach(entry => {
         let poi = turf.along(this.routeGeoJSON, entry.at / 1000)
         let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
         let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1 }).addTo(this.map)
         marker.on('click', () => global.updateStatus({ at: entry.at }))
+        this.markers.push(marker)
       })
     }
   }
