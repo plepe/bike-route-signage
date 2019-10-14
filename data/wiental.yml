@@ -1,165 +1,188 @@
 title: Wientalradweg
 route:
-- name: Karlsplatz
-  ptRoutes: [ U1, U4, U5 ]
-  type: place
-  at: 200
-  priority: 1
-- name: Schleifmühlgasse
-  type: bikeroute
-  at: 580
-  direction: left
-  priority: 3
-  connections:
-  - name: Schwarzenbergplatz
+  - name: Karlsplatz
+    ptRoutes:
+      - U1
+      - U4
+      - U5
     type: place
-    distance: 1000
-- name: Kettenbrückengasse
-  type: ptStop
-  ptRoutes: [ U4 ]
-  at: 950
-  direction: left
-  priority: 2
-  connections:
-  - name: Kettenbrückengasse
+    at: 200
+    priority: 1
+  - name: Schleifmühlgasse
     type: bikeroute
+    at: 580
+    direction: left
     priority: 3
-- name: Mollardgasse, Ullmannstraße
-  type: bikeroute
-  at: 1190
-  direction: right
-  priority: 3
-  connections:
-  - name: Mariahilferstraße
-    type: place
-    distance: 830
-    direction: right
-  - name: Gumpendorfer Straße
+    connections:
+      - name: Schwarzenbergplatz
+        type: place
+        distance: 1000
+  - name: Kettenbrückengasse
     type: ptStop
-    ptRoutes: [ U6 ]
-    distance: 2030
-    direction: right
-- name: Pilgramgasse
-  type: ptStop
-  ptRoutes: [ U2, U4 ]
-  at: 1670
-  priority: 2
-  connections:
-  - name: Margaretenplatz
-    type: place
-    distance: 300
+    ptRoutes:
+      - U4
+    at: 950
     direction: left
-- name: Spengergasse
-  type: bikeroute
-  at: 2050
-  direction: left
-  priority: 3
-- name: Grabnergasse, Webgasse
-  type: bikeroute
-  at: 2140
-  direction: right
-  priority: 3
-- name: Margaretengürtel
-  type: ptStop
-  ptRoutes: [ U4 ]
-  at: 2710
-  priority: 2
-  connections:
-  - name: Bruno-Kreisky-Park
-    type: park
-- name: Gürtelradweg
-  type: bikeroute
-  priority: 1
-  hidePriority: 3
-  at: 2840
-  direction: both
-- name: Gürtelradweg (Süd)
-  type: bikeroute
-  at: 2840
-  direction: left
-  priority: 2
-- name: Gürtelradweg (Nord)
-  type: bikeroute
-  at: 3080
-  direction: right
-  priority: 2
-  connections:
-  - name: Gumpendorfer Straße
+    priority: 2
+    connections:
+      - name: Kettenbrückengasse
+        type: bikeroute
+        priority: 3
+  - name: Mollardgasse, Ullmannstraße
+    type: bikeroute
+    at: 1190
+    direction: right
+    priority: 3
+    connections:
+      - name: Mariahilferstraße
+        type: place
+        distance: 830
+        direction: right
+      - name: Gumpendorfer Straße
+        type: ptStop
+        ptRoutes:
+          - U6
+        distance: 2030
+        direction: right
+  - name: Pilgramgasse
     type: ptStop
-    ptRoutes: [ U6 ]
-- name: Malfattigasse
-  type: bikeroute
-  at: 3440
-  direction: left
-  priority: 3
-- name: Längenfeldgasse
-  type: ptStop
-  ptRoutes: [ U4, U6 ]
-  at: 3600
-  priority: 2
-- name: Storchengasse
-  type: bikeroute
-  at: 3740
-  direction: right
-  priority: 3
-- name: Meidlinger Hauptstraße
-  type: ptStop
-  ptRoutes: [ U4 ]
-  at: 4070
-  priority: 2
-  connections:
-  - name: Ullmannstraße
+    ptRoutes:
+      - U2
+      - U4
+    at: 1670
+    priority: 2
+    connections:
+      - name: Margaretenplatz
+        type: place
+        distance: 300
+        direction: left
+  - name: Spengergasse
     type: bikeroute
-    direction: right
-  - name: Meidlinger Platz
-    ptRoutes: [ U6 ]
-    type: place
+    at: 2050
     direction: left
-- name: Schönbrunn
-  type: ptStop
-  ptRoutes: [ U4 ]
-  at: 4860
-  priority: 2
-  connections:
-  - name: Auer-Welsbach-Park
-    type: park
-- name: Schloß Schönbrunn
-  type: sightseeing
-  at: 5480
-  priority: 1
-- name: Hietzing
-  type: ptStop
-  ptRoutes: [ U4, Bus, Bim ]
-  at: 6150
-  priority: 1
-  connections:
-  - name: Wiental-Highway
+    priority: 3
+  - name: Grabnergasse, Webgasse
     type: bikeroute
+    at: 2140
     direction: right
+    priority: 3
+  - name: Margaretengürtel
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 2710
+    priority: 2
+    connections:
+      - name: Bruno-Kreisky-Park
+        type: park
+  - name: Gürtelradweg
+    type: bikeroute
+    priority: 1
+    hidePriority: 3
+    at: 2840
+    direction: both
+  - name: Gürtelradweg (Süd)
+    type: bikeroute
+    at: 2840
+    direction: left
+    priority: 2
+  - name: Gürtelradweg (Nord)
+    type: bikeroute
+    at: 3080
+    direction: right
+    priority: 2
+    connections:
+      - name: Gumpendorfer Straße
+        type: ptStop
+        ptRoutes:
+          - U6
+  - name: Malfattigasse
+    type: bikeroute
+    at: 3440
+    direction: left
+    priority: 3
+  - name: Längenfeldgasse
+    type: ptStop
+    ptRoutes:
+      - U4
+      - U6
+    at: 3600
+    priority: 2
+  - name: Storchengasse
+    type: bikeroute
+    at: 3740
+    direction: right
+    priority: 3
+  - name: Meidlinger Hauptstraße
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 4070
+    priority: 2
+    connections:
+      - name: Ullmannstraße
+        type: bikeroute
+        direction: right
+      - name: Meidlinger Platz
+        ptRoutes:
+          - U6
+        type: place
+        direction: left
+  - name: Schönbrunn
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 4860
+    priority: 2
+    connections:
+      - name: Auer-Welsbach-Park
+        type: park
+  - name: Schloß Schönbrunn
+    type: sightseeing
+    at: 5480
+    priority: 1
+  - name: Hietzing
+    type: ptStop
+    ptRoutes:
+      - U4
+      - Bus
+      - Bim
+    at: 6150
     priority: 1
     connections:
-    - name: Bhf. Hütteldorf
-      type: ptStop
-      ptRoutes: [ S45, S50, REX, Regiobus ]
-      distance: 3620
-  - name: Diesterweggasse
-    type: bikeroute
-    direction: right
-    priority: 3
-    connections:
-    - name: Bhf. Penzing
-      type: ptStop
-      ptRoutes: [ S45, S50 ]
-      distance: 600
+      - name: Wiental-Highway
+        type: bikeroute
+        direction: right
+        priority: 1
+        connections:
+          - name: Bhf. Hütteldorf
+            type: ptStop
+            ptRoutes:
+              - S45
+              - S50
+              - REX
+              - Regiobus
+            distance: 3620
+      - name: Diesterweggasse
+        type: bikeroute
+        direction: right
+        priority: 3
+        connections:
+          - name: Bhf. Penzing
+            type: ptStop
+            ptRoutes:
+              - S45
+              - S50
+            distance: 600
 coordinates:
-- [ 16.368051767349243, 48.20274604238354 ]
-- [ 16.367268562316895, 48.20122291334052 ]
-- [ 16.366077661514282, 48.200364792526386 ]
-- [ 16.363953351974487, 48.19918485293572 ]
-- [ 16.36112093925476, 48.197772465267214 ]
-- [ 16.359326541423798, 48.19739165028193 ]
-- [ 16.356035470962524, 48.19664610288995 ]
-- [ 16.355713605880737, 48.196513798382384 ]
-- [ 16.3559228181839, 48.19637434190995 ]
-- [ 16.35489821434021, 48.19586299826347 ]
-- [ 16.35513961315155, 48.19570566073013 ]
+  - [ 16.368051767349243, 48.20274604238354 ]
+  - [ 16.367268562316895, 48.20122291334052 ]
+  - [ 16.366077661514282, 48.200364792526386 ]
+  - [ 16.363953351974487, 48.19918485293572 ]
+  - [ 16.36112093925476, 48.197772465267214 ]
+  - [ 16.359326541423798, 48.19739165028193 ]
+  - [ 16.356035470962524, 48.19664610288995 ]
+  - [ 16.355713605880737, 48.196513798382384 ]
+  - [ 16.3559228181839, 48.19637434190995 ]
+  - [ 16.35489821434021, 48.19586299826347 ]
+  - [ 16.35513961315155, 48.19570566073013 ]
