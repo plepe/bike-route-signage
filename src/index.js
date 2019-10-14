@@ -27,6 +27,7 @@ function updateStatus (data) {
 
   map.updateStatus(options)
 }
+global.updateStatus = updateStatus
 
 function load () {
   httpGet('data/' + options.file + '.yml', {}, (err, result) => {
