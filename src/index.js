@@ -3,9 +3,11 @@ const yaml = require('yaml')
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
-const Map = require('./Map')
+const Modules = [
+  require('./Map')
+]
 
-let map
+let modules = []
 let options
 let route
 
@@ -25,7 +27,7 @@ function updateStatus (data) {
     document.getElementById('route-sign').innerHTML = route.render(options)
   }
 
-  map.updateStatus(options)
+  modules.forEach(module => module.updateStatus(options))
 }
 global.updateStatus = updateStatus
 
@@ -38,16 +40,16 @@ function load () {
     route = new Route(yaml.parse(result.body))
     document.getElementById('route-sign').innerHTML = route.render(options)
 
-    map.setRoute(route)
+    modules.forEach(module => module.setRoute(route))
 
-    map.updateStatus(options)
+    modules.forEach(module => module.updateStatus(options))
   })
 }
 
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  map = new Map()
+  Modules.forEach(Module => modules.push(new Module()))
 
   if (options.file) {
     load()
