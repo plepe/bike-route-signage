@@ -4,7 +4,8 @@ const yaml = require('yaml')
 const Route = require('./Route')
 const httpGet = require('./httpGet')
 const Modules = [
-  require('./Map')
+  require('./Map'),
+  require('./Menu')
 ]
 
 let modules = []
@@ -13,11 +14,6 @@ let route
 
 function updateStatus (data) {
   if ('at' in data) {
-    document.getElementById('at').value = data.at
-    document.getElementById('at-100').value = +data.at - 100
-    document.getElementById('at-25').value = +data.at - 25
-    document.getElementById('at+25').value = +data.at + 25
-    document.getElementById('at+100').value = +data.at + 100
     options.at = data.at
   }
 
