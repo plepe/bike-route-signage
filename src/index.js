@@ -3,8 +3,9 @@ const yaml = require('yaml')
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
-const showMap = require('./showMap')
+const Map = require('./Map')
 
+let map
 let options
 let route
 
@@ -34,12 +35,14 @@ function load () {
     route = new Route(yaml.parse(result.body))
     document.getElementById('route-sign').innerHTML = route.render(options)
 
-    showMap(route)
+    map.setRoute(route)
   })
 }
 
 window.onload = function () {
   options = queryString.parse(location.search)
+
+  map = new Map()
 
   if (options.file) {
     load()
