@@ -1,3 +1,5 @@
+const yaml = require('yaml')
+
 const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
 const toPick = [4, 3, 2, 1, 1]
@@ -37,6 +39,27 @@ class Route {
       result += formatEntry(entry, opt)
     })
     result += '</ul>'
+
+    return result
+  }
+
+  save () {
+    let result = {}
+    for (let k in this.data) {
+      if (k !== 'coordinates') {
+        result[k] = this.data[k]
+      }
+    }
+
+    result = yaml.stringify(result)
+
+    if (this.data.coordinates) {
+      result += 'coordinates:\n'
+
+      this.data.coordinates.forEach(coord => {
+        result += '- [ ' + coord[0] + ', ' + coord[1] + ' ]\n'
+      })
+    }
 
     return result
   }
