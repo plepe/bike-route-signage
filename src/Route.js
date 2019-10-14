@@ -7,6 +7,10 @@ const toPick = [4, 3, 2, 1, 1]
 class Route {
   constructor (data) {
     this.data = data
+
+    this.data.route.forEach((entry, index) => {
+      entry.index = index
+    })
   }
 
   render (options = {}) {
@@ -16,7 +20,7 @@ class Route {
 
     let route = this.data.route.filter(entry => entry.at > options.at)
     let pickIndex = 0
-    route = route.filter(entry => {
+    route = route.filter((entry, index) => {
       const result = filterPriority(entry, toPick[pickIndex])
       if (result) {
         pickIndex++
@@ -46,8 +50,22 @@ class Route {
   save () {
     let result = {}
     for (let k in this.data) {
-      if (k !== 'coordinates') {
-        result[k] = this.data[k]
+      switch (k) {
+        case 'coordinates':
+          break
+        case 'route':
+          result[k] = this.data.route.map(entry => {
+            let _entry = {}
+            for (let l in entry) {
+              if (l !== 'index') {
+                _entry[l] = entry[l]
+              }
+            }
+            return _entry
+          })
+          break
+        default:
+          result[k] = this.data[k]
       }
     }
 
