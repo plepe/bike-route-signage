@@ -42,6 +42,11 @@ module.exports = class Map {
       this.route.data.coordinates = geojson.geometry.coordinates
       this.setRoute(this.route)
     })
+    this.map.on(L.Draw.Event.CREATED, e => {
+      let coordinates = e.layer.editing.latlngs[0].map(latlng => [ latlng.lng, latlng.lat ])
+      this.route.data.coordinates = coordinates
+      this.setRoute(this.route)
+    })
 
     this.map.setView([ 48.20837, 16.37239 ], 10)
   }
@@ -92,6 +97,8 @@ module.exports = class Map {
         marker.on('click', () => global.updateStatus({ at: entry.at }))
         this.markers.push(marker)
       })
+    } else {
+      new L.Draw.Polyline(this.map, this.drawControl.options.polyline).enable();
     }
   }
 
