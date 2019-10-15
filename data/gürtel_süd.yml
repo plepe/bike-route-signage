@@ -1,0 +1,167 @@
+route:
+  - name: Währinger Straße
+    at: 1154
+    type: ptStop
+    ptRoutes:
+      - U6
+    priority: "2"
+  - name: Michelbeuern-AKH
+    at: 1912
+    type: ptStop
+    ptRoutes:
+      - U6
+    priority: "2"
+  - name: Alser Straße
+    at: 2389
+    type: ptStop
+    ptRoutes:
+      - U6
+    priority: "2"
+  - name: ""
+    at: 3022
+  - name: Josefstädter Straße
+    at: 3022
+    type: ptStop
+    ptRoutes:
+      - U6
+    priority: "2"
+  - name: Thaliastraße
+    at: 3366
+    type: ptStop
+    ptRoutes:
+      - U6
+      - "46"
+    priority: "2"
+  - name: Hasnerstraße
+    at: 3499
+    type: bikeroute
+    ptRoutes: []
+    priority: "2"
+    direction: right
+    connections:
+      - name: Ottakring
+        type: ptStop
+        ptRoutes:
+          - U3
+        priority: "1"
+  - name: Burggasse-Stadthalle
+    at: 3902
+    type: ptStop
+    ptRoutes:
+      - U6
+      - 48A
+    priority: "2"
+  - name: Urban-Loritz-Platz
+    at: 4172
+    type: place
+    ptRoutes:
+      - U6
+      - "6"
+      - "18"
+      - "49"
+      - "9"
+    priority: "2"
+    connections:
+      - name: Westbahnstraße
+        type: bikeroute
+        ptRoutes: []
+        priority: "2"
+        direction: left
+        connections:
+          - name: Volkstheater
+            type: ptStop
+            distance: 1000
+            ptRoutes:
+              - U3
+              - U5
+            priority: "2"
+      - name: Hütteldorfer Straße
+        type: bikeroute
+        ptRoutes: []
+        direction: right
+        connections:
+          - name: Stadthalle
+            type: place
+            distance: 100
+            ptRoutes: []
+            priority: "1"
+  - name: Westbahnhof
+    at: 4750
+    type: ptStop
+    ptRoutes:
+      - Bahn
+      - U3
+      - U6
+      - "6"
+      - "18"
+      - "9"
+      - "52"
+      - "60"
+      - "5"
+    priority: "1"
+  - name: Nußdorfer Straße
+    at: 397
+    type: ptStop
+    ptRoutes:
+      - U6
+    priority: "2"
+coordinates:
+  - [ 16.356282, 48.232935 ]
+  - [ 16.355467, 48.232742 ]
+  - [ 16.355086, 48.232928 ]
+  - [ 16.354839, 48.232978 ]
+  - [ 16.35463, 48.232452 ]
+  - [ 16.354249, 48.232077 ]
+  - [ 16.354222, 48.231991 ]
+  - [ 16.354287, 48.231923 ]
+  - [ 16.352962, 48.231384 ]
+  - [ 16.351299, 48.230701 ]
+  - [ 16.350939, 48.230766 ]
+  - [ 16.35036, 48.23014 ]
+  - [ 16.350135, 48.229368 ]
+  - [ 16.349711, 48.227103 ]
+  - [ 16.350092, 48.227038 ]
+  - [ 16.349899, 48.225959 ]
+  - [ 16.349587, 48.224658 ]
+  - [ 16.349427, 48.224447 ]
+  - [ 16.34926, 48.223844 ]
+  - [ 16.348804, 48.223268 ]
+  - [ 16.348321, 48.222896 ]
+  - [ 16.347715, 48.222611 ]
+  - [ 16.345988, 48.222135 ]
+  - [ 16.344818, 48.22156 ]
+  - [ 16.344084, 48.220966 ]
+  - [ 16.343676, 48.220445 ]
+  - [ 16.3433, 48.219694 ]
+  - [ 16.342737, 48.218339 ]
+  - [ 16.342244, 48.218411 ]
+  - [ 16.341589, 48.21691 ]
+  - [ 16.340978, 48.215677 ]
+  - [ 16.339524, 48.213056 ]
+  - [ 16.338902, 48.211834 ]
+  - [ 16.338902, 48.21049 ]
+  - [ 16.338762, 48.209174 ]
+  - [ 16.337947, 48.207966 ]
+  - [ 16.336745, 48.206243 ]
+  - [ 16.336761, 48.205578 ]
+  - [ 16.336933, 48.205392 ]
+  - [ 16.33719, 48.205435 ]
+  - [ 16.337496, 48.202403 ]
+  - [ 16.337636, 48.202267 ]
+  - [ 16.337705, 48.201745 ]
+  - [ 16.338, 48.200479 ]
+  - [ 16.338322, 48.199707 ]
+  - [ 16.338746, 48.198488 ]
+  - [ 16.338113, 48.198295 ]
+  - [ 16.338161, 48.198076 ]
+  - [ 16.338065, 48.197915 ]
+  - [ 16.338628, 48.1966 ]
+  - [ 16.339771, 48.195623 ]
+  - [ 16.337528, 48.190696 ]
+  - [ 16.33873, 48.188063 ]
+  - [ 16.343193, 48.186805 ]
+  - [ 16.34697, 48.182684 ]
+  - [ 16.356583, 48.184744 ]
+  - [ 16.360188, 48.180395 ]
+  - [ 16.375122, 48.185889 ]
+  - [ 16.385422, 48.188292 ]
