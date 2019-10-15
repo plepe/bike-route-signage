@@ -3,9 +3,24 @@ const Form = require('modulekit-form')
 // TODO: embed modulekit-lang
 global.lang_str = {}
 global.ui_lang = 'de'
+let at
 
 module.exports = class Edit {
   constructor () {
+    let a = document.createElement('a')
+    a.href = '#'
+    a.innerHTML = 'Neuen Knoten an aktueller Position anlegen'
+    a.onclick = () => {
+      let entry = { name: '', at }
+      let pos = this.route.data.route.findIndex(entry => entry.at >= at)
+      this.route.data.route.splice(pos, 0, entry)
+      this.route.reindex()
+
+      this.edit(entry)
+      return false
+    }
+    document.getElementById('menu').appendChild(a)
+
     this.dom = document.createElement('form')
     this.dom.id = 'edit'
     document.getElementById('menu').appendChild(this.dom)
@@ -59,6 +74,10 @@ module.exports = class Edit {
 
       let domContent = li.getElementsByClassName('content')
       domContent[0].insertBefore(edit, domContent[0].firstChild)
+    }
+
+    if ('at' in options) {
+      at = options.at
     }
   }
 }

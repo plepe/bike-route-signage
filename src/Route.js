@@ -7,7 +7,10 @@ const toPick = [4, 3, 2, 1, 1]
 class Route {
   constructor (data) {
     this.data = data
+    this.reindex()
+  }
 
+  reindex () {
     this.data.route.forEach((entry, index) => {
       entry.index = index
     })
