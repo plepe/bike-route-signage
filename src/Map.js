@@ -2,7 +2,8 @@ require('leaflet')
 require('leaflet-draw')
 
 const turf = {
-  along: require('@turf/along').default
+  along: require('@turf/along').default,
+  nearestPointOnLine: require('@turf/nearest-point-on-line').default
 }
 
 module.exports = class Map {
@@ -71,10 +72,16 @@ module.exports = class Map {
       this.routeGeoJSON = {
         type: 'Feature',
         geometry: {
-          type: 'LineStrings',
+          type: 'LineString',
           coordinates: this.route.data.coordinates
         }
       }
+
+      this.path.on('click', e => {
+        let poi = turf.nearestPointOnLine(this.routeGeoJSON, { type: 'Feature', geometry: { type: 'Point', coordinates: [e.latlng.lng, e.latlng.lat]}})
+        let at = Math.round(poi.properties.location * 1000)
+        global.updateStatus({ at })
+      })
 
       this.markers = []
       this.route.data.route.forEach(entry => {
