@@ -50,14 +50,15 @@ module.exports = class Edit {
       let edit = document.createElement('a')
       edit.href = '#'
       edit.className = 'edit'
-      edit.appendChild(document.createTextNode('EDIT'))
+      edit.innerHTML = '<i class="fas fa-edit"></i>'
       edit.onclick = () => {
         const entry = this.route.data.route[li.getAttribute('data-index')]
         this.edit(entry)
         return false
       }
 
-      li.appendChild(edit)
+      let domContent = li.getElementsByClassName('content')
+      domContent[0].insertBefore(edit, domContent[0].firstChild)
     }
   }
 }
