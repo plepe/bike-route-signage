@@ -30,8 +30,12 @@ module.exports = class Edit {
     this.route = route
   }
 
-  edit (entry) {
+  clear () {
     this.dom.innerHTML = ''
+  }
+
+  edit (entry) {
+    this.clear()
 
     this.form = new Form('data', require('./entry.json'))
 
@@ -43,6 +47,15 @@ module.exports = class Edit {
     input.value = 'Update'
     this.dom.appendChild(input)
 
+    input = document.createElement('input')
+    input.type = 'button'
+    input.value = 'Cancel'
+    input.onclick = () => {
+      this.clear()
+      return false
+    }
+    this.dom.appendChild(input)
+
     this.dom.onsubmit = () => {
       let data = this.form.get_data()
       for (let k in data) {
@@ -51,7 +64,7 @@ module.exports = class Edit {
         }
       }
 
-      this.dom.innerHTML = ''
+      this.clear()
       global.updateStatus({})
       return false
     }
