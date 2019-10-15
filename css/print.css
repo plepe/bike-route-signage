@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  hyphens: auto;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+#route-sign {
+  color: black;
+  background: white;
+  width: 100%;
+}
+#menu, #map {
+  display: none;
+}
+#route-sign .edit {
+  display: none;
+}
+#route-sign li {
+  border-color: black;
+}
+#route-sign a {
+  color: black;
+}
+#route-sign ul li ul li,
+#route-sign ul li ul li:before {
+  border-color: black;
+}

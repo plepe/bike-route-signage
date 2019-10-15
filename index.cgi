@@ -14,7 +14,9 @@ console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesom
 console.log('  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">')
 console.log('  <link rel="stylesheet" href="node_modules/leaflet-draw/dist/leaflet.draw.css">')
 console.log('  <link rel="stylesheet" href="node_modules/modulekit-form/dist/modulekit-form.css">')
-console.log('  <link rel="stylesheet" href="style.css">')
+console.log('  <link rel="stylesheet" href="css/route-sign.css">')
+console.log('  <link media="screen" rel="stylesheet" href="css/screen.css">')
+console.log('  <link media="print" rel="stylesheet" href="css/print.css">')
 console.log('  <script src="dist/app.js"></script>')
 console.log('</head><body lang="de">')
 
