@@ -28,18 +28,26 @@ function updateStatus (data) {
 }
 global.updateStatus = updateStatus
 
+function _load2 () {
+  document.getElementById('route-sign').innerHTML = route.render(options)
+  modules.forEach(module => module.setRoute(route))
+  modules.forEach(module => module.updateStatus(options))
+}
+
 function load () {
+  if (options.file === '') {
+    route = new Route({ route: [] })
+    _load2()
+    return
+  }
+
   httpGet('data/' + options.file + '.yml', {}, (err, result) => {
     if (err) {
       return alert(err)
     }
 
     route = new Route(yaml.parse(result.body))
-    document.getElementById('route-sign').innerHTML = route.render(options)
-
-    modules.forEach(module => module.setRoute(route))
-
-    modules.forEach(module => module.updateStatus(options))
+    _load2()
   })
 }
 
@@ -48,7 +56,7 @@ window.onload = function () {
 
   Modules.forEach(Module => modules.push(new Module()))
 
-  if (options.file) {
+  if ('file' in options) {
     load()
   }
 

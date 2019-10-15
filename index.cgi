@@ -22,7 +22,7 @@ console.log('</head><body lang="de">')
 
 let options = queryString.parse(process.env.QUERY_STRING)
 
-if (!(options.file)) {
+if (!('file' in options)) {
   console.log('<ul>')
   fs.readdirSync('data/', {})
     .forEach(file => {
@@ -31,12 +31,18 @@ if (!(options.file)) {
         console.log('<li><a href="?file=' + m[1] + '">' + m[1] + '</a></li>')
       }
     })
+  console.log('<li><a href="?file=">Neue Datei</a></li>')
   console.log('</ul>')
 } else {
   if (options.file.match(/\/\./)) {
     console.log('Invalid file')
   } else {
-    const route = new Route(yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
+    let route
+    if (options.file === '') {
+      route = new Route({ route: [] })
+    } else {
+      route = new Route(yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
+    }
 
     console.log('<div id="environment">')
     console.log('<div id="route-sign">')

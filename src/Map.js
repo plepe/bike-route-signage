@@ -62,6 +62,7 @@ module.exports = class Map {
   setRoute (route) {
     this.clear()
     this.route = route
+    this.routeGeoJSON = null
 
     if (this.route.data.coordinates) {
       this.path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
@@ -99,6 +100,10 @@ module.exports = class Map {
   }
 
   updateStatus (options) {
+    if (!this.routeGeoJSON) {
+      return
+    }
+
     let poi = this.getPosition(options.at)
     let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
 
