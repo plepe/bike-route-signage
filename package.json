@@ -13,12 +13,14 @@
   },
   "devDependencies": {
     "browserify": "^16.5.0",
+    "http-server": "^0.11.1",
     "standard": "^14.3.1",
     "watchify": "^3.11.1"
   },
   "scripts": {
     "lint": "standard --fix src/*.js",
     "build": "browserify src/index.js -o dist/app.js",
-    "watch": "watchify --debug src/index.js -o dist/app.js -v"
+    "watch": "watchify --debug src/index.js -o dist/app.js -v",
+    "start": "http-server ./"
   }
 }

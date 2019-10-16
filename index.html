@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="node_modules/leaflet-draw/dist/leaflet.draw.css">
+  <link rel="stylesheet" href="node_modules/modulekit-form/dist/modulekit-form.css">
+  <link rel="stylesheet" href="css/route-sign.css">
+  <link media="screen" rel="stylesheet" href="css/screen.css">
+  <link media="print" rel="stylesheet" href="css/print.css">
+  <script src="dist/app.js"></script>
+</head><body lang="de">
+<div id="environment">
+<div id="route-sign">
+</div>
+<div id="floor"></div>
+</div>
+<div id="menu">
+Location: 
+<form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at-100" name="at" value=""><input type="submit" value="-100&#x202F;m"></form>
+<form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at-25" name="at" value=""><input type="submit" value="-25&#x202F;m"></form>
+<form method="get"><input type="hidden" name="file" value="FILE"><input type="text" id="at" name="at" value="0">&#x202F;m</form>
+<form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at+25" name="at" value=""><input type="submit" value="+25&#x202F;m"></form>
+<form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at+100" name="at" value=""><input type="submit" value="+100&#x202F;m"></form>
+</div>
+<div id="map-container"></div>
+</body></html>
