@@ -1,13 +1,32 @@
 title: Wientalradweg
 route:
+  - name: Nibelungengasse
+    type: bikeroute
+    at: 165
+    priority: 3
+    direction: right
+    connections:
+      - name: Radweg Zweierlinie
+        type: bikeroute
+        distance: 300
+      - name: Museumsquartier
+        type: ptStop
+        ptRoutes: [ U5 ]
+        distance: 550
   - name: Karlsplatz
     ptRoutes:
       - U1
       - U4
       - U5
     type: place
-    at: 200
+    direction: left
+    at: 165
     priority: 1
+    connections:
+      - name: Operngasse, Margaretenstraße
+        type: bikeroute
+      - name: Friedrichstraße
+        type: bikeroute
   - name: Schleifmühlgasse
     type: bikeroute
     at: 580
@@ -17,33 +36,42 @@ route:
       - name: Schwarzenbergplatz
         type: place
         distance: 1000
+  - name: Laimgrubengasse
+    type: bikeroute
+    at: 800
+    direction: right
+    priority: 4
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 620
   - name: Kettenbrückengasse
     type: ptStop
     ptRoutes:
       - U4
     at: 950
-    direction: left
     priority: 2
     connections:
       - name: Kettenbrückengasse
         type: bikeroute
+        direction: left
         priority: 3
   - name: Mollardgasse, Ullmannstraße
     type: bikeroute
     at: 1190
     direction: right
+    realDirection: straight
+    routeDirection: left
     priority: 3
     connections:
-      - name: Mariahilferstraße
+      - name: Mariahilfer Straße
         type: place
         distance: 830
-        direction: right
       - name: Gumpendorfer Straße
         type: ptStop
         ptRoutes:
           - U6
         distance: 2030
-        direction: right
   - name: Pilgramgasse
     type: ptStop
     ptRoutes:
@@ -61,11 +89,24 @@ route:
     at: 2050
     direction: left
     priority: 3
+    connections:
+      - name: Reinprechtsdorfer Straße
+        type: ptStop
+        ptRoutes: [ U2 ]
+        distance: 320
+      - name: Matzleinsdorferplatz
+        type: ptStop
+        ptRoutes: [ U2, S, tram ]
+        distance: 1200
   - name: Grabnergasse, Webgasse
     type: bikeroute
     at: 2140
     direction: right
     priority: 3
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 960
   - name: Margaretengürtel
     type: ptStop
     ptRoutes:
@@ -88,36 +129,50 @@ route:
     priority: 2
   - name: Gürtelradweg (Nord)
     type: bikeroute
-    at: 3080
+    at: 3105
     direction: right
+    realDirection: straight
+    routeDirection: left
     priority: 2
     connections:
-      - name: Gumpendorfer Straße
+      - name: Westbahnhof
         type: ptStop
-        ptRoutes:
-          - U6
+        ptRoutes: [ U3, U6, S ]
+        distance: 1000
+      - name: AKH
+        type: place
+        distance: 3870
   - name: Malfattigasse
     type: bikeroute
-    at: 3440
+    at: 3480
     direction: left
+    realDirection: straight
+    routeDirection: right
     priority: 3
+    connections:
+    - name: Bhf. Meidling
+      type: ptStop
+      ptRoutes: [ U6, S, tram, wlb ]
+      distance: 1750
   - name: Längenfeldgasse
     type: ptStop
-    ptRoutes:
-      - U4
-      - U6
-    at: 3600
+    ptRoutes: [ U4, U6 ]
+    at: 3640
     priority: 2
   - name: Storchengasse
     type: bikeroute
-    at: 3740
+    at: 3780
     direction: right
     priority: 3
+    connections:
+      - name: Sparkassaplatz
+        type: place
+        distance: 320
   - name: Meidlinger Hauptstraße
     type: ptStop
     ptRoutes:
       - U4
-    at: 4070
+    at: 4110
     priority: 2
     connections:
       - name: Ullmannstraße
@@ -132,11 +187,18 @@ route:
     type: ptStop
     ptRoutes:
       - U4
-    at: 4860
+    at: 4900
     priority: 2
     connections:
       - name: Auer-Welsbach-Park
         type: park
+      - name: Winkelmannstraße
+        type: bikeroute
+        direction: right
+        connections:
+          - name: Technisches Museum
+            type: place
+            distance: 650
   - name: Schloß Schönbrunn
     type: sightseeing
     at: 5480
@@ -147,8 +209,9 @@ route:
       - U4
       - Bus
       - Bim
-    at: 6150
+    at: 6200
     priority: 1
+    routeDirection: diagleft
     connections:
       - name: Wiental-Highway
         type: bikeroute
@@ -174,6 +237,41 @@ route:
               - S45
               - S50
             distance: 600
+  - name: Anna Strauss Platz
+    type: place
+    at: 6730
+    routeDirection: right
+    priority: 3
+    connections:
+      - name: Lainzer Straße
+        type: place
+        direction: left
+        realDirection: straight
+  - name: Deutschordenstraße
+    type: bikeroute
+    at: 9440
+    direction: right
+    priority: 3
+    connections:
+      - name: Bhf. Hütteldorf
+        type: ptStop
+        ptRoutes: [ U4, S ]
+        distance: 800
+        priority: 1
+  - name: Auhof-Center
+    type: place
+    direction: right
+    priority: 2
+    at: 13700
+  - name: Bhf. Weidlingau
+    type: ptStop
+    ptRoutes: [ S ]
+    priority: 2
+    routeDirection: left
+    at: 14200
+  - name: Purkersdorf
+    type: place
+    at: 17000
 coordinates:
   - [ 16.368052, 48.202746 ]
   - [ 16.367269, 48.201223 ]
