@@ -2,7 +2,12 @@ const formatDistance = require('./formatDistance')
 const filterPriority = require('./filterPriority')
 
 module.exports = function formatEntry (entry, options = {}) {
-  let result = '<li class="' + (entry.direction ? entry.direction : '') + '"' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + '><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
+  let direction = (entry.direction ? entry.direction : '')
+  if (options.direction === 'real' && entry.realDirection) {
+    direction = entry.realDirection
+  }
+
+  let result = '<li class="' + direction + '"' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + '><span class="at">' + formatDistance(entry.at - options.at) + '</span><span class="type">'
   switch (entry.type) {
     case 'bikeroute':
       result += '<i class="fas fa-biking"></i>'

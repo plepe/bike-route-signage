@@ -51,13 +51,22 @@ class Route {
     })
     result += '</ul>'
 
+    result += '<ul class="current">'
+    if (current.length && current[0] && current[0].routeDirection) {
+      result += formatEntry({
+        name: this.data.title,
+        type: 'bikeroute',
+        direction: current[0].routeDirection
+      }, { priority: 5 })
+    }
+
     current.forEach(entry => {
-      result += '<ul class="current">'
       const opt = JSON.parse(JSON.stringify(options))
       opt.priority = 5
+      opt.direction = 'real'
       result += formatEntry(entry, opt)
-      result += '</ul>'
     })
+    result += '</ul>'
 
     return result
   }

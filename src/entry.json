@@ -53,11 +53,35 @@
   "direction": {
     "name": "Richtung",
     "type": "select",
+    "help": "Richtung, wie in der Routevorschau gezeigt",
     "include_data": "not_null",
     "values": {
       "left": "links",
       "right": "rechts",
       "both": "beide"
+    }
+  },
+  "realDirection": {
+    "name": "Echte Richtung",
+    "help": "Richtung, in die die Abzweigung tatsächlich verläuft",
+    "type": "select",
+    "include_data": "not_null",
+    "values": {
+      "left": "links",
+      "straight": "gerade aus",
+      "right": "rechts",
+      "both": "beide"
+    }
+  },
+  "routeDirection": {
+    "name": "Routenrichtung",
+    "help": "Richtungsänderung der Route selber",
+    "type": "select",
+    "include_data": "not_null",
+    "values": {
+      "left": "links",
+      "straight": "gerade aus",
+      "right": "rechts"
     }
   },
   "connections": {
