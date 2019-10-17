@@ -19,7 +19,7 @@
   "at": {
     "type": "float",
     "name": "Position",
-    "help": "Meter vom Start der Route",
+    "desc": "Meter vom Start der Route",
     "req": true
   },
   "ptRoutes": {
@@ -53,7 +53,7 @@
   "direction": {
     "name": "Richtung",
     "type": "select",
-    "help": "Richtung, wie in der Routevorschau gezeigt",
+    "desc": "Richtung, wie in der Routevorschau gezeigt",
     "include_data": "not_null",
     "values": {
       "left": "links",
@@ -63,7 +63,7 @@
   },
   "realDirection": {
     "name": "Echte Richtung",
-    "help": "Richtung, in die die Abzweigung tatsächlich verläuft",
+    "desc": "Richtung, in die die Abzweigung tatsächlich verläuft",
     "type": "select",
     "include_data": "not_null",
     "values": {
@@ -75,7 +75,7 @@
   },
   "routeDirection": {
     "name": "Routenrichtung",
-    "help": "Richtungsänderung der Route selber",
+    "desc": "Richtungsänderung der Route selber",
     "type": "select",
     "include_data": "not_null",
     "values": {
@@ -86,7 +86,7 @@
   },
   "connections": {
     "name": "Verbindungen",
-    "help": "Weitere Ziele, von hier erreichbar",
+    "desc": "Weitere Ziele, von hier erreichbar",
     "type": "array",
     "include_data": "not_null",
     "index_type": "array",
@@ -115,7 +115,7 @@
           "type": "float",
           "name": "Entfernung",
           "include_data": "not_null",
-          "help": "Meter vom Knoten"
+          "desc": "Meter vom Knoten"
         },
         "ptRoutes": {
           "type": "keywords",
@@ -157,7 +157,7 @@
         },
         "connections": {
           "name": "Verbindungen",
-          "help": "Weitere Ziele",
+          "desc": "Weitere Ziele",
           "type": "array",
           "include_data": "not_null",
           "index_type": "array",
@@ -186,7 +186,7 @@
                 "type": "float",
                 "name": "Entfernung",
                 "include_data": "not_null",
-                "help": "Meter vom Knoten"
+                "desc": "Meter vom Knoten"
               },
               "ptRoutes": {
                 "type": "keywords",
