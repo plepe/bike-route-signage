@@ -28,6 +28,14 @@ module.exports = function formatEntry (entry, options = {}) {
   }
   result += '<span class="name"><a href="?at=' + entry.at + '">' + entry.name + '</a></span>'
 
+  if (entry.ptRoutes) {
+    result += ' <span class="ptRoutes">'
+    entry.ptRoutes.forEach(ref => {
+      result += '<span class="ptRoute-' + ref + '">' + ref + '</span> '
+    })
+    result += '</span>'
+  }
+
   if (entry.connections) {
     const connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
 

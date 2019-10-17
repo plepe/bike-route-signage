@@ -233,3 +233,7 @@
 #route-sign ul.current > li > .content > ul.connections > li > .content > ul.connections > li > .content {
   width: 9.5em;
 }
+#route-sign .ptRoutes {
+}
+#route-sign .ptRoutes > span {
+}
