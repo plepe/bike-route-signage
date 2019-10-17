@@ -1,6 +1,8 @@
 require('leaflet')
 require('leaflet-draw')
 
+const polylineMeasure = require('./map-polylineMeasure')
+
 const turf = {
   along: require('@turf/along').default,
   nearestPointOnLine: require('@turf/nearest-point-on-line').default
@@ -17,6 +19,8 @@ module.exports = class Map {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(this.map)
+
+    polylineMeasure(this.map)
 
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
