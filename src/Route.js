@@ -21,7 +21,8 @@ class Route {
       options.at = 0
     }
 
-    let route = this.data.route.filter(entry => entry.at > options.at)
+    let current = this.data.route.filter(entry => entry.at >= options.at && entry.at < +options.at + 50)
+    let route = this.data.route.filter(entry => entry.at >= +options.at + 50)
     let pickIndex = 0
     route = route.filter((entry, index) => {
       const result = filterPriority(entry, toPick[pickIndex])
@@ -46,6 +47,14 @@ class Route {
       result += formatEntry(entry, opt)
     })
     result += '</ul>'
+
+    current.forEach(entry => {
+      result += '<div class="connection">'
+      const opt = JSON.parse(JSON.stringify(options))
+      opt.priority = 5
+      result += formatEntry(entry, opt)
+      result += '</div>'
+    })
 
     return result
   }
