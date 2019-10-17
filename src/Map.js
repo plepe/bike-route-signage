@@ -1,6 +1,7 @@
 require('leaflet')
 require('leaflet-draw')
 
+const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
 
 const turf = {
@@ -21,6 +22,7 @@ module.exports = class Map {
 }).addTo(this.map)
 
     polylineMeasure(this.map)
+    fullscreen(this.map)
 
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
