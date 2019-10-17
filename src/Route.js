@@ -40,7 +40,7 @@ class Route {
       result += '<h1>' + this.data.title + '</h1>'
     }
 
-    result += '<ul>'
+    result += '<ul class="line">'
     route.forEach((entry, index) => {
       const opt = JSON.parse(JSON.stringify(options))
       opt.priority = toPick[route.length - index - 1]

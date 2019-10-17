@@ -36,14 +36,14 @@
   display: inline;
   vertical-align: top;
 }
-#route-sign li {
+#route-sign ul.line > li {
   margin: 0 0;
   padding: 0.5em 0;
   border-left: 0.25em solid white;
   list-style-type: none;
   position: relative;
 }
-#route-sign li::before {
+#route-sign ul.line > li::before {
   content: '\f111';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -52,7 +52,7 @@
   width: 1.5em;
   text-align: center;
 }
-#route-sign li::after {
+#route-sign ul.line > li::after {
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -63,13 +63,13 @@
   width: 1.5em;
   text-align: center;
 }
-#route-sign li.left::after {
+#route-sign ul.line > li.left::after {
   content: '\f30a';
 }
-#route-sign li.right::after {
+#route-sign ul.line > li.right::after {
   content: '\f30b';
 }
-#route-sign li.both::after {
+#route-sign ul.line > li.both::after {
   content: '\f337';
 }
 #route-sign a {
@@ -82,52 +82,53 @@
   text-decoration: underline;
 }
 
-#route-sign ul li ul {
+#route-sign ul.connections {
   margin-left: 0;
   padding-left: 0;
 }
-#route-sign ul li ul li:before {
+#route-sign ul.connections > li:before {
   border-bottom: 0.1em solid white;
   height: 0.5em;
-  margin-left: 0.77em;
+  margin-left: -1.25em;
   width: 1em;
+  position: absolute;
 }
-#route-sign ul li ul li {
+#route-sign ul.connections > li {
   border-left: 0.1em solid white;
   margin-left: -1.25em;
   padding: 0 0 0.2em 1.15em;
   box-sizing: border-box;
+  list-style-type: none;
+  position: relative;
 }
-#route-sign ul li ul li:last-of-type {
+#route-sign ul.connections > li:last-of-type {
+  padding-bottom: 0;
   height: 0.5em;
 }
-#route-sign ul li ul li .name {
+#route-sign ul.connections > li .name {
   font-weight: normal;
 }
-#route-sign ul li ul li .at {
+#route-sign ul.connections > li .at {
   display: none;
 }
-#route-sign ul li ul li .content {
+#route-sign ul.connections > li .content {
   width: 11em;
 }
-#route-sign ul li ul li ul li .content {
+#route-sign ul.connections ul.connections > li .content {
   width: 10em;
 }
-#route-sign ul li ul li .distance {
+#route-sign ul.connections > li .distance {
   float: right;
 }
-#route-sign ul li ul li:last-of-type {
-  padding-bottom: 0;
-}
-#route-sign ul li ul li::before,
-#route-sign ul li ul li::after,
-#route-sign ul li ul li.right::after,
-#route-sign ul li ul li.both::after,
-#route-sign ul li ul li.left::after {
+#route-sign ul.connections > li::before,
+#route-sign ul.connections > li::after,
+#route-sign ul.connections > li.right::after,
+#route-sign ul.connections > li.both::after,
+#route-sign ul.connections > li.left::after {
   content: '';
 }
 
-#route-sign ul li ul li ul {
+#route-sign ul.connections ul.connections {
   font-size: 11pt;
 }
 

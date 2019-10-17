@@ -26,7 +26,7 @@ module.exports = function formatEntry (entry, options = {}) {
   if (entry.connections) {
     const connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
 
-    result += '<ul>'
+    result += '<ul class="connections">'
     connections.forEach(connection => {
       result += formatEntry(connection, options)
     })
