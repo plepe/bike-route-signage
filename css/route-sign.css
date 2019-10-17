@@ -137,3 +137,50 @@
   font-style: italic;
 }
 
+#route-sign ul.current {
+  position: relative;
+  margin-left: 2em;
+  padding-left: 1.25em;
+}
+#route-sign ul.current > li {
+  list-style-type: none;
+}
+#route-sign ul.current > li .type {
+  font-size: 20pt;
+}
+#route-sign ul.current > li .content {
+  font-size: 20pt;
+  list-style-type: none;
+  width: 10em;
+}
+#route-sign ul.current > li::after {
+  content: '';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 28pt;
+  position: absolute;
+  left: -0.88em;
+  top: -4pt; /* (28pt - 20pt) / 2 */
+  color: white;
+  width: 1.5em;
+  text-align: center;
+}
+#route-sign ul.current > li.left::after {
+  content: '\f30a';
+}
+#route-sign ul.current > li.right::after {
+  content: '\f30b';
+}
+#route-sign ul.current > li.both::after {
+  content: '\f337';
+}
+#route-sign ul.current > li > .at {
+  display: none;
+}
+#route-sign ul.current > li li .type {
+  width: 1em;
+}
+#route-sign ul.current > li li .content {
+  width: 8.5em;
+}
+
