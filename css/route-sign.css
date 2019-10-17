@@ -139,19 +139,27 @@
 
 #route-sign ul.current {
   position: relative;
-  margin-left: 2em;
-  padding-left: 1.25em;
+  margin: 0;
+  padding: 0;
 }
 #route-sign ul.current > li {
   list-style-type: none;
+  position: relative;
+  border-top: 0.1em solid white;
+  padding: 0.4em 0;
+  padding-left: 2.5em;
+}
+#route-sign ul.current > li:last-of-type {
+  border-bottom: 0.1em solid white;
 }
 #route-sign ul.current > li .type {
   font-size: 20pt;
+  margin-right: 0.25em;
 }
 #route-sign ul.current > li .content {
   font-size: 20pt;
   list-style-type: none;
-  width: 10em;
+  width: 11.25em;
 }
 #route-sign ul.current > li::after {
   content: '';
@@ -159,18 +167,47 @@
   font-weight: 900;
   font-size: 28pt;
   position: absolute;
-  left: -0.88em;
-  top: -4pt; /* (28pt - 20pt) / 2 */
+  left: 0;
+  top: 0;
   color: white;
-  width: 1.5em;
+  width: 1em;
   text-align: center;
 }
+#route-sign ul.current > li > .content > ul.connections {
+  margin-left: -1.75em;
+}
+#route-sign ul.current > li > .content > ul.connections > li {
+  border-left: none;
+  height: auto;
+}
+#route-sign ul.current > li > .content > ul.connections > li:before {
+  border-bottom: none;
+}
+#route-sign ul.current > li > .content > ul.connections > li::after {
+  content: '';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 28pt;
+  position: absolute;
+  left: -0.2em;
+  top: -0.2em;
+  color: white;
+  width: 1em;
+  text-align: center;
+}
+#route-sign ul.current > li > .content > ul.connections > li.left::after,
 #route-sign ul.current > li.left::after {
   content: '\f30a';
 }
+#route-sign ul.current > li > .content > ul.connections > li.right::after,
 #route-sign ul.current > li.right::after {
   content: '\f30b';
 }
+#route-sign ul.current > li > .content > ul.connections > li.straigt::after,
+#route-sign ul.current > li.straight::after {
+  content: '\f30c';
+}
+#route-sign ul.current > li > .content > ul.connections > li.both::after,
 #route-sign ul.current > li.both::after {
   content: '\f337';
 }
@@ -178,9 +215,11 @@
   display: none;
 }
 #route-sign ul.current > li li .type {
-  width: 1em;
+  width: 1.5em;
 }
-#route-sign ul.current > li li .content {
-  width: 8.5em;
+#route-sign ul.current > li > .content > ul.connections > li > .content {
+  width: 11.25em;
 }
-
+#route-sign ul.current > li > .content > ul.connections > li > .content > ul.connections > li > .content {
+  width: 9.5em;
+}

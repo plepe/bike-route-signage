@@ -73,7 +73,7 @@ module.exports = class Map {
       this.path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
       this.layers.addLayer(this.path)
 
-      this.map.fitBounds(this.path.getBounds())
+      this.map.setView([route.data.coordinates[0][1], route.data.coordinates[0][0]], 17)
 
       this.routeGeoJSON = {
         type: 'Feature',
