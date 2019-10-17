@@ -68,7 +68,9 @@
     "include_data": "not_null",
     "values": {
       "left": "links",
+      "diagleft": "schräg links",
       "straight": "gerade aus",
+      "diagright": "schräg rechts",
       "right": "rechts",
       "both": "beide"
     }
@@ -80,7 +82,9 @@
     "include_data": "not_null",
     "values": {
       "left": "links",
+      "diagleft": "schräg links",
       "straight": "gerade aus",
+      "diagright": "schräg rechts",
       "right": "rechts"
     }
   },

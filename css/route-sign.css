@@ -203,9 +203,19 @@
 #route-sign ul.current > li.right::after {
   content: '\f30b';
 }
-#route-sign ul.current > li > .content > ul.connections > li.straigt::after,
+#route-sign ul.current > li > .content > ul.connections > li.straight::after,
 #route-sign ul.current > li.straight::after {
   content: '\f30c';
+}
+#route-sign ul.current > li > .content > ul.connections > li.diagleft::after,
+#route-sign ul.current > li.diagleft::after {
+  content: '\f30c';
+  transform: rotate(-45deg);
+}
+#route-sign ul.current > li > .content > ul.connections > li.diagright::after,
+#route-sign ul.current > li.diagright::after {
+  content: '\f30c';
+  transform: rotate(-45deg);
 }
 #route-sign ul.current > li > .content > ul.connections > li.both::after,
 #route-sign ul.current > li.both::after {
