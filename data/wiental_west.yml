@@ -168,7 +168,7 @@ route:
       - name: Sparkassaplatz
         type: place
         distance: 320
-  - name: Meidlinger Hauptstraße
+  - name: Meidling Hauptstraße
     type: ptStop
     ptRoutes:
       - U4

@@ -1,5 +1,25 @@
 title: Zentrum
 route:
+  - name: Tanbruckgasse
+    at: 43
+    type: bikeroute
+    priority: "2"
+    direction: left
+    realDirection: diagleft
+    routeDirection: right
+    connections:
+      - name: Meidling Hauptraße
+        type: ptStop
+        distance: 1120
+        ptRoutes:
+          - U4
+        priority: "2"
+      - name: Niederhofstraße
+        type: ptStop
+        distance: 820
+        ptRoutes:
+          - U6
+        priority: "2"
   - name: Bhf. Meidling
     at: 204
     type: ptStop
@@ -13,14 +33,16 @@ route:
     priority: "2"
     direction: both
     connections:
-      - name: Arndstraße, Margaretenstraße
+      - name: Arndtstraße, Margaretenstraße
         type: bikeroute
         distance: 530
-        priority: "3"
+        priority: "4"
+        direction: left
       - name: UKH Meidling
         type: place
         distance: 820
-        priority: "3"
+        priority: "4"
+        direction: right
   - name: Gürtelradweg
     at: 1663
     type: bikeroute
@@ -41,6 +63,7 @@ route:
           - S
           - U2
         priority: "2"
+        direction: right
   - name: Reinprechtsdorfer Straße
     at: 2350
     type: place
@@ -62,6 +85,29 @@ route:
       - name: Hauptbahnhof
         type: place
         distance: 1400
+  - name: ""
+    at: "3000"
+  - name: Schlossgasse
+    at: 3030
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: left
+    realDirection: straight
+    routeDirection: right
+    connections:
+      - name: Margaretenplatz
+        type: place
+        distance: 330
+        ptRoutes: []
+        priority: "4"
+      - name: Pilgramgasse
+        type: ptStop
+        distance: 650
+        ptRoutes:
+          - U2
+          - U4
+        priority: "3"
   - name: Hugo-Wiener Platz
     at: 3432
     type: place
@@ -87,6 +133,18 @@ route:
         ptRoutes:
           - U4
         priority: "2"
+      - name: Naschmarkt
+        type: place
+        distance: 370
+        ptRoutes: []
+        priority: "4"
+      - name: Wientalradweg
+        type: bikeroute
+        distance: 400
+        ptRoutes: []
+        priority: "2"
+    ptRoutes: []
+    direction: left
   - name: Schleifmühlgasse
     at: 4135
     type: bikeroute
@@ -110,6 +168,22 @@ route:
       - U5
     priority: "1"
     direction: right
+    connections:
+      - name: Schwarzenbergplatz
+        type: place
+        distance: 700
+        ptRoutes: []
+  - name: Friedrichstraße
+    at: 4630
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: right
+    connections:
+      - name: Schwarzenbergplatz
+        type: place
+        distance: 600
+        ptRoutes: []
   - name: Nibelungengasse
     type: bikeroute
     at: 4650
@@ -121,32 +195,31 @@ route:
         distance: 300
       - name: Museumsquartier
         type: ptStop
-        ptRoutes: [ U5 ]
+        ptRoutes:
+          - U5
         distance: 550
   - name: Ring-Rund
     at: 4787
     type: bikeroute
     priority: "1"
-  - name: Tanbruckgasse
-    at: 43
-    type: bikeroute
-    priority: "2"
-    direction: left
-    realDirection: diagleft
-    routeDirection: right
+    ptRoutes: []
+    direction: both
     connections:
-      - name: Meidling Hauptraße
-        type: ptStop
-        distance: 1120
-        ptRoutes:
-          - U4
-        priority: "2"
-      - name: Niederhofstraße
-        type: ptStop
-        distance: 820
-        ptRoutes:
-          - U6
-        priority: "2"
+      - name: Innenstadtquerung
+        type: bikeroute
+        direction: straight
+        connections:
+          - name: Michaelerplatz
+            type: place
+            distance: 650
+            ptRoutes: []
+            priority: "3"
+          - name: Schottentor
+            type: ptStop
+            distance: 1450
+            ptRoutes:
+              - U2
+            priority: "2"
 coordinates:
   - [ 16.3296, 48.173996 ]
   - [ 16.329353, 48.17435 ]
