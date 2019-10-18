@@ -1,35 +1,30 @@
 .ptRoute-U1 {
   background: #E20613;
   color: white;
-  padding: 0.1em;
 }
 .ptRoute-U2 {
   background: #A762A4;
   color: white;
-  padding: 0.1em;
 }
 .ptRoute-U3 {
   background: #EF7C00;
   color: white;
-  padding: 0.1em;
 }
 .ptRoute-U4 {
   background: #029540;
   color: white;
-  padding: 0.1em;
 }
 .ptRoute-U5 {
   background: #008f95;
   color: white;
-  padding: 0.1em;
 }
 .ptRoute-U6 {
   background: #9C6830;
   color: white;
-  padding: 0.1em;
 }
-.ptRoute-S {
+.ptRoute-S, .ptRoute-S45, .ptRoute-S50 {
   background: #0000ff;
-  width: 1.5em;
-  padding: 0.1em;
+}
+.ptRoute-REX {
+  border: 1px solid;
 }

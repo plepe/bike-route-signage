@@ -236,4 +236,9 @@
 #route-sign .ptRoutes {
 }
 #route-sign .ptRoutes > span {
+  display: inline-block;
+  text-align: center;
+  min-width: 1.25em;
+  padding: 0.1em;
+  box-sizing: border-box;
 }
