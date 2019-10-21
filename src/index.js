@@ -51,6 +51,36 @@ function load () {
   })
 }
 
+function loadList (callback) {
+  let files = []
+
+  httpGet('data/', {}, (err, result) => {
+    if (err) {
+      callback(err)
+    }
+
+    let regexp = new RegExp(/href=".*data\/([^"]+)\.yml"/g)
+    let m
+    while (m = regexp.exec(result.body)) {
+      files.push(m[1])
+    }
+
+    callback(null, files)
+  })
+}
+
+function showList (err, data) {
+  let result = '<ul>\n'
+
+  data.forEach(file => {
+    result += '  <li><a href="?file=' + file + '">' + decodeURIComponent(file) + '</a></li>\n'
+  })
+
+  result += '</ul>'
+
+  document.getElementById('route-sign').innerHTML = result
+}
+
 window.onload = function () {
   options = queryString.parse(location.search)
 
@@ -58,6 +88,8 @@ window.onload = function () {
 
   if ('file' in options) {
     load()
+  } else {
+    loadList(showList)
   }
 
   const forms = document.getElementsByTagName('form')

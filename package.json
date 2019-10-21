@@ -5,6 +5,7 @@
     "@turf/nearest-point-on-line": "^6.0.2",
     "array-uniq": "^2.1.0",
     "file-saver": "^2.0.2",
+    "jsdom": "^15.2.0",
     "leaflet": "^1.5.1",
     "leaflet-draw": "^1.0.4",
     "leaflet.polylinemeasure": "^2.0.0",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "browserify": "^16.5.0",
+    "http-server": "^0.11.1",
     "standard": "^14.3.1",
     "watchify": "^3.11.1"
   },
@@ -22,6 +24,7 @@
     "lint": "standard --fix src/*.js",
     "build": "browserify src/index.js -o dist/app.js",
     "watch": "watchify --debug src/index.js -o dist/app.js -v",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "start": "http-server ./"
   }
 }

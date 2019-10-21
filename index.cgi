@@ -2,42 +2,35 @@
 var queryString = require('query-string')
 const yaml = require('yaml')
 const fs = require('fs')
+const JSDOM = require('jsdom').JSDOM
 
 const Route = require('./src/Route')
 
 console.log('Content-Type: text/html; charset=utf8')
 console.log('')
 
-console.log('<!DOCTYPE html>')
-console.log('<html><head>')
-console.log('  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">')
-console.log('  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">')
-console.log('  <link rel="stylesheet" href="node_modules/leaflet-draw/dist/leaflet.draw.css">')
-console.log('  <link rel="stylesheet" href="node_modules/leaflet.polylinemeasure/Leaflet.PolylineMeasure.css">')
-console.log('  <link rel="stylesheet" href="node_modules/modulekit-form/dist/modulekit-form.css">')
-console.log('  <link rel="stylesheet" href="css/route-sign.css">')
-console.log('  <link rel="stylesheet" href="css/ptRoutes.css">')
-console.log('  <link media="screen" rel="stylesheet" href="css/screen.css">')
-console.log('  <link media="print" rel="stylesheet" href="css/print.css">')
-console.log('  <script src="dist/app.js"></script>')
-console.log('</head><body lang="de">')
+const dom = new JSDOM(fs.readFileSync('index.html', 'utf-8'))
+const document = dom.window.document
 
 let options = queryString.parse(process.env.QUERY_STRING)
 
+let text
 if (!('file' in options)) {
-  console.log('<ul>')
+  text = '<ul>'
   fs.readdirSync('data/', {})
     .forEach(file => {
       let m = file.match(/^([^\.].*)\.yml$/)
       if (m) {
-        console.log('<li><a href="?file=' + m[1] + '">' + m[1] + '</a></li>')
+        text += '<li><a href="?file=' + m[1] + '">' + m[1] + '</a></li>'
       }
     })
-  console.log('<li><a href="?file=">Neue Datei</a></li>')
-  console.log('</ul>')
+  text += '<li><a href="?file=">Neue Datei</a></li>'
+  text += '</ul>'
 } else {
   if (options.file.match(/\/\./)) {
-    console.log('Invalid file')
+    text = 'Invalid file'
+  } else if (!fs.existsSync('data/' + options.file + '.yml')) {
+    text = 'File does not exist'
   } else {
     let route
     if (options.file === '') {
@@ -46,24 +39,21 @@ if (!('file' in options)) {
       route = new Route(yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
     }
 
-    console.log('<div id="environment">')
-    console.log('<div id="route-sign">')
-    console.log(route.render(options))
-    console.log('</div>')
-    console.log('<div id="floor"></div>')
-    console.log('</div>')
+    text = route.render(options)
   }
-
-  let at = (+options.at) || 0
-  console.log('<div id="menu">')
-  console.log('Location: ')
-  console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at-100" name="at" value="' + (at - 100) + '"><input type="submit" value="-100&#x202F;m"></form>')
-  console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at-25" name="at" value="' + (at - 25) + '"><input type="submit" value="-25&#x202F;m"></form>')
-  console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="text" id="at" name="at" value="' + at + '">&#x202F;m</form>')
-  console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at+25" name="at" value="' + (at + 25) + '"><input type="submit" value="+25&#x202F;m"></form>')
-  console.log('<form method="get"><input type="hidden" name="file" value="' + options.file + '"><input type="hidden" id="at+100" name="at" value="' + (at + 100) + '"><input type="submit" value="+100&#x202F;m"></form>')
-  console.log('</div>')
-  console.log('<div id="map-container"></div>')
 }
 
-console.log('</body></html>')
+document.getElementById('route-sign').innerHTML = text
+
+let at = (+options.at) || 0
+document.getElementById('at-100').value = at - 100
+document.getElementById('at-25').value = at - 100
+document.getElementById('at').value = at
+document.getElementById('at+25').value = at + 25
+document.getElementById('at+100').value = at + 100
+let elements = document.querySelectorAll('input[name=file]')
+for (let i = 0; i < elements.length; i++) {
+  elements[i].setAttribute('value', options.file)
+}
+
+console.log(dom.serialize())
