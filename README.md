@@ -19,3 +19,12 @@ npm run start
 ```
 
 Open a browser, go to http://localhost:8080
+
+### Usage with Apache as backend
+If you want to use Apache as backend, you have to enable the 'cgi' module. Then you can add a `.htaccess` file in the current directory:
+
+```htaccess
+Options +ExecCGI
+AddHandler cgi-script .cgi
+DirectoryIndex index.cgi
+```
