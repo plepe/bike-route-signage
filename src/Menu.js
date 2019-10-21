@@ -10,6 +10,14 @@ function clone (ob) {
   return JSON.parse(JSON.stringify(ob))
 }
 
+turn = {
+  left: 'right',
+  right: 'left',
+  diagleft: 'diagright',
+  diagright: 'diagleft',
+  straight: 'straight'
+}
+
 module.exports = class Menu {
   menuRotateRoute () {
     let a = document.createElement('a')
@@ -22,6 +30,23 @@ module.exports = class Menu {
         .map(entry => {
           entry = clone(entry)
           entry.at = len - entry.at
+          if (entry.direction) {
+            entry.direction = turn[entry.direction]
+          }
+          if (entry.realDirection) {
+            entry.realDirection = turn[entry.realDirection]
+          }
+          if (entry.routeDirection) {
+            entry.routeDirection= turn[entry.routeDirection]
+          }
+          if (entry.connections) {
+            entry.connections.forEach(conn => {
+              if (conn.direction) {
+                conn.direction = turn[conn.direction]
+              }
+            })
+          }
+
           return entry
         })
         .reverse()
