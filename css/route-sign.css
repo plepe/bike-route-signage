@@ -226,7 +226,7 @@
 #route-sign ul.current > li > .content > ul.connections > li.diagright::after,
 #route-sign ul.current > li.diagright::after {
   content: '\f30c';
-  transform: rotate(-45deg);
+  transform: rotate(45deg);
 }
 #route-sign ul.current > li > .content > ul.connections > li.both::after,
 #route-sign ul.current > li.both::after {
