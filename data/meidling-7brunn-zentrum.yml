@@ -26,10 +26,13 @@ route:
     ptRoutes:
       - U6
       - REX
+      - WLB
     priority: "1"
   - name: Längenfeldgasse
     at: 1050
     type: bikeroute
+    ptRoutes:
+      - WLB
     priority: "2"
     direction: both
     connections:
@@ -62,6 +65,7 @@ route:
         ptRoutes:
           - S
           - U2
+          - WLB
         priority: "2"
         direction: right
   - name: Reinprechtsdorfer Straße
@@ -166,6 +170,7 @@ route:
       - U1
       - U4
       - U5
+      - WLB
     priority: "1"
     direction: right
     connections:
