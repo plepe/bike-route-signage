@@ -80,6 +80,7 @@ function showList (err, data) {
     result += '  <li><a href="?file=' + file + '">' + decodeURIComponent(file) + '</a></li>\n'
   })
 
+  result += '<li><a href="?file=">Neue Datei</a></li>'
   result += '</ul>'
 
   document.getElementById('route-sign').innerHTML = result
