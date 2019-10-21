@@ -29,6 +29,8 @@ if (!('file' in options)) {
 } else {
   if (options.file.match(/\/\./)) {
     text = 'Invalid file'
+  } else if (!fs.existsSync('data/' + options.file + '.yml')) {
+    text = 'File does not exist'
   } else {
     let route
     if (options.file === '') {
