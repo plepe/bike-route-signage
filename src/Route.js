@@ -105,6 +105,16 @@ class Route {
 
     return result
   }
+
+  GeoJSON () {
+    return {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: this.data.coordinates
+      }
+    }
+  }
 }
 
 module.exports = Route
