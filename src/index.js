@@ -28,10 +28,16 @@ function updateStatus (data) {
 }
 global.updateStatus = updateStatus
 
-function _load2 () {
+function setRoute (_route) {
+  route = _route
   document.getElementById('route-sign').innerHTML = route.render(options)
   modules.forEach(module => module.setRoute(route))
   modules.forEach(module => module.updateStatus(options))
+}
+global.setRoute = setRoute
+
+function _load2 () {
+  setRoute(route)
 }
 
 function load () {

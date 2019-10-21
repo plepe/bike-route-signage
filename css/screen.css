@@ -41,6 +41,10 @@ body {
   bottom: 50%;
   overflow-y: auto;
 }
+#menu a:after {
+  content: '';
+  margin-right: 0.5em;
+}
 #menu form {
   display: inline;
 }
