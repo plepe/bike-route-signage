@@ -97,6 +97,10 @@ module.exports = class Map {
 
       this.markers = []
       this.route.data.route.forEach(entry => {
+        if (entry.at < 0) {
+          return
+        }
+
         let poi = turf.along(this.routeGeoJSON, entry.at / 1000)
         let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
         let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1 }).addTo(this.map)
