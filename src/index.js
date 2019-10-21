@@ -52,6 +52,10 @@ function load () {
 }
 
 function loadList (callback) {
+  if (global.files) {
+    return callback(null, global.files)
+  }
+
   let files = []
 
   httpGet('data/', {}, (err, result) => {

@@ -17,14 +17,17 @@ let options = queryString.parse(process.env.QUERY_STRING)
 let text
 if (!('file' in options)) {
   text = '<ul>'
+  let files = []
   fs.readdirSync('data/', {})
     .forEach(file => {
       let m = file.match(/^([^\.].*)\.yml$/)
       if (m) {
         text += '<li><a href="?file=' + m[1] + '">' + m[1] + '</a></li>'
+        files.push(m[1])
       }
     })
   text += '<li><a href="?file=">Neue Datei</a></li>'
+  text += '<script>var files = ' + JSON.stringify(files) + '</script>'
   text += '</ul>'
 } else {
   if (options.file.match(/\/\./)) {
