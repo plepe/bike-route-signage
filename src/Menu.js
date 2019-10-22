@@ -23,7 +23,7 @@ module.exports = class Menu {
     let a = document.createElement('a')
     a.href = '#'
     a.onclick = () => {
-      let len = turf.length(this.route.GeoJSON()) * 1000
+      let len = Math.round(turf.length(this.route.GeoJSON()) * 1000)
 
       let data = clone(this.route.data)
       data.route = data.route
