@@ -71,22 +71,17 @@ module.exports = class Edit {
   }
 
   updateStatus (options) {
-    let lis = document.querySelectorAll("#route-sign > ul > li")
+    let as = document.querySelectorAll("#route-sign > ul > li > .content > .name > a")
 
-    for (let i = 0; i < lis.length; i++) {
-      let li = lis[i]
-      let edit = document.createElement('a')
-      edit.href = '#'
-      edit.className = 'edit'
-      edit.innerHTML = '<i class="fas fa-edit"></i>'
-      edit.onclick = () => {
+    for (let i = 0; i < as.length; i++) {
+      let a = as[i]
+      let li = a.parentNode.parentNode.parentNode
+
+      a.onclick = () => {
         const entry = this.route.data.route[li.getAttribute('data-index')]
         this.edit(entry)
         return false
       }
-
-      let domContent = li.getElementsByClassName('content')
-      domContent[0].insertBefore(edit, domContent[0].firstChild)
     }
 
     if ('at' in options) {
