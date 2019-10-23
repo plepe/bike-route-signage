@@ -15,7 +15,8 @@ turn = {
   right: 'left',
   diagleft: 'diagright',
   diagright: 'diagleft',
-  straight: 'straight'
+  straight: 'straight',
+  both: 'both'
 }
 
 module.exports = class Menu {
