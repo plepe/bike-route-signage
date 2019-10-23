@@ -1,15 +1,16 @@
 const queryString = require('query-string')
 const yaml = require('yaml')
+const forEach = require('for-each')
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
-const Modules = [
-  require('./Map'),
-  require('./Menu'),
-  require('./Edit')
-]
+const Modules = {
+  map: require('./Map'),
+  menu: require('./Menu'),
+  edit: require('./Edit')
+}
 
-let modules = []
+let modules = {}
 let options
 let route
 
@@ -24,15 +25,15 @@ function updateStatus (data) {
     document.getElementById('route-sign').innerHTML = route.render(options)
   }
 
-  modules.forEach(module => module.updateStatus(options))
+  forEach(modules, module => module.updateStatus(options))
 }
 global.updateStatus = updateStatus
 
 function setRoute (_route) {
   route = _route
   document.getElementById('route-sign').innerHTML = route.render(options)
-  modules.forEach(module => module.setRoute(route))
-  modules.forEach(module => module.updateStatus(options))
+  forEach(modules, module => module.setRoute(route))
+  forEach(modules, module => module.updateStatus(options))
 }
 global.setRoute = setRoute
 
@@ -95,7 +96,8 @@ function showList (err, data) {
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  Modules.forEach(Module => modules.push(new Module()))
+  let app = { modules }
+  forEach(Modules, (Module, k) => modules[k] = new Module(app))
 
   if ('file' in options) {
     load()

@@ -6,6 +6,7 @@
     "@turf/nearest-point-on-line": "^6.0.2",
     "array-uniq": "^2.1.0",
     "file-saver": "^2.0.2",
+    "for-each": "^0.3.3",
     "jsdom": "^15.2.0",
     "leaflet": "^1.5.1",
     "leaflet-draw": "^1.0.4",
