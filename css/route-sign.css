@@ -63,7 +63,7 @@
   width: 1.5em;
   text-align: center;
 }
-#route-sign ul.line > li::after {
+#route-sign ul.line > li > span.direction {
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -73,15 +73,6 @@
   color: black;
   width: 1.5em;
   text-align: center;
-}
-#route-sign ul.line > li.left::after {
-  content: '\f30a';
-}
-#route-sign ul.line > li.right::after {
-  content: '\f30b';
-}
-#route-sign ul.line > li.both::after {
-  content: '\f337';
 }
 #route-sign a {
   color: white;
@@ -131,12 +122,11 @@
 #route-sign ul.connections > li .distance {
   float: right;
 }
-#route-sign ul.connections > li::before,
-#route-sign ul.connections > li::after,
-#route-sign ul.connections > li.right::after,
-#route-sign ul.connections > li.both::after,
-#route-sign ul.connections > li.left::after {
+#route-sign ul.connections > li::before {
   content: '';
+}
+#route-sign ul.line ul.connections > li > span.direction {
+  display: none;
 }
 
 #route-sign ul.connections ul.connections {
@@ -172,7 +162,7 @@
   list-style-type: none;
   width: 11.25em;
 }
-#route-sign ul.current > li::after {
+#route-sign ul.current > li > span.direction {
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -194,7 +184,7 @@
 #route-sign ul.current > li > .content > ul.connections > li:before {
   border-bottom: none;
 }
-#route-sign ul.current > li > .content > ul.connections > li::after {
+#route-sign ul.current > li > .content > ul.connections > li > span.direction {
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
@@ -206,31 +196,13 @@
   width: 1em;
   text-align: center;
 }
-#route-sign ul.current > li > .content > ul.connections > li.left::after,
-#route-sign ul.current > li.left::after {
-  content: '\f30a';
-}
-#route-sign ul.current > li > .content > ul.connections > li.right::after,
-#route-sign ul.current > li.right::after {
-  content: '\f30b';
-}
-#route-sign ul.current > li > .content > ul.connections > li.straight::after,
-#route-sign ul.current > li.straight::after {
-  content: '\f30c';
-}
-#route-sign ul.current > li > .content > ul.connections > li.diagleft::after,
-#route-sign ul.current > li.diagleft::after {
-  content: '\f30c';
+#route-sign ul.current > li > .content > ul.connections > li > span.direction.diagleft,
+#route-sign ul.current > li > span.direction.diagleft {
   transform: rotate(-45deg);
 }
-#route-sign ul.current > li > .content > ul.connections > li.diagright::after,
-#route-sign ul.current > li.diagright::after {
-  content: '\f30c';
+#route-sign ul.current > li > .content > ul.connections > li > span.direction.diagright,
+#route-sign ul.current > li > span.direction.diagright {
   transform: rotate(45deg);
-}
-#route-sign ul.current > li > .content > ul.connections > li.both::after,
-#route-sign ul.current > li.both::after {
-  content: '\f337';
 }
 #route-sign ul.current > li > .at {
   display: none;
