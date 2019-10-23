@@ -40,7 +40,11 @@ module.exports = function formatEntry (entry, options = {}) {
   if (entry.distance) {
     result += '<span class="distance">' + formatDistance(entry.distance) + '</span>'
   }
-  result += '<span class="name"><a href="?at=' + entry.at + '&amp;file=' + options.file + '">' + entry.name + '</a></span>'
+  if (entry.at) {
+    result += '<span class="name"><a href="?at=' + entry.at + '&amp;file=' + options.file + '">' + entry.name + '</a></span>'
+  } else {
+    result += '<span class="name">' + entry.name + '</span>'
+  }
 
   if (entry.ptRoutes) {
     result += ' <span class="ptRoutes">'
