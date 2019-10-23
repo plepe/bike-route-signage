@@ -43,30 +43,34 @@ class Route {
       result += '<h1>' + this.data.title + '</h1>'
     }
 
-    result += '<ul class="line">'
-    route.forEach((entry, index) => {
-      const opt = JSON.parse(JSON.stringify(options))
-      opt.priority = toPick[route.length - index - 1]
-      result += formatEntry(entry, opt)
-    })
-    result += '</ul>'
-
-    result += '<ul class="current">'
-    if (current.length && current[0] && current[0].routeDirection) {
-      result += formatEntry({
-        name: this.data.title,
-        type: 'bikeroute',
-        direction: current[0].routeDirection
-      }, { priority: 5 })
+    if (route.length) {
+      result += '<ul class="line">'
+      route.forEach((entry, index) => {
+        const opt = JSON.parse(JSON.stringify(options))
+        opt.priority = toPick[route.length - index - 1]
+        result += formatEntry(entry, opt)
+      })
+      result += '</ul>'
     }
 
-    current.forEach(entry => {
-      const opt = JSON.parse(JSON.stringify(options))
-      opt.priority = 5
-      opt.direction = 'real'
-      result += formatEntry(entry, opt)
-    })
-    result += '</ul>'
+    if (current.length) {
+      result += '<ul class="current">'
+      if (current.length && current[0].routeDirection) {
+        result += formatEntry({
+          name: this.data.title,
+          type: 'bikeroute',
+          direction: current[0].routeDirection
+        }, { priority: 5 })
+      }
+
+      current.forEach(entry => {
+        const opt = JSON.parse(JSON.stringify(options))
+        opt.priority = 5
+        opt.direction = 'real'
+        result += formatEntry(entry, opt)
+      })
+      result += '</ul>'
+    }
 
     return result
   }
