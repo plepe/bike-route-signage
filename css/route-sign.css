@@ -67,12 +67,35 @@
   content: '';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  font-size: 1.25em;
   position: absolute;
-  left: -0.88em;
-  top: 0.5em;
-  color: black;
-  width: 1.5em;
+  left: -1.09em;
+  top: 0.27em;
+  color: white;
+  width: 2em;
   text-align: center;
+  vertical-align: middle;
+}
+#route-sign ul.line > li > span.direction.right {
+  text-align: right;
+}
+#route-sign ul.line > li > span.direction.left {
+  text-align: left;
+}
+#route-sign ul.line > li > span.direction.both {
+  visibility: hidden;
+}
+#route-sign ul.line > li > span.direction.both::before {
+  content: '\f30a';
+  visibility: visible;
+  position: absolute;
+  left: 0;
+}
+#route-sign ul.line > li > span.direction.both::after {
+  content: '\f30b';
+  visibility: visible;
+  position: absolute;
+  right: 0;
 }
 #route-sign a {
   color: white;
@@ -198,11 +221,11 @@
 }
 #route-sign ul.current > li > .content > ul.connections > li > span.direction.diagleft,
 #route-sign ul.current > li > span.direction.diagleft {
-  transform: rotate(-45deg);
+  transform: rotate(45deg);
 }
 #route-sign ul.current > li > .content > ul.connections > li > span.direction.diagright,
 #route-sign ul.current > li > span.direction.diagright {
-  transform: rotate(45deg);
+  transform: rotate(-45deg);
 }
 #route-sign ul.current > li > .at {
   display: none;
