@@ -11,7 +11,8 @@ route:
         distance: 300
       - name: Museumsquartier
         type: ptStop
-        ptRoutes: [ U5 ]
+        ptRoutes:
+          - U5
         distance: 550
   - name: Karlsplatz
     ptRoutes:
@@ -51,12 +52,21 @@ route:
     ptRoutes:
       - U4
     at: 950
-    priority: 2
+    priority: "2"
     connections:
-      - name: Kettenbrückengasse
+      - name: Margartenstraße
         type: bikeroute
-        direction: left
-        priority: 3
+        distance: 420
+        ptRoutes: []
+        priority: "3"
+      - name: Hauptbahnhof
+        type: ptStop
+        distance: 2000
+        ptRoutes:
+          - U1
+          - S
+          - REX
+    direction: left
   - name: Mollardgasse, Ullmannstraße
     type: bikeroute
     at: 1190
@@ -93,11 +103,15 @@ route:
     connections:
       - name: Reinprechtsdorfer Straße
         type: ptStop
-        ptRoutes: [ U2 ]
+        ptRoutes:
+          - U2
         distance: 320
       - name: Matzleinsdorferplatz
         type: ptStop
-        ptRoutes: [ U2, S, WLB ]
+        ptRoutes:
+          - U2
+          - S
+          - WLB
         distance: 1200
   - name: Grabnergasse, Webgasse
     type: bikeroute
@@ -138,7 +152,10 @@ route:
     connections:
       - name: Westbahnhof
         type: ptStop
-        ptRoutes: [ U3, U6, S ]
+        ptRoutes:
+          - U3
+          - U6
+          - S
         distance: 1000
       - name: AKH
         type: place
@@ -151,13 +168,18 @@ route:
     routeDirection: right
     priority: 3
     connections:
-    - name: Bhf. Meidling
-      type: ptStop
-      ptRoutes: [ U6, S, WLB ]
-      distance: 1750
+      - name: Bhf. Meidling
+        type: ptStop
+        ptRoutes:
+          - U6
+          - S
+          - WLB
+        distance: 1750
   - name: Längenfeldgasse
     type: ptStop
-    ptRoutes: [ U4, U6 ]
+    ptRoutes:
+      - U4
+      - U6
     at: 3640
     priority: 2
   - name: Storchengasse
@@ -256,7 +278,9 @@ route:
     connections:
       - name: Bhf. Hütteldorf
         type: ptStop
-        ptRoutes: [ U4, S ]
+        ptRoutes:
+          - U4
+          - S
         distance: 800
         priority: 1
   - name: Auhof-Center
@@ -266,7 +290,8 @@ route:
     at: 13700
   - name: Bhf. Weidlingau
     type: ptStop
-    ptRoutes: [ S ]
+    ptRoutes:
+      - S
     priority: 2
     routeDirection: left
     at: 14200
