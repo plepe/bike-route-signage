@@ -1,0 +1,430 @@
+title: Wientalradweg
+route:
+  - name: Purkersdorf
+    type: place
+    at: -2605
+  - name: Bhf. Weidlingau
+    type: ptStop
+    ptRoutes:
+      - S
+    priority: 2
+    routeDirection: right
+    at: 195
+  - name: Auhof-Center
+    type: place
+    direction: left
+    priority: 2
+    at: 695
+  - name: Deutschordenstraße
+    type: bikeroute
+    at: 4955
+    direction: left
+    priority: 3
+    connections:
+      - name: Bhf. Hütteldorf
+        type: ptStop
+        ptRoutes:
+          - U4
+          - S
+        distance: 800
+        priority: 1
+  - name: Anna Strauss Platz
+    type: place
+    at: 7665
+    routeDirection: left
+    priority: 3
+    connections:
+      - name: Lainzer Straße
+        type: place
+        direction: right
+        realDirection: straight
+  - name: Hietzing
+    type: ptStop
+    ptRoutes:
+      - U4
+      - Bus
+      - Bim
+    at: 8195
+    priority: 1
+    routeDirection: diagright
+    connections:
+      - name: Wiental-Highway
+        type: bikeroute
+        direction: left
+        priority: 1
+        connections:
+          - name: Bhf. Hütteldorf
+            type: ptStop
+            ptRoutes:
+              - S45
+              - S50
+              - REX
+              - Regiobus
+            distance: 3620
+      - name: Diesterweggasse
+        type: bikeroute
+        direction: left
+        priority: 3
+        connections:
+          - name: Bhf. Penzing
+            type: ptStop
+            ptRoutes:
+              - S45
+              - S50
+            distance: 600
+  - name: Schloß Schönbrunn
+    type: sightseeing
+    at: 8915
+    priority: 1
+  - name: Schönbrunn
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 9495
+    priority: 2
+    connections:
+      - name: Auer-Welsbach-Park
+        type: park
+      - name: Winkelmannstraße
+        type: bikeroute
+        direction: left
+        connections:
+          - name: Technisches Museum
+            type: place
+            distance: 650
+  - name: Meidling Hauptstraße
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 10285
+    priority: 2
+    connections:
+      - name: Ullmannstraße
+        type: bikeroute
+        direction: left
+      - name: Meidlinger Platz
+        ptRoutes:
+          - U6
+        type: place
+        direction: right
+  - name: Storchengasse
+    type: bikeroute
+    at: 10615
+    direction: left
+    priority: 3
+    connections:
+      - name: Sparkassaplatz
+        type: place
+        distance: 320
+  - name: Längenfeldgasse
+    type: ptStop
+    ptRoutes:
+      - U4
+      - U6
+    at: 10755
+    priority: 2
+  - name: Malfattigasse
+    type: bikeroute
+    at: 10915
+    direction: right
+    realDirection: straight
+    routeDirection: left
+    priority: 3
+    connections:
+      - name: Bhf. Meidling
+        type: ptStop
+        ptRoutes:
+          - U6
+          - S
+          - WLB
+        distance: 1750
+  - name: Gürtelradweg (Nord)
+    type: bikeroute
+    at: 11290
+    direction: left
+    realDirection: straight
+    routeDirection: right
+    priority: 2
+    connections:
+      - name: Westbahnhof
+        type: ptStop
+        ptRoutes:
+          - U3
+          - U6
+          - S
+        distance: 1000
+      - name: AKH
+        type: place
+        distance: 3870
+  - name: Gürtelradweg (Süd)
+    type: bikeroute
+    at: 11555
+    direction: right
+    priority: 2
+  - name: Gürtelradweg
+    type: bikeroute
+    priority: 1
+    hidePriority: 3
+    at: 11555
+    direction: null
+  - name: Margaretengürtel
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 11650
+    priority: "2"
+    connections:
+      - name: Bruno-Kreisky-Park
+        type: park
+        ptRoutes: []
+  - name: Grabnergasse, Webgasse
+    type: bikeroute
+    at: 12255
+    direction: left
+    priority: 3
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 960
+  - name: Spengergasse
+    type: bikeroute
+    at: 12345
+    direction: right
+    priority: 3
+    connections:
+      - name: Reinprechtsdorfer Straße
+        type: ptStop
+        ptRoutes:
+          - U2
+        distance: 320
+      - name: Matzleinsdorferplatz
+        type: ptStop
+        ptRoutes:
+          - U2
+          - S
+          - WLB
+        distance: 1200
+  - name: Pilgramgasse
+    type: ptStop
+    ptRoutes:
+      - U2
+      - U4
+    at: 12725
+    priority: 2
+    connections:
+      - name: Margaretenplatz
+        type: place
+        distance: 300
+        direction: right
+  - name: Mollardgasse, Ullmannstraße
+    type: bikeroute
+    at: 13205
+    direction: left
+    realDirection: straight
+    routeDirection: right
+    priority: 3
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 830
+      - name: Gumpendorfer Straße
+        type: ptStop
+        ptRoutes:
+          - U6
+        distance: 2030
+  - name: Kettenbrückengasse
+    type: ptStop
+    ptRoutes:
+      - U4
+    at: 13445
+    priority: "2"
+    connections:
+      - name: Margartenstraße
+        type: bikeroute
+        distance: 420
+        ptRoutes: []
+        priority: "3"
+      - name: Hauptbahnhof
+        type: ptStop
+        distance: 2000
+        ptRoutes:
+          - U1
+          - S
+          - REX
+    direction: right
+  - name: Laimgrubengasse
+    type: bikeroute
+    at: 13595
+    direction: left
+    priority: 4
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 620
+  - name: Schleifmühlgasse
+    type: bikeroute
+    at: 13815
+    direction: right
+    priority: 3
+    connections:
+      - name: Schwarzenbergplatz
+        type: place
+        distance: 1000
+  - name: Karlsplatz
+    ptRoutes:
+      - U1
+      - U4
+      - U5
+      - WLB
+    type: place
+    direction: right
+    at: 14230
+    priority: 1
+    connections:
+      - name: Operngasse, Margaretenstraße
+        type: bikeroute
+      - name: Friedrichstraße
+        type: bikeroute
+  - name: Ring-Rund
+    at: 14375
+    type: bikeroute
+    ptRoutes: []
+    priority: "1"
+    direction: both
+    connections:
+      - name: Zentrum
+        type: place
+        ptRoutes: []
+        priority: "2"
+        direction: straight
+  - name: Nibelungengasse
+    type: bikeroute
+    at: 14230
+    priority: 3
+    direction: left
+    connections:
+      - name: Radweg Zweierlinie
+        type: bikeroute
+        distance: 300
+      - name: Museumsquartier
+        type: ptStop
+        ptRoutes:
+          - U5
+        distance: 550
+coordinates:
+  - [ 16.209651, 48.20963 ]
+  - [ 16.210767, 48.210068 ]
+  - [ 16.211979, 48.210299 ]
+  - [ 16.211915, 48.209896 ]
+  - [ 16.212634, 48.20916 ]
+  - [ 16.212859, 48.207523 ]
+  - [ 16.21537, 48.205764 ]
+  - [ 16.220638, 48.203815 ]
+  - [ 16.221136, 48.203772 ]
+  - [ 16.224162, 48.202678 ]
+  - [ 16.225712, 48.201962 ]
+  - [ 16.226034, 48.20193 ]
+  - [ 16.22811, 48.202503 ]
+  - [ 16.22907, 48.20251 ]
+  - [ 16.232069, 48.203086 ]
+  - [ 16.232375, 48.202979 ]
+  - [ 16.232557, 48.202649 ]
+  - [ 16.233394, 48.202067 ]
+  - [ 16.234531, 48.20176 ]
+  - [ 16.242868, 48.200264 ]
+  - [ 16.244842, 48.200127 ]
+  - [ 16.248468, 48.200764 ]
+  - [ 16.250002, 48.200753 ]
+  - [ 16.251515, 48.200329 ]
+  - [ 16.252824, 48.199721 ]
+  - [ 16.252856, 48.199508 ]
+  - [ 16.255882, 48.197418 ]
+  - [ 16.257577, 48.19636 ]
+  - [ 16.260399, 48.195086 ]
+  - [ 16.262995, 48.194551 ]
+  - [ 16.265355, 48.193606 ]
+  - [ 16.267973, 48.191983 ]
+  - [ 16.270752, 48.19066 ]
+  - [ 16.275054, 48.190259 ]
+  - [ 16.284539, 48.189795 ]
+  - [ 16.288385, 48.188915 ]
+  - [ 16.292258, 48.187906 ]
+  - [ 16.294699, 48.187351 ]
+  - [ 16.296362, 48.187202 ]
+  - [ 16.297762, 48.187159 ]
+  - [ 16.298674, 48.18698 ]
+  - [ 16.298878, 48.186796 ]
+  - [ 16.299393, 48.188086 ]
+  - [ 16.301388, 48.187781 ]
+  - [ 16.302531, 48.187749 ]
+  - [ 16.303523, 48.187534 ]
+  - [ 16.303625, 48.187423 ]
+  - [ 16.303952, 48.187409 ]
+  - [ 16.304119, 48.187502 ]
+  - [ 16.304339, 48.187513 ]
+  - [ 16.305197, 48.187459 ]
+  - [ 16.305599, 48.187395 ]
+  - [ 16.312262, 48.18714 ]
+  - [ 16.312557, 48.187234 ]
+  - [ 16.312895, 48.187226 ]
+  - [ 16.31326, 48.187942 ]
+  - [ 16.314354, 48.18767 ]
+  - [ 16.314729, 48.187657 ]
+  - [ 16.320394, 48.185939 ]
+  - [ 16.321371, 48.185692 ]
+  - [ 16.322647, 48.18531 ]
+  - [ 16.325179, 48.184526 ]
+  - [ 16.327352, 48.183976 ]
+  - [ 16.327609, 48.183918 ]
+  - [ 16.32917, 48.183951 ]
+  - [ 16.329385, 48.183865 ]
+  - [ 16.329643, 48.183897 ]
+  - [ 16.329685, 48.183532 ]
+  - [ 16.329916, 48.183439 ]
+  - [ 16.331879, 48.183643 ]
+  - [ 16.332652, 48.183779 ]
+  - [ 16.334122, 48.18423 ]
+  - [ 16.33579, 48.184802 ]
+  - [ 16.337507, 48.185596 ]
+  - [ 16.337126, 48.186071 ]
+  - [ 16.337174, 48.186204 ]
+  - [ 16.337861, 48.186751 ]
+  - [ 16.338145, 48.18737 ]
+  - [ 16.338252, 48.187481 ]
+  - [ 16.338172, 48.187663 ]
+  - [ 16.338226, 48.187895 ]
+  - [ 16.338515, 48.188053 ]
+  - [ 16.338746, 48.188339 ]
+  - [ 16.339009, 48.188414 ]
+  - [ 16.339261, 48.188335 ]
+  - [ 16.340404, 48.188364 ]
+  - [ 16.341181, 48.188385 ]
+  - [ 16.341584, 48.188317 ]
+  - [ 16.341916, 48.188156 ]
+  - [ 16.34226, 48.188049 ]
+  - [ 16.342871, 48.188353 ]
+  - [ 16.343633, 48.188342 ]
+  - [ 16.344695, 48.188514 ]
+  - [ 16.348842, 48.189126 ]
+  - [ 16.350998, 48.189576 ]
+  - [ 16.351186, 48.189562 ]
+  - [ 16.351449, 48.189605 ]
+  - [ 16.351438, 48.189684 ]
+  - [ 16.352345, 48.189959 ]
+  - [ 16.353267, 48.19081 ]
+  - [ 16.353707, 48.190839 ]
+  - [ 16.354898, 48.192941 ]
+  - [ 16.354587, 48.194708 ]
+  - [ 16.35471, 48.195166 ]
+  - [ 16.355134, 48.195584 ]
+  - [ 16.355113, 48.195731 ]
+  - [ 16.354898, 48.195863 ]
+  - [ 16.355923, 48.196374 ]
+  - [ 16.355714, 48.196514 ]
+  - [ 16.356035, 48.196646 ]
+  - [ 16.359327, 48.197392 ]
+  - [ 16.361121, 48.197772 ]
+  - [ 16.363953, 48.199185 ]
+  - [ 16.366078, 48.200365 ]
+  - [ 16.367269, 48.201223 ]
+  - [ 16.368052, 48.202746 ]
