@@ -65,6 +65,7 @@ module.exports = class Edit {
       }
 
       this.clear()
+      this.route.update()
       global.updateStatus({})
       return false
     }

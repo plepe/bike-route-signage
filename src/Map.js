@@ -71,15 +71,26 @@ module.exports = class Map {
   }
 
   setRoute (route) {
+    if (this.route) {
+      this.route.removeListener('update', this.updateFun)
+    }
     this.clear()
     this.route = route
     this.routeGeoJSON = null
+    this.update()
+    this.updateFun = () => {
+      this.clear()
+      this.update()
+    }
+    this.route.on('update', this.updateFun)
+  }
 
+  update () {
     if (this.route.data.coordinates) {
-      this.path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
+      this.path = L.polyline(this.route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
       this.layers.addLayer(this.path)
 
-      this.map.setView([route.data.coordinates[0][1], route.data.coordinates[0][0]], 17)
+      this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
 
       this.routeGeoJSON = {
         type: 'Feature',
