@@ -1,19 +1,23 @@
 const yaml = require('yaml')
+const EventEmitter = require('events')
 
 const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
 const toPick = [4, 3, 2, 1, 1]
 
-class Route {
+class Route extends EventEmitter {
   constructor (data) {
+    super()
     this.data = data
-    this.reindex()
+    this.update()
   }
 
-  reindex () {
+  update () {
     this.data.route.forEach((entry, index) => {
       entry.index = index
     })
+
+    this.emit('update')
   }
 
   render (options = {}) {

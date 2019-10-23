@@ -14,7 +14,7 @@ module.exports = class Edit {
       let entry = { name: '', at }
       let pos = this.route.data.route.findIndex(entry => entry.at >= at)
       this.route.data.route.splice(pos, 0, entry)
-      this.route.reindex()
+      this.route.update()
 
       this.edit(entry)
       return false
