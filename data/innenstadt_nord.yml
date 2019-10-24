@@ -1,0 +1,49 @@
+route:
+  - name: Habsburgergasse
+    at: 586
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: right
+  - name: Michaelerplatz
+    at: 608
+    type: place
+    ptRoutes: []
+    priority: "2"
+  - name: Freyung
+    at: 1143
+    type: place
+    ptRoutes: []
+    priority: "2"
+  - name: Schottentor
+    at: 1356
+    type: ptStop
+    ptRoutes:
+      - U2
+    priority: "1"
+    connections:
+      - name: Ring-Rund
+        type: bikeroute
+        ptRoutes: []
+        priority: "1"
+  - name: Albertina
+    at: 225
+    type: place
+    ptRoutes: []
+    priority: "2"
+length: 1423
+coordinates:
+  - [ 16.368073, 48.202675 ]
+  - [ 16.368846, 48.204384 ]
+  - [ 16.368417, 48.205156 ]
+  - [ 16.368105, 48.205385 ]
+  - [ 16.366775, 48.207773 ]
+  - [ 16.366866, 48.207916 ]
+  - [ 16.366786, 48.208141 ]
+  - [ 16.366528, 48.208227 ]
+  - [ 16.365885, 48.209492 ]
+  - [ 16.365198, 48.210415 ]
+  - [ 16.364592, 48.211341 ]
+  - [ 16.364286, 48.211963 ]
+  - [ 16.363605, 48.212924 ]
+  - [ 16.36265, 48.213807 ]
