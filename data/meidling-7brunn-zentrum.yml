@@ -1,4 +1,7 @@
 title: Zentrum
+continue:
+    file: innenstadt_nord
+    at: 0
 route:
   - name: Tanbruckgasse
     at: 43

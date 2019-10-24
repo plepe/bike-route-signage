@@ -1,0 +1,80 @@
+title: Ullmannstraße, Mollardgasse
+continue:
+    file: wiental_ost
+    at: 13195
+route:
+  - name: Grabnergasse, Reinprechtsdorferstraße
+    at: 2057
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: both
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        ptRoutes: []
+        direction: left
+  - name: Esterházygasse
+    at: 2551
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: left
+    connections:
+      - name: Mariahilfer Straße
+        type: place
+        distance: 480
+        ptRoutes: []
+        priority: "1"
+  - name: Wientalradweg
+    at: 2868
+    type: bikeroute
+    ptRoutes: []
+    priority: "1"
+    direction: both
+    realDirection: straight
+    connections:
+      - name: Wientalradweg stadtauswärts
+        type: bikeroute
+        priority: 5
+        direction: right
+coordinates:
+  - [ 16.329643, 48.183843 ]
+  - [ 16.3296, 48.184165 ]
+  - [ 16.329803, 48.18483 ]
+  - [ 16.330093, 48.185538 ]
+  - [ 16.33137, 48.186461 ]
+  - [ 16.331531, 48.18659 ]
+  - [ 16.331488, 48.18669 ]
+  - [ 16.332003, 48.187198 ]
+  - [ 16.332566, 48.187584 ]
+  - [ 16.333398, 48.187792 ]
+  - [ 16.334041, 48.187842 ]
+  - [ 16.334969, 48.188174 ]
+  - [ 16.335876, 48.188675 ]
+  - [ 16.337839, 48.189358 ]
+  - [ 16.337995, 48.189297 ]
+  - [ 16.33822, 48.189351 ]
+  - [ 16.338419, 48.18929 ]
+  - [ 16.338612, 48.189312 ]
+  - [ 16.338816, 48.189115 ]
+  - [ 16.339202, 48.18909 ]
+  - [ 16.340361, 48.188761 ]
+  - [ 16.340259, 48.189537 ]
+  - [ 16.343504, 48.189716 ]
+  - [ 16.344196, 48.189705 ]
+  - [ 16.345339, 48.189594 ]
+  - [ 16.346245, 48.189616 ]
+  - [ 16.347029, 48.18973 ]
+  - [ 16.348654, 48.189819 ]
+  - [ 16.348922, 48.189909 ]
+  - [ 16.350875, 48.190349 ]
+  - [ 16.351642, 48.191454 ]
+  - [ 16.352876, 48.193152 ]
+  - [ 16.353037, 48.194411 ]
+  - [ 16.352801, 48.194647 ]
+  - [ 16.353225, 48.195305 ]
+  - [ 16.353284, 48.195541 ]
+  - [ 16.353541, 48.195634 ]
+  - [ 16.354523, 48.196185 ]
+  - [ 16.355703, 48.196542 ]
