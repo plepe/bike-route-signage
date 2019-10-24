@@ -2,13 +2,10 @@ const { saveAs } = require('file-saver')
 
 const Route = require('./Route')
 const updateInput = require('./updateInput')
+const clone = require('./clone')
 
 const turf = {
   length: require('@turf/length').default
-}
-
-function clone (ob) {
-  return JSON.parse(JSON.stringify(ob))
 }
 
 turn = {
