@@ -4,10 +4,6 @@ const Route = require('./Route')
 const updateInput = require('./updateInput')
 const clone = require('./clone')
 
-const turf = {
-  length: require('@turf/length').default
-}
-
 turn = {
   left: 'right',
   right: 'left',
@@ -22,7 +18,7 @@ module.exports = class Menu {
     let a = document.createElement('a')
     a.href = '#'
     a.onclick = () => {
-      let len = Math.round(turf.length(this.route.GeoJSON()) * 1000)
+      let len = this.route.data.length
 
       let data = clone(this.route.data)
       data.route = data.route

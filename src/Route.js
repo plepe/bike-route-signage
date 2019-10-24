@@ -1,5 +1,8 @@
 const yaml = require('yaml')
 const EventEmitter = require('events')
+const turf = {
+  length: require('@turf/length').default
+}
 
 const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
@@ -13,6 +16,9 @@ class Route extends EventEmitter {
     this.id = id
     routes[id] = this
     this.data = data
+    if (!this.data.length) {
+      this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
+    }
     this.update()
   }
 
