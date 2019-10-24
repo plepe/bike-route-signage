@@ -15,35 +15,41 @@ const document = dom.window.document
 
 let options = queryString.parse(process.env.QUERY_STRING)
 
-let text
+global.files = []
+fs.readdirSync('data/', {})
+  .forEach(file => {
+    let m = file.match(/^([^\.].*)\.yml$/)
+    if (m) {
+      global.files.push(m[1])
+    }
+  })
+global.files.map(file =>
+  new Route(file, yaml.parse(fs.readFileSync('data/' + file + '.yml', 'utf8')))
+)
+
+let text = ''
+text += '<script>var files = ' + JSON.stringify(global.files) + '</script>'
 if (!('file' in options)) {
-  text = '<ul>'
-  let files = []
-  fs.readdirSync('data/', {})
-    .forEach(file => {
-      let m = file.match(/^([^\.].*)\.yml$/)
-      if (m) {
-        text += '<li><a href="?file=' + m[1] + '">' + m[1] + '</a></li>'
-        files.push(m[1])
-      }
-    })
+  text += '<ul>'
+  global.files.forEach(name => {
+    text += '<li><a href="?file=' + name + '">' + name + '</a></li>'
+  })
   text += '<li><a href="?file=">Neue Datei</a></li>'
-  text += '<script>var files = ' + JSON.stringify(files) + '</script>'
   text += '</ul>'
 } else {
   if (options.file.match(/\/\./)) {
-    text = 'Invalid file'
+    text += 'Invalid file'
   } else if (!fs.existsSync('data/' + options.file + '.yml')) {
-    text = 'File does not exist'
+    text += 'File does not exist'
   } else {
     let route
     if (options.file === '') {
       route = new Route('', { route: [] })
     } else {
-      route = new Route(options.file, yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
+      route = Route.get(options.file)
     }
 
-    text = route.render(options)
+    text += route.render(options)
   }
 }
 

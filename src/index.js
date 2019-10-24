@@ -1,6 +1,7 @@
 const queryString = require('query-string')
 const yaml = require('yaml')
 const forEach = require('for-each')
+const asyncForEach = require('async-each')
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
@@ -42,6 +43,7 @@ function setRoute (_route) {
 global.setRoute = setRoute
 
 function _load2 () {
+  route = Route.get(options.file)
   setRoute(route)
 }
 
@@ -52,14 +54,20 @@ function load () {
     return
   }
 
-  httpGet('data/' + options.file + '.yml', {}, (err, result) => {
-    if (err) {
-      return alert(err)
-    }
+  if (!global.files) {
+    global.files = [ options.file ]
+  }
 
-    route = new Route(options.file, yaml.parse(result.body))
-    _load2()
-  })
+  asyncForEach(global.files, (file, done) => {
+    httpGet('data/' + file + '.yml', {}, (err, result) => {
+      if (err) {
+        return alert(err)
+      }
+
+      new Route(file, yaml.parse(result.body))
+      done()
+    })
+  }, _load2)
 }
 
 function loadList (callback) {
