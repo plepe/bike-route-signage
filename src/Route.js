@@ -6,6 +6,7 @@ const turf = {
 
 const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
+const clone = require('./clone')
 const toPick = [4, 3, 2, 1, 1]
 
 let routes = {}
@@ -43,6 +44,17 @@ class Route extends EventEmitter {
 
       return result
     })
+
+    if (pickIndex < toPick.length && this.data.continue && this.data.continue.file in routes) {
+      let nextRoute = routes[this.data.continue.file]
+      let nextEntries = nextRoute.pick(this.data.continue.at, toPick.slice(pickIndex))
+      nextEntries = nextEntries.map(entry => {
+        entry = clone(entry)
+        entry.at = this.data.length + entry.at - this.data.continue.at
+        return entry
+      })
+      route = route.concat(nextEntries)
+    }
 
     return route
   }
