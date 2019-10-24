@@ -17,7 +17,9 @@ class Route extends EventEmitter {
     routes[id] = this
     this.data = data
     if (!this.data.length) {
-      this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
+      if (this.data.coordinates) {
+        this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
+      }
     }
     this.update()
   }
