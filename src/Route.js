@@ -20,16 +20,8 @@ class Route extends EventEmitter {
     this.emit('update')
   }
 
-  render (options = {}) {
-    if (typeof options.at === 'undefined') {
-      options.at = 0
-    }
-
-    let current = this.data.route.filter(entry => entry.at >= options.at && entry.at < +options.at + 50)
-    current = current.filter((entry, index) => {
-      return filterPriority(entry, 5)
-    })
-    let route = this.data.route.filter(entry => entry.at >= +options.at + 50)
+  pick (at, toPick) {
+    let route = this.data.route.filter(entry => entry.at >= at)
     let pickIndex = 0
     route = route.filter((entry, index) => {
       const result = filterPriority(entry, toPick[pickIndex])
@@ -39,6 +31,20 @@ class Route extends EventEmitter {
 
       return result
     })
+
+    return route
+  }
+
+  render (options = {}) {
+    if (typeof options.at === 'undefined') {
+      options.at = 0
+    }
+
+    let current = this.data.route.filter(entry => entry.at >= options.at && entry.at < +options.at + 50)
+    current = current.filter((entry, index) => {
+      return filterPriority(entry, 5)
+    })
+    let route = this.pick(+options.at + 50, toPick)
     route.reverse()
 
     let result = ''
