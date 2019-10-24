@@ -81,31 +81,32 @@ route:
     ptRoutes:
       - U4
     at: 9495
-    priority: 2
+    priority: "2"
     connections:
-      - name: Auer-Welsbach-Park
-        type: park
       - name: Winkelmannstraße
         type: bikeroute
+        ptRoutes: []
         direction: left
         connections:
           - name: Technisches Museum
             type: place
             distance: 650
+            ptRoutes: []
   - name: Meidling Hauptstraße
     type: ptStop
     ptRoutes:
       - U4
-    at: 10285
-    priority: 2
+    at: 10232
+    priority: "2"
     connections:
       - name: Ullmannstraße
         type: bikeroute
+        ptRoutes: []
         direction: left
       - name: Meidlinger Platz
+        type: place
         ptRoutes:
           - U6
-        type: place
         direction: right
   - name: Storchengasse
     type: bikeroute
@@ -127,46 +128,52 @@ route:
     type: bikeroute
     at: 10915
     direction: right
-    realDirection: straight
+    realDirection: right
     routeDirection: left
-    priority: 3
+    priority: "3"
     connections:
       - name: Bhf. Meidling
         type: ptStop
+        distance: 1750
         ptRoutes:
           - U6
           - S
           - WLB
-        distance: 1750
+    ptRoutes: []
+  - name: Gürtelradweg
+    type: bikeroute
+    priority: "1"
+    hidePriority: "3"
+    at: 11290
+    direction: both
+    ptRoutes: []
   - name: Gürtelradweg (Nord)
     type: bikeroute
     at: 11290
     direction: left
-    realDirection: straight
+    realDirection: left
     routeDirection: right
-    priority: 2
+    priority: "2"
     connections:
       - name: Westbahnhof
         type: ptStop
+        distance: 1000
         ptRoutes:
           - U3
           - U6
           - S
-        distance: 1000
       - name: AKH
         type: place
         distance: 3870
+        ptRoutes: []
+    ptRoutes: []
   - name: Gürtelradweg (Süd)
     type: bikeroute
     at: 11555
     direction: right
-    priority: 2
-  - name: Gürtelradweg
-    type: bikeroute
-    priority: 1
-    hidePriority: 3
-    at: 11555
-    direction: null
+    priority: "2"
+    ptRoutes: []
+    routeDirection: left
   - name: Margaretengürtel
     type: ptStop
     ptRoutes:
@@ -177,33 +184,42 @@ route:
       - name: Bruno-Kreisky-Park
         type: park
         ptRoutes: []
+  - name: Mollardgasse
+    at: 11740
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: left
   - name: Grabnergasse, Webgasse
     type: bikeroute
-    at: 12255
+    at: 12239
     direction: left
-    priority: 3
+    priority: "3"
     connections:
       - name: Mariahilfer Straße
         type: place
         distance: 960
+        ptRoutes: []
+    ptRoutes: []
   - name: Spengergasse
     type: bikeroute
-    at: 12345
+    at: 12331
     direction: right
-    priority: 3
+    priority: "3"
     connections:
       - name: Reinprechtsdorfer Straße
         type: ptStop
+        distance: 320
         ptRoutes:
           - U2
-        distance: 320
       - name: Matzleinsdorferplatz
         type: ptStop
+        distance: 1200
         ptRoutes:
           - U2
           - S
           - WLB
-        distance: 1200
+    ptRoutes: []
   - name: Pilgramgasse
     type: ptStop
     ptRoutes:
@@ -218,20 +234,22 @@ route:
         direction: right
   - name: Mollardgasse, Ullmannstraße
     type: bikeroute
-    at: 13205
+    at: 13191
     direction: left
-    realDirection: straight
+    realDirection: left
     routeDirection: right
-    priority: 3
+    priority: "3"
     connections:
       - name: Mariahilfer Straße
         type: place
         distance: 830
+        ptRoutes: []
       - name: Gumpendorfer Straße
         type: ptStop
+        distance: 2030
         ptRoutes:
           - U6
-        distance: 2030
+    ptRoutes: []
   - name: Kettenbrückengasse
     type: ptStop
     ptRoutes:
@@ -270,6 +288,23 @@ route:
       - name: Schwarzenbergplatz
         type: place
         distance: 1000
+  - name: Millöckergasse
+    at: 13939
+    type: bikeroute
+    ptRoutes: []
+    direction: left
+    connections:
+      - name: Radweg Zweierlinie
+        type: bikeroute
+        distance: 270
+        ptRoutes: []
+        priority: "2"
+      - name: Museumsquartier
+        type: ptStop
+        distance: 515
+        ptRoutes:
+          - U5
+        priority: "2"
   - name: Karlsplatz
     ptRoutes:
       - U1
@@ -278,13 +313,31 @@ route:
       - WLB
     type: place
     direction: right
-    at: 14230
-    priority: 1
+    at: 14033
+    priority: "1"
     connections:
       - name: Operngasse, Margaretenstraße
         type: bikeroute
+        ptRoutes: []
       - name: Friedrichstraße
         type: bikeroute
+        ptRoutes: []
+  - name: Nibelungengasse
+    type: bikeroute
+    at: 14230
+    priority: "3"
+    direction: left
+    connections:
+      - name: Radweg Zweierlinie
+        type: bikeroute
+        distance: 300
+        ptRoutes: []
+      - name: Museumsquartier
+        type: ptStop
+        distance: 550
+        ptRoutes:
+          - U5
+    ptRoutes: []
   - name: Ring-Rund
     at: 14375
     type: bikeroute
@@ -297,20 +350,6 @@ route:
         ptRoutes: []
         priority: "2"
         direction: straight
-  - name: Nibelungengasse
-    type: bikeroute
-    at: 14230
-    priority: 3
-    direction: left
-    connections:
-      - name: Radweg Zweierlinie
-        type: bikeroute
-        distance: 300
-      - name: Museumsquartier
-        type: ptStop
-        ptRoutes:
-          - U5
-        distance: 550
 coordinates:
   - [ 16.209651, 48.20963 ]
   - [ 16.210767, 48.210068 ]

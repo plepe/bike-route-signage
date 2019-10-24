@@ -233,7 +233,7 @@ route:
       - Bus
       - Bim
     at: 6200
-    priority: 1
+    priority: 2
     routeDirection: diagleft
     connections:
       - name: Wiental-Highway
@@ -296,6 +296,7 @@ route:
     routeDirection: left
     at: 14200
   - name: Purkersdorf
+    priority: 1
     type: place
     at: 17000
 coordinates:
