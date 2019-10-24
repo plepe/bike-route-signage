@@ -49,6 +49,12 @@ if (!('file' in options)) {
       route = Route.get(options.file)
     }
 
+    while (route.data.length && options.at > route.data.length && route.data.continue) {
+      options.file = route.data.continue.file
+      options.at = options.at - route.data.length + route.data.continue.at
+      route = Route.get(options.file)
+    }
+
     text += route.render(options)
   }
 }

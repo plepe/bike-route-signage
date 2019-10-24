@@ -16,8 +16,20 @@ let options
 let route
 
 function updateStatus (data) {
+  if ('file' in data && data.file !== options.file) {
+    options.file = data.file
+    route = Route.get(data.file)
+    setRoute(route)
+  }
+
   if ('at' in data) {
     options.at = data.at
+
+    if (route.data.length && options.at > route.data.length && route.data.continue) {
+      data.file = route.data.continue.file
+      data.at = options.at - route.data.length + route.data.continue.at
+      return updateStatus(data)
+    }
   }
 
   if ('pick' in data) {
