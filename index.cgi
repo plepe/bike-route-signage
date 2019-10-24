@@ -38,9 +38,9 @@ if (!('file' in options)) {
   } else {
     let route
     if (options.file === '') {
-      route = new Route({ route: [] })
+      route = new Route('', { route: [] })
     } else {
-      route = new Route(yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
+      route = new Route(options.file, yaml.parse(fs.readFileSync('data/' + options.file + '.yml', 'utf8')))
     }
 
     text = route.render(options)

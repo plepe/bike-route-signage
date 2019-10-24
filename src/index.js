@@ -47,7 +47,7 @@ function _load2 () {
 
 function load () {
   if (options.file === '') {
-    route = new Route({ route: [] })
+    route = new Route('', { route: [] })
     _load2()
     return
   }
@@ -57,7 +57,7 @@ function load () {
       return alert(err)
     }
 
-    route = new Route(yaml.parse(result.body))
+    route = new Route(options.file, yaml.parse(result.body))
     _load2()
   })
 }

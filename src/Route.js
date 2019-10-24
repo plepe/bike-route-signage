@@ -5,9 +5,13 @@ const formatEntry = require('./formatEntry')
 const filterPriority = require('./filterPriority')
 const toPick = [4, 3, 2, 1, 1]
 
+let routes = {}
+
 class Route extends EventEmitter {
-  constructor (data) {
+  constructor (id, data) {
     super()
+    this.id = id
+    routes[id] = this
     this.data = data
     this.update()
   }
@@ -129,6 +133,10 @@ class Route extends EventEmitter {
       }
     }
   }
+}
+
+Route.get = (id) => {
+  return routes[id]
 }
 
 module.exports = Route

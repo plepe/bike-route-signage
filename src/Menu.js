@@ -54,7 +54,7 @@ module.exports = class Menu {
         .reverse()
       data.coordinates = data.coordinates.reverse()
 
-      global.setRoute(new Route(data))
+      global.setRoute(new Route('', data))
 
       return false
     }
