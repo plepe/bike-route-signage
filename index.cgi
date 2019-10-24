@@ -5,6 +5,7 @@ const fs = require('fs')
 const JSDOM = require('jsdom').JSDOM
 
 const Route = require('./src/Route')
+const updateInput = require('./src/updateInput')
 
 console.log('Content-Type: text/html; charset=utf8')
 console.log('')
@@ -48,15 +49,16 @@ if (!('file' in options)) {
 
 document.getElementById('route-sign').innerHTML = text
 
+updateInput('input[name=file]', options.file, { document })
+updateInput('input[name=at]', options.at || 0, { document })
+if (options.pick) {
+  updateInput('input[name=pick]', options.pick, { document })
+}
+
 let at = (+options.at) || 0
 document.getElementById('at-100').value = at - 100
 document.getElementById('at-25').value = at - 100
-document.getElementById('at').value = at
 document.getElementById('at+25').value = at + 25
 document.getElementById('at+100').value = at + 100
-let elements = document.querySelectorAll('input[name=file]')
-for (let i = 0; i < elements.length; i++) {
-  elements[i].setAttribute('value', options.file)
-}
 
 console.log(dom.serialize())

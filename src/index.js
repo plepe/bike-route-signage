@@ -19,6 +19,10 @@ function updateStatus (data) {
     options.at = data.at
   }
 
+  if ('pick' in data) {
+    options.pick = data.pick
+  }
+
   history.replaceState(options, "", "?" + queryString.stringify(options))
 
   if (route) {

@@ -44,7 +44,7 @@ class Route extends EventEmitter {
     current = current.filter((entry, index) => {
       return filterPriority(entry, 5)
     })
-    let route = this.pick(+options.at + 50, toPick)
+    let route = this.pick(+options.at + 50, options.pick ? options.pick.split(/,/) : toPick)
     route.reverse()
 
     let result = ''

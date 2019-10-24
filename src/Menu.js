@@ -1,6 +1,7 @@
 const { saveAs } = require('file-saver')
 
 const Route = require('./Route')
+const updateInput = require('./updateInput')
 
 const turf = {
   length: require('@turf/length').default
@@ -89,7 +90,12 @@ module.exports = class Menu {
   }
 
   updateStatus (options) {
-    document.getElementById('at').value = options.at
+    updateInput('input[name=file]', options.file)
+    updateInput('input[name=at]', options.at || 0)
+    if (options.pick) {
+      updateInput('input[name=pick]', options.pick)
+    }
+
     document.getElementById('at-100').value = +options.at - 100
     document.getElementById('at-25').value = +options.at - 25
     document.getElementById('at+25').value = +options.at + 25
