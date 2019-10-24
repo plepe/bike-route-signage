@@ -28,6 +28,7 @@ class Route extends EventEmitter {
   update () {
     this.data.route.forEach((entry, index) => {
       entry.index = index
+      entry.file = this.id
     })
 
     this.emit('update')

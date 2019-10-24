@@ -16,7 +16,7 @@ module.exports = function formatEntry (entry, options = {}) {
     direction = entry.realDirection
   }
 
-  let result = '<li ' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + '>'
+  let result = '<li class="' + (options.file === entry.file ? 'this' : 'other') + '" ' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + ('file' in entry ? ' data-file="' + entry.file + '"' : '') + '>'
   if (direction) {
     result += '<span class="direction ' + direction + '">' + directionText[direction] + '</span>'
   }
