@@ -73,7 +73,15 @@ class Route extends EventEmitter {
 
     let result = ''
 
-    if (this.data.title) {
+    if (typeof this.data.title === 'object') {
+      let title = this.data.title[0]
+      for (let k in this.data.title) {
+        if (+k <= +options.at) {
+          title = this.data.title[k]
+        }
+      }
+      result += '<h1>' + title + '</h1>'
+    } else if (this.data.title) {
       result += '<h1>' + this.data.title + '</h1>'
     }
 
