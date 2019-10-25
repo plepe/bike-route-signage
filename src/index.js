@@ -112,6 +112,7 @@ function showList (err, data) {
   })
 
   result += '<li><a href="?file=">Neue Datei</a></li>'
+  result += '<li><form method="post"><a><label><input type="file" style="position: fixed; top: -1000px" onchange="form.submit()">Lokale Datei öffnen</label></a></form></li>'
   result += '</ul>'
 
   document.getElementById('route-sign').innerHTML = result
