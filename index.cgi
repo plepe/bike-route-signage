@@ -36,11 +36,15 @@ if (!('file' in options)) {
   })
   text += '<li><a href="?file=">Neue Datei</a></li>'
   text += '</ul>'
+  document.getElementById('route-sign').innerHTML = text
+  final()
 } else {
   if (options.file.match(/\/\./)) {
     text += 'Invalid file'
+    document.getElementById('route-sign').innerHTML = text
   } else if (!fs.existsSync('data/' + options.file + '.yml')) {
     text += 'File does not exist'
+    document.getElementById('route-sign').innerHTML = text
   } else {
     let route
     if (options.file === '') {
@@ -55,22 +59,30 @@ if (!('file' in options)) {
       route = Route.get(options.file)
     }
 
-    text += route.render(options)
+    route.render(options,
+      (err, result) => {
+        if (err) {
+          return console.error(err)
+        }
+        document.getElementById('route-sign').innerHTML = text + result
+        final()
+      }
+    )
   }
 }
 
-document.getElementById('route-sign').innerHTML = text
+function final () {
+  updateInput('input[name=file]', options.file, { document })
+  updateInput('input[name=at]', options.at || 0, { document })
+  if (options.pick) {
+    updateInput('input[name=pick]', options.pick, { document })
+  }
 
-updateInput('input[name=file]', options.file, { document })
-updateInput('input[name=at]', options.at || 0, { document })
-if (options.pick) {
-  updateInput('input[name=pick]', options.pick, { document })
+  let at = (+options.at) || 0
+  document.getElementById('at-100').value = at - 100
+  document.getElementById('at-25').value = at - 100
+  document.getElementById('at+25').value = at + 25
+  document.getElementById('at+100').value = at + 100
+
+  console.log(dom.serialize())
 }
-
-let at = (+options.at) || 0
-document.getElementById('at-100').value = at - 100
-document.getElementById('at-25').value = at - 100
-document.getElementById('at+25').value = at + 25
-document.getElementById('at+100').value = at + 100
-
-console.log(dom.serialize())

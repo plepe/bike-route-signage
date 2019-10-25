@@ -34,7 +34,7 @@ class Route extends EventEmitter {
     this.emit('update')
   }
 
-  pick (at, toPick) {
+  pick (at, toPick, callback) {
     let route = this.data.route.filter(entry => entry.at >= at)
     let pickIndex = 0
     route = route.filter((entry, index) => {
@@ -48,19 +48,28 @@ class Route extends EventEmitter {
 
     if (pickIndex < toPick.length && this.data.continue && this.data.continue.file in routes) {
       let nextRoute = routes[this.data.continue.file]
-      let nextEntries = nextRoute.pick(this.data.continue.at, toPick.slice(pickIndex))
-      nextEntries = nextEntries.map(entry => {
-        entry = clone(entry)
-        entry.at = this.data.length + entry.at - this.data.continue.at
-        return entry
-      })
-      route = route.concat(nextEntries)
-    }
+      nextRoute.pick(this.data.continue.at, toPick.slice(pickIndex),
+        (err, nextEntries) => {
+          if (err) {
+            // ignore error of other route, pass successful result
+            return callback(null, route)
+          }
 
-    return route
+          nextEntries = nextEntries.map(entry => {
+            entry = clone(entry)
+            entry.at = this.data.length + entry.at - this.data.continue.at
+            return entry
+          })
+
+          callback(null, route.concat(nextEntries))
+        }
+      )
+    } else {
+      callback(null, route)
+    }
   }
 
-  render (options = {}) {
+  render (options = {}, callback) {
     if (typeof options.at === 'undefined') {
       options.at = 0
     }
@@ -69,53 +78,56 @@ class Route extends EventEmitter {
     current = current.filter((entry, index) => {
       return filterPriority(entry, 5)
     })
-    let route = this.pick(+options.at + 50, options.pick ? options.pick.split(/,/) : toPick)
-    route.reverse()
+    this.pick(+options.at + 50, options.pick ? options.pick.split(/,/) : toPick,
+      (err, route) => {
+        route.reverse()
 
-    let result = ''
+        let result = ''
 
-    if (typeof this.data.title === 'object') {
-      let title = this.data.title[0]
-      for (let k in this.data.title) {
-        if (+k <= +options.at) {
-          title = this.data.title[k]
+        if (typeof this.data.title === 'object') {
+          let title = this.data.title[0]
+          for (let k in this.data.title) {
+            if (+k <= +options.at) {
+              title = this.data.title[k]
+            }
+          }
+          result += '<h1>' + title + '</h1>'
+        } else if (this.data.title) {
+          result += '<h1>' + this.data.title + '</h1>'
         }
+
+        if (route.length) {
+          result += '<ul class="line">'
+          route.forEach((entry, index) => {
+            const opt = JSON.parse(JSON.stringify(options))
+            opt.priority = toPick[route.length - index - 1]
+            result += formatEntry(entry, opt)
+          })
+          result += '</ul>'
+        }
+
+        if (current.length) {
+          result += '<ul class="current">'
+          if (current.length && current[0].routeDirection) {
+            result += formatEntry({
+              name: this.data.title,
+              type: 'bikeroute',
+              direction: current[0].routeDirection
+            }, { priority: 5 })
+          }
+
+          current.forEach(entry => {
+            const opt = JSON.parse(JSON.stringify(options))
+            opt.priority = 5
+            opt.direction = 'real'
+            result += formatEntry(entry, opt)
+          })
+          result += '</ul>'
+        }
+
+        callback(null, result)
       }
-      result += '<h1>' + title + '</h1>'
-    } else if (this.data.title) {
-      result += '<h1>' + this.data.title + '</h1>'
-    }
-
-    if (route.length) {
-      result += '<ul class="line">'
-      route.forEach((entry, index) => {
-        const opt = JSON.parse(JSON.stringify(options))
-        opt.priority = toPick[route.length - index - 1]
-        result += formatEntry(entry, opt)
-      })
-      result += '</ul>'
-    }
-
-    if (current.length) {
-      result += '<ul class="current">'
-      if (current.length && current[0].routeDirection) {
-        result += formatEntry({
-          name: this.data.title,
-          type: 'bikeroute',
-          direction: current[0].routeDirection
-        }, { priority: 5 })
-      }
-
-      current.forEach(entry => {
-        const opt = JSON.parse(JSON.stringify(options))
-        opt.priority = 5
-        opt.direction = 'real'
-        result += formatEntry(entry, opt)
-      })
-      result += '</ul>'
-    }
-
-    return result
+    )
   }
 
   save () {

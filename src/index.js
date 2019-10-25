@@ -39,7 +39,14 @@ function updateStatus (data) {
   history.replaceState(options, "", "?" + queryString.stringify(options))
 
   if (route) {
-    document.getElementById('route-sign').innerHTML = route.render(options)
+    route.render(options, (err, result) => {
+      if (err) {
+        document.getElementById('route-sign').innerHTML = ''
+        return console.error(err)
+      }
+
+      document.getElementById('route-sign').innerHTML = result
+    })
   }
 
   forEach(modules, module => module.updateStatus(options))
@@ -48,9 +55,8 @@ global.updateStatus = updateStatus
 
 function setRoute (_route) {
   route = _route
-  document.getElementById('route-sign').innerHTML = route.render(options)
   forEach(modules, module => module.setRoute(route))
-  forEach(modules, module => module.updateStatus(options))
+  updateStatus(options)
 }
 global.setRoute = setRoute
 
