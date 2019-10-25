@@ -46,24 +46,30 @@ class Route extends EventEmitter {
       return result
     })
 
-    if (pickIndex < toPick.length && this.data.continue && this.data.continue.file in routes) {
-      let nextRoute = routes[this.data.continue.file]
-      nextRoute.pick(this.data.continue.at, toPick.slice(pickIndex),
-        (err, nextEntries) => {
-          if (err) {
-            // ignore error of other route, pass successful result
-            return callback(null, route)
-          }
-
-          nextEntries = nextEntries.map(entry => {
-            entry = clone(entry)
-            entry.at = this.data.length + entry.at - this.data.continue.at
-            return entry
-          })
-
-          callback(null, route.concat(nextEntries))
+    if (pickIndex < toPick.length && this.data.continue) {
+      get(this.data.continue.file, (err, nextRoute) => {
+        if (err) {
+          // ignore error of other route, pass successful result
+          return callback(null, route)
         }
-      )
+
+        nextRoute.pick(this.data.continue.at, toPick.slice(pickIndex),
+          (err, nextEntries) => {
+            if (err) {
+              // ignore error of other route, pass successful result
+              return callback(null, route)
+            }
+
+            nextEntries = nextEntries.map(entry => {
+              entry = clone(entry)
+              entry.at = this.data.length + entry.at - this.data.continue.at
+              return entry
+            })
+
+            callback(null, route.concat(nextEntries))
+          }
+        )
+      })
     } else {
       callback(null, route)
     }
@@ -176,8 +182,12 @@ class Route extends EventEmitter {
   }
 }
 
-Route.get = (id) => {
-  return routes[id]
+function get (id, callback) {
+  if (routes[id]) {
+    return callback(null, routes[id])
+  }
 }
+
+Route.get = get
 
 module.exports = Route

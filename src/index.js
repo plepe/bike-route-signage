@@ -18,8 +18,15 @@ let route
 function updateStatus (data) {
   if ('file' in data && data.file !== options.file) {
     options.file = data.file
-    route = Route.get(data.file)
-    setRoute(route)
+    Route.get(data.file, (err, _route) => {
+      if (err) {
+        return console.error(err)
+      }
+
+      setRoute(_route)
+      updateStatus(data)
+    })
+    return
   }
 
   if ('at' in data) {
@@ -61,8 +68,7 @@ function setRoute (_route) {
 global.setRoute = setRoute
 
 function _load2 () {
-  let route = Route.get(options.file)
-  setRoute(route)
+  Route.get(options.file, (err, route) => setRoute(route))
 }
 
 function load () {

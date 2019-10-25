@@ -46,29 +46,35 @@ if (!('file' in options)) {
     text += 'File does not exist'
     document.getElementById('route-sign').innerHTML = text
   } else {
-    let route
     if (options.file === '') {
-      route = new Route('', { route: [] })
+      render(new Route('', { route: [] }))
     } else {
-      route = Route.get(options.file)
-    }
-
-    while (route.data.length && options.at > route.data.length && route.data.continue) {
-      options.file = route.data.continue.file
-      options.at = options.at - route.data.length + route.data.continue.at
-      route = Route.get(options.file)
-    }
-
-    route.render(options,
-      (err, result) => {
+      Route.get(options.file, (err, route) => {
         if (err) {
           return console.error(err)
         }
-        document.getElementById('route-sign').innerHTML = text + result
-        final()
-      }
-    )
+
+        render(route)
+//        while (route.data.length && options.at > route.data.length && route.data.continue) {
+//          options.file = route.data.continue.file
+//          options.at = options.at - route.data.length + route.data.continue.at
+//          route = Route.get(options.file)
+//        }
+      })
+    }
   }
+}
+
+function render (route) {
+  route.render(options,
+    (err, result) => {
+      if (err) {
+        return console.error(err)
+      }
+      document.getElementById('route-sign').innerHTML = text + result
+      final()
+    }
+  )
 }
 
 function final () {
