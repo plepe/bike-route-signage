@@ -186,6 +186,16 @@ function get (id, callback) {
   if (routes[id]) {
     return callback(null, routes[id])
   }
+
+  global.loadFile(id, (err, route) => {
+    if (err) {
+      return callback(err)
+    }
+
+    routes[id] = new Route(id, route)
+
+    callback(null, routes[id])
+  })
 }
 
 Route.get = get

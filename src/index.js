@@ -15,6 +15,17 @@ let modules = {}
 let options
 let route
 
+global.loadFile = (file, callback) => {
+  httpGet('data/' + file + '.yml', {}, (err, result) => {
+    if (err) {
+      return callback(err)
+    }
+
+    let data = yaml.parse(result.body)
+    callback(null, data)
+  })
+}
+
 function updateStatus (data) {
   if ('file' in data && data.file !== options.file) {
     options.file = data.file
@@ -82,16 +93,7 @@ function load () {
     global.files = [ options.file ]
   }
 
-  asyncForEach(global.files, (file, done) => {
-    httpGet('data/' + file + '.yml', {}, (err, result) => {
-      if (err) {
-        return alert(err)
-      }
-
-      new Route(file, yaml.parse(result.body))
-      done()
-    })
-  }, _load2)
+  _load2()
 }
 
 function loadList (callback) {

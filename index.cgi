@@ -15,6 +15,17 @@ const document = dom.window.document
 
 let options = queryString.parse(process.env.QUERY_STRING)
 
+global.loadFile = (file, callback) => {
+  fs.readFile('data/' + file + '.yml', 'utf8', (err, contents) => {
+    if (err) {
+      return callback(err)
+    }
+
+    let data = yaml.parse(contents)
+    callback(null, data)
+  })
+}
+
 global.files = []
 fs.readdirSync('data/', {})
   .forEach(file => {
@@ -23,9 +34,6 @@ fs.readdirSync('data/', {})
       global.files.push(m[1])
     }
   })
-global.files.map(file =>
-  new Route(file, yaml.parse(fs.readFileSync('data/' + file + '.yml', 'utf8')))
-)
 
 let text = ''
 text += '<script>var files = ' + JSON.stringify(global.files) + '</script>'
