@@ -55,7 +55,7 @@ function setRoute (_route) {
 global.setRoute = setRoute
 
 function _load2 () {
-  route = Route.get(options.file)
+  let route = Route.get(options.file)
   setRoute(route)
 }
 
@@ -112,9 +112,24 @@ function showList (err, data) {
   })
 
   result += '<li><a href="?file=">Neue Datei</a></li>'
+  result += '<li><a><label><input id="upload" type="file" style="position: fixed; top: -1000px" onchange="form.submit()">Lokale Datei öffnen</label></a></li>'
   result += '</ul>'
 
   document.getElementById('route-sign').innerHTML = result
+
+  document.getElementById('upload').onchange = e => {
+    Array.from(e.target.files).forEach(file => {
+      var reader = new FileReader()
+      reader.onload = (e) => {
+        var contents = e.target.result
+        let m = file.name.match(/^(.*)\.yml$/)
+        this.setRoute(new Route(m || file.name, yaml.parse(contents)))
+      }
+      reader.readAsText(file)
+    })
+
+    return false
+  }
 }
 
 window.onload = function () {
