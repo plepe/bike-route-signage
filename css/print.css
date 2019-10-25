@@ -9,6 +9,7 @@ body {
   color: black;
   background: white;
   width: 100%;
+  font-size: 19pt;
 }
 #menu, #map {
   display: none;
@@ -16,7 +17,7 @@ body {
 #route-sign .edit {
   display: none;
 }
-#route-sign li {
+#route-sign ul.line > li {
   border-color: black;
 }
 #route-sign a {
@@ -24,5 +25,14 @@ body {
 }
 #route-sign ul li ul li,
 #route-sign ul li ul li:before {
+  border-color: black;
+}
+#route-sign ul.line > li > span.direction,
+#route-sign ul.current > li > span.direction,
+#route-sign ul.current > li > .content > ul.connections > li > span.direction {
+  color: black;
+}
+#route-sign ul.current > li,
+#route-sign ul.current > li:last-of-type {
   border-color: black;
 }
