@@ -57,23 +57,28 @@ if (!('file' in options)) {
     if (options.file === '') {
       render(new Route('', { route: [] }))
     } else {
-      Route.get(options.file, (err, route) => {
-        if (err) {
-          return console.error(err)
-        }
-
-        render(route)
-//        while (route.data.length && options.at > route.data.length && route.data.continue) {
-//          options.file = route.data.continue.file
-//          options.at = options.at - route.data.length + route.data.continue.at
-//          route = Route.get(options.file)
-//        }
-      })
+      loadAndRender(options.file)
     }
   }
 }
 
-function render (route) {
+function loadAndRender (id) {
+  Route.get(id, (err, route) => {
+    if (err) {
+      return console.error(err)
+    }
+
+    if (route.data.length && options.at > route.data.length && route.data.continue) {
+      options.file = route.data.continue.file
+      options.at = options.at - route.data.length + route.data.continue.at
+      return loadAndRender(options.file)
+    }
+
+    render(route)
+  })
+}
+
+function render(route) {
   route.render(options,
     (err, result) => {
       if (err) {
