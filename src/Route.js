@@ -75,6 +75,22 @@ class Route extends EventEmitter {
     }
   }
 
+  title (options) {
+    if (typeof this.data.title === 'object') {
+      let title = this.data.title[0]
+      for (let k in this.data.title) {
+        if (+k <= +options.at) {
+          title = this.data.title[k]
+        }
+      }
+      return title
+    } else if (this.data.title) {
+      return this.data.title
+    }
+
+    return null
+  }
+
   render (options = {}, callback) {
     if (typeof options.at === 'undefined') {
       options.at = 0
@@ -90,16 +106,9 @@ class Route extends EventEmitter {
 
         let result = ''
 
-        if (typeof this.data.title === 'object') {
-          let title = this.data.title[0]
-          for (let k in this.data.title) {
-            if (+k <= +options.at) {
-              title = this.data.title[k]
-            }
-          }
+        let title = this.title(options)
+        if (title) {
           result += '<h1>' + title + '</h1>'
-        } else if (this.data.title) {
-          result += '<h1>' + this.data.title + '</h1>'
         }
 
         if (route.length) {
@@ -116,7 +125,7 @@ class Route extends EventEmitter {
           result += '<ul class="current">'
           if (current.length && current[0].routeDirection) {
             result += formatEntry({
-              name: this.data.title,
+              name: this.title(options),
               type: 'bikeroute',
               direction: current[0].routeDirection
             }, { priority: 5 })
