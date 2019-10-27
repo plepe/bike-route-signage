@@ -64,10 +64,10 @@ function updateStatus (data) {
       }
 
       document.getElementById('route-sign').innerHTML = result
+
+      forEach(modules, module => module.updateStatus(options))
     })
   }
-
-  forEach(modules, module => module.updateStatus(options))
 }
 global.updateStatus = updateStatus
 
