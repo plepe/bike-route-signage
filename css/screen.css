@@ -81,3 +81,10 @@ body.map-fullscreen #map-container {
   top: 0;
   bottom: 0;
 }
+
+.warning {
+  text-align: center;
+  border: 1px solid red;
+  background: #ff9d9d;
+  padding: 2px;
+}

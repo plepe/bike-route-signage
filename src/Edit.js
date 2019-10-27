@@ -1,5 +1,7 @@
 const Form = require('modulekit-form')
 
+const Route = require('./Route')
+
 // TODO: embed modulekit-lang
 global.lang_str = {}
 global.ui_lang = 'de'
@@ -38,6 +40,13 @@ module.exports = class Edit {
     this.clear()
 
     this.form = new Form('data', require('./entry.json'))
+
+    if (this.route.id !== entry.file) {
+      let warning = document.createElement('div')
+      warning.className = 'warning'
+      warning.innerHTML = 'Achtung! Eintrag liegt an einer fortgesetzten Route.'
+      this.dom.appendChild(warning)
+    }
 
     this.form.set_data(entry)
     this.form.show(this.dom)
@@ -79,8 +88,10 @@ module.exports = class Edit {
       let li = a.parentNode.parentNode.parentNode
 
       a.onclick = () => {
-        const entry = this.route.data.route[li.getAttribute('data-index')]
-        this.edit(entry)
+        Route.get(li.getAttribute('data-file'), (err, _route) => {
+          const entry = _route.data.route[li.getAttribute('data-index')]
+          this.edit(entry)
+        })
         return false
       }
     }
