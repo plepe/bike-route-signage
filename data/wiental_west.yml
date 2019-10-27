@@ -70,6 +70,7 @@ route:
   - name: Mollardgasse, Ullmannstraße
     type: bikeroute
     at: 1190
+    distance: 100
     direction: right
     realDirection: straight
     routeDirection: left
@@ -83,6 +84,10 @@ route:
         ptRoutes:
           - U6
         distance: 2030
+      - name: Test
+        connections:
+        - name: Foo Bar
+          distance: 100
   - name: Pilgramgasse
     type: ptStop
     ptRoutes:
