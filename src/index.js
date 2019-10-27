@@ -27,7 +27,7 @@ global.loadFile = (file, callback) => {
 }
 
 function updateStatus (data) {
-  if ('file' in data && data.file !== options.file) {
+  if ('file' in data && (!route || data.file !== route.id)) {
     options.file = data.file
     Route.get(data.file, (err, _route) => {
       if (err) {
