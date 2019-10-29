@@ -1,3 +1,9 @@
+:root {
+  --mainColor: #ffffff;
+  --otherColor: #afafaf;
+  --backgroundColor: #000000;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   hyphens: auto;
@@ -11,8 +17,8 @@ body {
   padding: 0.1em;
   border: 0.1em solid grey;
   border-bottom: none;
-  background: black;
-  color: white;
+  background: var(--backgroundColor);
+  color: var(--mainColor);
   height: 100%;
 }
 #environment {
