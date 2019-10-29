@@ -51,6 +51,7 @@
   width: 2.5em;
   display: flex;
   align-items: center;
+  z-index: 2;
 }
 #route-sign ul.line > li > .dot > i {
   font-size: 100%;
@@ -139,6 +140,24 @@
   text-align: left;
   align-self: top;
   display: inline-block;
+}
+#route-sign ul.line > li.other,
+#route-sign ul.line > li.other a {
+  color: #afafaf;
+}
+#route-sign ul.line > li.other:after {
+  border-color: #afafaf;
+  margin-bottom: -1em;
+  z-index: 1;
+}
+#route-sign ul.line > li.other:after,
+#route-sign ul.line > li.other ul li,
+#route-sign ul.line > li.other ul li:before,
+#route-sign ul.line > li.other ul li:after {
+  border-color: #afafaf;
+}
+#route-sign ul.line > li.other:last-of-type:after {
+  margin-bottom: 0;
 }
 #route-sign .name {
   font-weight: bold;
