@@ -17,6 +17,8 @@ module.exports = function formatEntry (entry, options = {}) {
   }
 
   let result = '<li class="' + (options.file === entry.file ? 'this' : 'other') + '" ' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + ('file' in entry ? ' data-file="' + entry.file + '"' : '') + '>'
+  result += '<span class="dot"><i class="fas fa-circle"></i></span>'
+
   if (direction) {
     result += '<span class="direction ' + direction + '">' + directionText[direction] + '</span>'
   }
@@ -37,6 +39,7 @@ module.exports = function formatEntry (entry, options = {}) {
   }
 
   result += '</span><span class="content">'
+
   if (entry.distance) {
     result += '<span class="distance">' + formatDistance(entry.distance) + '</span>'
   }

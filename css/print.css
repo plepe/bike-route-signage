@@ -17,7 +17,7 @@ body {
 #route-sign .edit {
   display: none;
 }
-#route-sign ul.line > li {
+#route-sign ul.line > li:after {
   border-color: black;
 }
 #route-sign a {
@@ -34,5 +34,9 @@ body {
 }
 #route-sign ul.current > li,
 #route-sign ul.current > li:last-of-type {
+  border-color: black;
+}
+#route-sign ul.connections > li:before,
+#route-sign ul.connections > li:after {
   border-color: black;
 }
