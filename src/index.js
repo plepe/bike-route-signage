@@ -58,6 +58,11 @@ function updateStatus (data) {
 
   history.replaceState(options, "", "?" + queryString.stringify(options))
 
+  update()
+}
+global.updateStatus = updateStatus
+
+function update () {
   if (route) {
     route.render(options, (err, result) => {
       if (err) {
@@ -71,12 +76,17 @@ function updateStatus (data) {
     })
   }
 }
-global.updateStatus = updateStatus
 
 function setRoute (_route) {
+  if (route) {
+    route.removeListener('update', update)
+  }
+
   route = _route
   forEach(modules, module => module.setRoute(route))
   updateStatus(options)
+
+  route.on('update', update)
 }
 global.setRoute = setRoute
 
