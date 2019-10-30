@@ -2,6 +2,7 @@ const queryString = require('query-string')
 const yaml = require('yaml')
 const forEach = require('for-each')
 const asyncForEach = require('async-each')
+const Tabs = require('modulekit-tabs').Tabs
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
@@ -150,7 +151,9 @@ function showList (err, data) {
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  let app = { modules }
+  var tabs = new Tabs(document.getElementById('menu'))
+
+  let app = { modules, tabs }
   forEach(Modules, (Module, k) => modules[k] = new Module(app))
 
   if ('file' in options) {

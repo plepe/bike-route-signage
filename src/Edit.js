@@ -1,4 +1,5 @@
 const Form = require('modulekit-form')
+const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const clone = require('./clone')
@@ -9,7 +10,14 @@ global.ui_lang = 'de'
 let at
 
 module.exports = class Edit {
-  constructor () {
+  constructor (app) {
+    const div = document.getElementById('editor')
+    this.tab = new Tab({ id: 'editor' })
+    app.tabs.add(this.tab)
+
+    this.tab.header.innerHTML = 'Bearbeiten'
+    this.tab.content.appendChild(div)
+
     let a = document.createElement('a')
     a.href = '#'
     a.innerHTML = 'Neuen Knoten an aktueller Position anlegen'
@@ -22,13 +30,13 @@ module.exports = class Edit {
       this.edit(entry)
       return false
     }
-    document.getElementById('editor').appendChild(a)
+    div.appendChild(a)
 
-    document.getElementById('editor').appendChild(this.rotateRoute())
+    div.appendChild(this.rotateRoute())
 
     this.dom = document.createElement('form')
     this.dom.id = 'edit'
-    document.getElementById('editor').appendChild(this.dom)
+    div.appendChild(this.dom)
   }
 
   setRoute (route) {
@@ -94,6 +102,7 @@ module.exports = class Edit {
         Route.get(li.getAttribute('data-file'), (err, _route) => {
           const entry = _route.data.route[li.getAttribute('data-index')]
           this.edit(entry)
+          this.tab.select()
         })
         return false
       }

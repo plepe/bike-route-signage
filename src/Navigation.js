@@ -1,4 +1,5 @@
 const { saveAs } = require('file-saver')
+const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const updateInput = require('./updateInput')
@@ -13,8 +14,15 @@ turn = {
 }
 
 module.exports = class Navigation {
-  constructor () {
+  constructor (app) {
     this.dom = document.getElementById('navigation')
+
+    this.tab = new Tab({ id: 'navigation' })
+    app.tabs.add(this.tab)
+    this.tab.select()
+
+    this.tab.header.innerHTML = 'Navigation'
+    this.tab.content.appendChild(this.dom)
 
     let div = document.createElement('div')
     this.dom.appendChild(div)
