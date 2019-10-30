@@ -30,7 +30,7 @@ module.exports = class ConfigureView {
 
     let submit = document.createElement('input')
     submit.type = 'submit'
-    submit.style.display = 'hidden'
+    submit.style.display = 'none'
     div.appendChild(submit)
   }
 
