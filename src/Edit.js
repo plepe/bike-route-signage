@@ -1,6 +1,7 @@
 const Form = require('modulekit-form')
 
 const Route = require('./Route')
+const clone = require('./clone')
 
 // TODO: embed modulekit-lang
 global.lang_str = {}
@@ -21,11 +22,13 @@ module.exports = class Edit {
       this.edit(entry)
       return false
     }
-    document.getElementById('menu').appendChild(a)
+    document.getElementById('editor').appendChild(a)
+
+    document.getElementById('editor').appendChild(this.rotateRoute())
 
     this.dom = document.createElement('form')
     this.dom.id = 'edit'
-    document.getElementById('menu').appendChild(this.dom)
+    document.getElementById('editor').appendChild(this.dom)
   }
 
   setRoute (route) {
@@ -100,4 +103,47 @@ module.exports = class Edit {
       at = options.at
     }
   }
+
+  rotateRoute () {
+    let a = document.createElement('a')
+    a.href = '#'
+    a.onclick = () => {
+      let len = this.route.data.length
+
+      let data = clone(this.route.data)
+      data.route = data.route
+        .map(entry => {
+          entry = clone(entry)
+          entry.at = len - entry.at
+          if (entry.direction) {
+            entry.direction = turn[entry.direction]
+          }
+          if (entry.realDirection) {
+            entry.realDirection = turn[entry.realDirection]
+          }
+          if (entry.routeDirection) {
+            entry.routeDirection= turn[entry.routeDirection]
+          }
+          if (entry.connections) {
+            entry.connections.forEach(conn => {
+              if (conn.direction) {
+                conn.direction = turn[conn.direction]
+              }
+            })
+          }
+
+          return entry
+        })
+        .reverse()
+      data.coordinates = data.coordinates.reverse()
+
+      global.setRoute(new Route('', data))
+
+      return false
+    }
+    a.appendChild(document.createTextNode('Rotate route'))
+
+    return a
+  }
+
 }

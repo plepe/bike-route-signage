@@ -7,7 +7,8 @@ const Route = require('./Route')
 const httpGet = require('./httpGet')
 const Modules = {
   map: require('./Map'),
-  menu: require('./Menu'),
+  navigation: require('./Navigation'),
+  configureView: require('./ConfigureView'),
   edit: require('./Edit')
 }
 
