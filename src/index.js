@@ -10,7 +10,8 @@ const Modules = {
   map: require('./Map'),
   navigation: require('./Navigation'),
   configureView: require('./ConfigureView'),
-  edit: require('./Edit')
+  edit: require('./Edit'),
+  source: require('./Source')
 }
 
 let modules = {}
