@@ -150,24 +150,24 @@ class Route extends EventEmitter {
     let result = {}
     for (let k in this.data) {
       switch (k) {
-        case 'coordinates':
-          break
         case 'route':
-          result[k] = this.data.route.map(entry => {
-            let _entry = {}
-            for (let l in entry) {
-              // remove 'index' and 'file' attributes
-              if (![ 'index', 'file' ].includes(l)) {
-                _entry[l] = entry[l]
-              }
-            }
-            return _entry
-          })
+        case 'coordinates':
           break
         default:
           result[k] = this.data[k]
       }
     }
+
+    result.route = this.data.route.map(entry => {
+      let _entry = {}
+      for (let l in entry) {
+        // remove 'index' and 'file' attributes
+        if (![ 'index', 'file' ].includes(l)) {
+          _entry[l] = entry[l]
+        }
+      }
+      return _entry
+    })
 
     result = yaml.stringify(result)
 
