@@ -19,21 +19,29 @@ module.exports = class Source {
     }
 
     this.dom.oninput = () => {
-      let data
-      try {
-        data = yaml.parse(this.dom.textContent)
-      } catch (e) {
-        this.dom.classList.add('error')
-        return console.log(e.message)
+      if (this.timeout) {
+        global.clearTimeout(this.timeout)
       }
 
-      this.dom.classList.remove('error')
-      if (data) {
-        this.route.data = data
-        this.updateFromSource = true
-        this.route.update()
-        this.updateFromSource = false
-      }
+      this.timeout = global.setTimeout(() => this.submitChanges(), 100)
+    }
+  }
+
+  submitChanges () {
+    let data
+    try {
+      data = yaml.parse(this.dom.textContent)
+    } catch (e) {
+      this.dom.classList.add('error')
+      return console.log(e.message)
+    }
+
+    this.dom.classList.remove('error')
+    if (data) {
+      this.route.data = data
+      this.updateFromSource = true
+      this.route.update()
+      this.updateFromSource = false
     }
   }
 
