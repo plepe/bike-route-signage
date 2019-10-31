@@ -30,17 +30,20 @@ global.loadFile = (file, callback) => {
 }
 
 function updateStatus (data) {
-  if ('file' in data && (!route || data.file !== route.id)) {
+  if ('file' in data && (!route || data.file !== options.id)) {
     options.file = data.file
-    Route.get(data.file, (err, _route) => {
-      if (err) {
-        return console.error(err)
-      }
 
-      setRoute(_route)
-      updateStatus(data)
-    })
-    return
+    if (route.id !== data.file) {
+      Route.get(data.file, (err, _route) => {
+        if (err) {
+          return console.error(err)
+        }
+
+        setRoute(_route)
+        updateStatus(data)
+      })
+      return
+    }
   }
 
   if ('at' in data) {
@@ -85,7 +88,7 @@ function setRoute (_route) {
 
   route = _route
   forEach(modules, module => module.setRoute(route))
-  updateStatus(options)
+  updateStatus({ file: route.id })
 
   route.on('update', update)
 }
