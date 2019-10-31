@@ -2,6 +2,8 @@
   --mainColor: #ffffff;
   --otherColor: #afafaf;
   --backgroundColor: #000000;
+  --titleColor: #ffffff;
+  --titleBackgroundColor: #ff0000;
 }
 
 body {

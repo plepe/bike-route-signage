@@ -6,7 +6,9 @@ const updateInput = require('./updateInput')
 let colors = {
   mainColor: 'Route Farbe',
   otherColor: 'Fortgesetzt Farbe',
-  backgroundColor: 'Hintergrundfarbe'
+  backgroundColor: 'Hintergrundfarbe',
+  titleColor: 'Titel Farbe',
+  titleBackgroundColor: 'Titel Hintergrundfarbe'
 }
 let defaultValues = {}
 
