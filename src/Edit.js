@@ -20,6 +20,15 @@ module.exports = class Edit {
 
     let a = document.createElement('a')
     a.href = '#'
+    a.innerHTML = 'Grundwerte bearbeiten'
+    a.onclick = () => {
+      this.editRoot()
+      return false
+    }
+    div.appendChild(a)
+
+    a = document.createElement('a')
+    a.href = '#'
     a.innerHTML = 'Neuen Knoten an aktueller Position anlegen'
     a.onclick = () => {
       let entry = { name: '', at }
@@ -45,6 +54,41 @@ module.exports = class Edit {
 
   clear () {
     this.dom.innerHTML = ''
+  }
+
+  editRoot () {
+    this.clear()
+
+    this.form = new Form('root', require('./entryRoot.json'))
+    this.form.set_data(this.route.data)
+
+    this.form.show(this.dom)
+
+    let input = document.createElement('input')
+    input.type = 'submit'
+    input.value = 'Update'
+    this.dom.appendChild(input)
+
+    input = document.createElement('input')
+    input.type = 'button'
+    input.value = 'Cancel'
+    input.onclick = () => {
+      this.clear()
+      return false
+    }
+    this.dom.appendChild(input)
+
+    this.dom.onsubmit = () => {
+      let data = this.form.get_data()
+      for (let k in data) {
+        this.route.data[k] = data[k]
+      }
+
+      this.clear()
+      this.route.update()
+      global.updateStatus({})
+      return false
+    }
   }
 
   edit (entry) {

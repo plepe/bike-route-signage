@@ -1,0 +1,24 @@
+{
+  "title": {
+    "type": "text",
+    "name": "Titel"
+  },
+  "length": {
+    "type": "integer",
+    "name": "Länge (m)"
+  },
+  "continue": {
+    "type": "form",
+    "name": "Fortsetzung",
+    "def": {
+      "file": {
+        "type": "text",
+        "name": "Dateiname"
+      },
+      "at": {
+        "type": "integer",
+        "name": "Position"
+      }
+    }
+  }
+}
