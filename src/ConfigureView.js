@@ -1,7 +1,14 @@
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
+const forEach = require('for-each')
 
 const updateInput = require('./updateInput')
+let colors = {
+  mainColor: 'Route Farbe',
+  otherColor: 'Fortgesetzt Farbe',
+  backgroundColor: 'Hintergrundfarbe'
+}
+let defaultValues = {}
 
 module.exports = class ConfigureView {
   constructor (app) {
@@ -14,18 +21,40 @@ module.exports = class ConfigureView {
     this.tab.header.innerHTML = 'Ansicht'
     this.tab.content.appendChild(div)
 
-    this.form = new Form('view', {
+    defaultValues = {
+      pick: '4,3,2,1,1'
+    }
+
+    let formDef = {
       pick: {
         name: 'Prioritäten',
         type: 'text',
-        default: '4,3,2,1,1'
+        default: defaultValues.pick,
+      }
+    }
+
+    forEach(colors, (title, color) => {
+      defaultValues[color] = getComputedStyle(document.documentElement).getPropertyValue('--' + color)
+      formDef[color] = {
+        name: title,
+        type: 'text',
+        default: defaultValues[color]
       }
     })
 
+    this.form = new Form('view', formDef)
+
     this.form.show(div)
+
     this.form.onchange = () => {
       let data = this.form.get_data()
       global.updateStatus(data)
+
+      forEach(colors, (title, color) => {
+        if (data[color] !== defaultValues[color]) {
+          document.documentElement.style.setProperty('--' + color, data[color])
+        }
+      })
     }
 
     let submit = document.createElement('input')
