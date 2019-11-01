@@ -29,7 +29,12 @@ module.exports = class Geolocation {
       this.map.on(trackEvent, e => {
         let poi = this.route.positionNear(e.latlng)
         if (poi.properties.dist * 1000 < 50) { // only when nearer than 50m
-          global.updateStatus({ at: poi.at })
+          // at end of route -> skip to continued route (if available)
+          if (poi.at >= this.route.data.length) {
+            global.updateStatus({ at: this.route.data.length + 1 })
+          } else {
+            global.updateStatus({ at: poi.at })
+          }
         }
       })
 
