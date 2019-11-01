@@ -1,15 +1,56 @@
 title: Citydurchfahrt
+length: 1423
 route:
+  - name: Albertina
+    at: 225
+    type: place
+    ptRoutes: []
+    priority: "2"
   - name: Habsburgergasse
     at: 586
     type: bikeroute
     ptRoutes: []
     priority: "3"
     direction: right
+    connections:
+      - name: Graben
+        type: place
+        distance: 240
+        ptRoutes: []
+      - name: Wipplingerstraße
+        type: bikeroute
+        distance: 660
+        ptRoutes: []
+      - name: Ring-Rund
+        type: bikeroute
+        distance: 1000
+        ptRoutes: []
+        connections:
+          - name: Schwedenplatz
+            type: place
+            distance: 1200
+            ptRoutes: []
   - name: Michaelerplatz
     at: 608
     type: place
     ptRoutes: []
+    priority: "2"
+    connections:
+      - name: Heldenplatz
+        type: place
+        distance: 200
+        ptRoutes: []
+        direction: left
+      - name: Ring-Rund
+        type: place
+        distance: 450
+        ptRoutes: []
+        direction: left
+  - name: Herrengasse
+    at: 819
+    type: ptStop
+    ptRoutes:
+      - U3
     priority: "2"
   - name: Freyung
     at: 1143
@@ -27,12 +68,6 @@ route:
         type: bikeroute
         ptRoutes: []
         priority: "1"
-  - name: Albertina
-    at: 225
-    type: place
-    ptRoutes: []
-    priority: "2"
-length: 1423
 coordinates:
   - [ 16.368073, 48.202675 ]
   - [ 16.368846, 48.204384 ]
