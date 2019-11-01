@@ -75,7 +75,6 @@ module.exports = class Map {
     }
     this.clear()
     this.route = route
-    this.routeGeoJSON = null
     this.update()
     this.updateFun = () => {
       this.clear()
@@ -91,14 +90,6 @@ module.exports = class Map {
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
 
-      this.routeGeoJSON = {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: this.route.data.coordinates
-        }
-      }
-
       this.path.on('click', e => {
         let poi = this.route.positionNear(e.latlng)
         global.updateStatus({ at: poi.at })
@@ -110,7 +101,7 @@ module.exports = class Map {
           return
         }
 
-        let poi = turf.along(this.routeGeoJSON, entry.at / 1000)
+        let poi = turf.along(this.route.GeoJSON(), entry.at / 1000)
         let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
         let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1 }).addTo(this.map)
         marker.on('click', () => global.updateStatus({ at: entry.at }))
@@ -122,11 +113,11 @@ module.exports = class Map {
   }
 
   getPosition (at) {
-    return turf.along(this.routeGeoJSON, (at < 0 ? 0 : at) / 1000)
+    return turf.along(this.route.GeoJSON(), (at < 0 ? 0 : at) / 1000)
   }
 
   updateStatus (options) {
-    if (!this.routeGeoJSON) {
+    if (!this.route || !this.route.GeoJSON().geometry) {
       return
     }
 
