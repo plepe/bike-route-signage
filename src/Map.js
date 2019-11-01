@@ -29,6 +29,16 @@ module.exports = class Map {
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
 
+    let pane = this.map.createPane('otherRoutes')
+    pane.style.zIndex = 399
+    pane.style.opacity = 0.4
+
+    pane = this.map.createPane('location')
+    pane.style.zIndex = 401
+
+    pane = this.map.createPane('currentRoute')
+    pane.style.zIndex = 400
+
     this.drawControl = new L.Control.Draw({
       draw: {
         polyline: false,
@@ -90,7 +100,7 @@ module.exports = class Map {
 
   update () {
     if (this.route.data.coordinates) {
-      this.path = this.showRoute(this.route, { style: { color: 'red' }})
+      this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute' }})
       this.layers.addLayer(this.path)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
@@ -108,7 +118,7 @@ module.exports = class Map {
 
         let poi = turf.along(this.route.GeoJSON(), entry.at / 1000)
         let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
-        let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1 }).addTo(this.map)
+        let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1, pane: 'currentRoute' }).addTo(this.map)
         marker.on('click', () => global.updateStatus({ at: entry.at }))
         this.markers.push(marker)
       })
@@ -128,7 +138,7 @@ module.exports = class Map {
       asyncForEach(list,
         (file, callback) => {
           Route.get(file, (err, route) => {
-            let path = this.showRoute(route, { style: { color: 'grey' } })
+            let path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes' } })
             path.addTo(this.map)
             callback()
           })
@@ -152,7 +162,7 @@ module.exports = class Map {
     if (this.locationIndicator) {
       this.locationIndicator.setLatLng(latlng)
     } else {
-      this.locationIndicator = L.circleMarker(latlng, { color: '#0000ff', radius: 5 }).addTo(this.map)
+      this.locationIndicator = L.circleMarker(latlng, { color: '#0000ff', radius: 5, pane: 'location' }).addTo(this.map)
     }
 
     this.map.panTo(latlng)
