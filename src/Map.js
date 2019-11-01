@@ -1,8 +1,11 @@
 require('leaflet')
 require('leaflet-draw')
 
+const asyncForEach = require('async-each')
+
 const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
+const Route = require('./Route')
 
 const turf = {
   along: require('@turf/along').default
@@ -54,6 +57,8 @@ module.exports = class Map {
     })
 
     this.map.setView([ 48.20837, 16.37239 ], 10)
+
+    this.showAll()
   }
 
   clear () {
@@ -85,7 +90,7 @@ module.exports = class Map {
 
   update () {
     if (this.route.data.coordinates) {
-      this.path = L.polyline(this.route.data.coordinates.map(coord => [ coord[1], coord[0] ]), { color: 'red' })
+      this.path = this.showRoute(this.route, { style: { color: 'red' }})
       this.layers.addLayer(this.path)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
@@ -110,6 +115,26 @@ module.exports = class Map {
     } else {
       new L.Draw.Polyline(this.map, this.drawControl.options.polyline).enable();
     }
+  }
+
+  showRoute (route, options) {
+    let path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), options.style)
+
+    return path
+  }
+
+  showAll () {
+    global.loadList((err, list) => {
+      asyncForEach(list,
+        (file, callback) => {
+          Route.get(file, (err, route) => {
+            let path = this.showRoute(route, { style: { color: 'grey' } })
+            path.addTo(this.map)
+            callback()
+          })
+        }
+      )
+    })
   }
 
   getPosition (at) {
