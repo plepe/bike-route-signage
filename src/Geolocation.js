@@ -24,6 +24,15 @@ module.exports = class Geolocation {
         }
       }).addTo(this.map)
 
+      let trackEvent = 'locationfound'
+      //trackEvent = 'mousemove' // enable for testing
+      this.map.on(trackEvent, e => {
+        let poi = this.route.positionNear(e.latlng)
+        if (poi.properties.dist * 1000 < 50) { // only when nearer than 50m
+          global.updateStatus({ at: poi.at })
+        }
+      })
+
       this.isInit = true
     }
   }
