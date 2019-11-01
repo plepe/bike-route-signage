@@ -14,7 +14,7 @@ module.exports = class Geolocation {
     if (this.app.modules.map && this.app.modules.map.map) {
       this.map = this.app.modules.map.map
 
-      L.control.locate({
+      this.control = L.control.locate({
         keepCurrentZoomLevel: true,
         drawCircle: false,
         drawMarker: true,
@@ -27,6 +27,15 @@ module.exports = class Geolocation {
       let trackEvent = 'locationfound'
       //trackEvent = 'mousemove' // enable for testing
       this.map.on(trackEvent, e => {
+        if (this.control._userPanned) {
+          return
+        }
+
+        // route not loaded (yet)
+        if (!this.route) {
+          return
+        }
+
         let poi = this.route.positionNear(e.latlng)
         if (poi.properties.dist * 1000 < 50) { // only when nearer than 50m
           // at end of route -> skip to continued route (if available)
