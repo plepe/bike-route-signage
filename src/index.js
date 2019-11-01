@@ -105,10 +105,6 @@ function load () {
     return
   }
 
-  if (!global.files) {
-    global.files = [ options.file ]
-  }
-
   _load2()
 }
 
@@ -121,24 +117,27 @@ function loadList (callback) {
 
   httpGet('data/', {}, (err, result) => {
     if (err) {
-      callback(err)
+      return callback(err)
     }
 
     let regexp = new RegExp(/href="(.*data\/)?([^"]+)\.yml"/g)
     let m
     while (m = regexp.exec(result.body)) {
-      files.push(m[2])
+      files.push(decodeURIComponent(m[2]))
     }
+
+    global.files = files
 
     callback(null, files)
   })
 }
+global.loadList = loadList
 
 function showList (err, data) {
   let result = '<ul>\n'
 
   data.forEach(file => {
-    result += '  <li><a href="?file=' + file + '">' + decodeURIComponent(file) + '</a></li>\n'
+    result += '  <li><a href="?file=' + encodeURIComponent(file) + '">' + file + '</a></li>\n'
   })
 
   result += '<li><a href="?file=">Neue Datei</a></li>'
@@ -167,7 +166,7 @@ window.onload = function () {
 
   var tabs = new Tabs(document.getElementById('menu'))
 
-  let app = { modules, tabs }
+  let app = { modules, tabs, options }
   forEach(Modules, (Module, k) => modules[k] = new Module(app))
 
   if ('file' in options) {

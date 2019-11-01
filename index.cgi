@@ -6,6 +6,7 @@ const JSDOM = require('jsdom').JSDOM
 
 const Route = require('./src/Route')
 const updateInput = require('./src/updateInput')
+const updateFileSelect = require('./src/updateFileSelect')
 
 console.log('Content-Type: text/html; charset=utf8')
 console.log('')
@@ -61,6 +62,8 @@ if (!('file' in options)) {
     }
   }
 }
+
+updateFileSelect(files, options, document)
 
 function loadAndRender (id) {
   Route.get(id, (err, route) => {

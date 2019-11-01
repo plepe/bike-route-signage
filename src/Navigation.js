@@ -3,6 +3,7 @@ const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const updateInput = require('./updateInput')
+const updateFileSelect = require('./updateFileSelect')
 
 turn = {
   left: 'right',
@@ -26,6 +27,8 @@ module.exports = class Navigation {
 
     let div = document.createElement('div')
     this.dom.appendChild(div)
+
+    global.loadList(() => updateFileSelect(global.files, app.options, document))
 
     let a = document.createElement('a')
     a.href = '#'
