@@ -5,8 +5,7 @@ const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
 
 const turf = {
-  along: require('@turf/along').default,
-  nearestPointOnLine: require('@turf/nearest-point-on-line').default
+  along: require('@turf/along').default
 }
 
 module.exports = class Map {
@@ -101,9 +100,8 @@ module.exports = class Map {
       }
 
       this.path.on('click', e => {
-        let poi = turf.nearestPointOnLine(this.routeGeoJSON, { type: 'Feature', geometry: { type: 'Point', coordinates: [e.latlng.lng, e.latlng.lat]}})
-        let at = Math.round(poi.properties.location * 1000)
-        global.updateStatus({ at })
+        let poi = this.route.positionNear(e.latlng)
+        global.updateStatus({ at: poi.at })
       })
 
       this.markers = []

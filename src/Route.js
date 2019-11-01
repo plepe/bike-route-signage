@@ -1,7 +1,8 @@
 const yaml = require('yaml')
 const EventEmitter = require('events')
 const turf = {
-  length: require('@turf/length').default
+  length: require('@turf/length').default,
+  nearestPointOnLine: require('@turf/nearest-point-on-line').default
 }
 
 const formatEntry = require('./formatEntry')
@@ -190,6 +191,13 @@ class Route extends EventEmitter {
         coordinates: this.data.coordinates
       }
     }
+  }
+
+  positionNear (latlng) {
+    let poi = turf.nearestPointOnLine(this.GeoJSON(), { type: 'Feature', geometry: { type: 'Point', coordinates: [latlng.lng, latlng.lat]}})
+    poi.at = Math.round(poi.properties.location * 1000)
+
+    return poi
   }
 }
 
