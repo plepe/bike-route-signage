@@ -124,10 +124,10 @@ function loadList (callback) {
       callback(err)
     }
 
-    let regexp = new RegExp(/href=".*data\/([^"]+)\.yml"/g)
+    let regexp = new RegExp(/href="(.*data\/)?([^"]+)\.yml"/g)
     let m
     while (m = regexp.exec(result.body)) {
-      files.push(m[1])
+      files.push(m[2])
     }
 
     callback(null, files)
