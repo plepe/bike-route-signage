@@ -184,6 +184,13 @@ class Route extends EventEmitter {
   }
 
   GeoJSON () {
+    if (!this.data.coordinates) {
+      return {
+        type: 'Feature',
+        geometry: null
+      }
+    }
+
     return {
       type: 'Feature',
       geometry: {
