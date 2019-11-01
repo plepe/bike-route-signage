@@ -11,7 +11,8 @@ const Modules = {
   navigation: require('./Navigation'),
   configureView: require('./ConfigureView'),
   edit: require('./Edit'),
-  source: require('./Source')
+  source: require('./Source'),
+  geolocation: require('./Geolocation')
 }
 
 let modules = {}
