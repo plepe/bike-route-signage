@@ -6,6 +6,7 @@ const asyncForEach = require('async-each')
 const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
 const Route = require('./Route')
+const appifyLinks = require('./appifyLinks')
 
 const turf = {
   along: require('@turf/along').default
@@ -67,6 +68,8 @@ module.exports = class Map {
     })
 
     this.map.setView([ 48.20837, 16.37239 ], 10)
+
+    this.map.on('click', e => this.showPopupAt(e.latlng))
 
     this.showAll()
   }
@@ -142,6 +145,42 @@ module.exports = class Map {
             path.addTo(this.map)
             callback()
           })
+        }
+      )
+    })
+  }
+
+  showPopupAt (latlng) {
+    let nearby = []
+
+    global.loadList((err, list) => {
+      asyncForEach(list,
+        (file, callback) => {
+          Route.get(file, (err, route) => {
+            let pos = route.positionNear(latlng)
+            if (pos.properties.dist * 1000 < 50) {
+              nearby.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
+            }
+            callback()
+          })
+        },
+        () => {
+          let div = document.createElement('div')
+
+          if (nearby.length) {
+            div.innerHTML = 'Routen:<ul>' +
+              nearby.join('\n') +
+              '</ul>'
+          } else {
+            div.innerHTML = 'Keine Routen in der Nähe gefunden!'
+          }
+
+          appifyLinks(div)
+
+          let popup = L.popup()
+            .setLatLng(latlng)
+            .setContent(div)
+            .openOn(this.map)
         }
       )
     })
