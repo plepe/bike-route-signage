@@ -1,9 +1,12 @@
 require('leaflet.locatecontrol')
 
+const forEach = require('for-each')
+
 module.exports = class Geolocation {
   constructor (app) {
     this.app = app
     this.init()
+    this.positions = {}
   }
 
   init () {
@@ -37,20 +40,54 @@ module.exports = class Geolocation {
         }
 
         let poi = this.route.positionNear(e.latlng)
-        if (poi.properties.dist * 1000 < 50) { // only when nearer than 50m
+        this.positions[new Date().getTime()] = e.latlng
+        this.clearPositions()
+        if (poi.properties.dist * 1000 < 50 && poi.at > this.maxAt - 10) { // only when nearer than 50m and going forward (with a tolerance of 10m)
           // at end of route -> skip to continued route (if available)
           if (poi.at >= this.route.data.length) {
             global.updateStatus({ at: this.route.data.length + 1 })
           } else {
             global.updateStatus({ at: poi.at })
           }
+
+          if (poi.at > this.maxAt) {
+            this.maxAt = poi.at
+          }
         } else {
           // switch to other route, if available
           this.app.modules.map.findRoutesNear(e.latlng, (err, list) => {
             if (list && list.length) {
-              let index = 0
+              // Get a position more than 2sec ago
+              let oldLatLng
+              let oldTime = new Date().getTime() - 2 * 1000
+              forEach(this.positions, (latlng, time) => {
+                if (time < oldTime) {
+                  oldLatLng = latlng
+                }
+              })
 
-              global.updateStatus({ file: list[index].route.id, at: list[index].pos.at })
+              if (!oldLatLng) {
+                return
+              }
+
+              // Check which routes are used forward
+              list = list.filter(d => {
+                let { route, pos } = d
+                let oldPos = route.positionNear(oldLatLng)
+
+                if (oldPos.at < pos.at) {
+                  return true
+                }
+              })
+
+              // TODO: order routes by priority
+
+              if (!list.length) {
+                return
+              }
+
+              // Switch to selected route
+              global.updateStatus({ file: list[0].route.id, at: list[0].pos.at })
             }
           })
         }
@@ -60,8 +97,18 @@ module.exports = class Geolocation {
     }
   }
 
+  clearPositions () {
+    let t = new Date().getTime() - 10 * 1000
+    for (let k in this.positions) {
+      if (k < t) {
+        delete this.positions[k]
+      }
+    }
+  }
+
   setRoute (route) {
     this.route = route
+    this.maxAt = 0
   }
 
   updateStatus (options) {
