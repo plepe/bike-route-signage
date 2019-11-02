@@ -150,7 +150,7 @@ module.exports = class Map {
     })
   }
 
-  showPopupAt (latlng) {
+  findRoutesNear (latlng, callback) {
     let nearby = []
 
     global.loadList((err, list) => {
@@ -159,31 +159,47 @@ module.exports = class Map {
           Route.get(file, (err, route) => {
             let pos = route.positionNear(latlng)
             if (pos.properties.dist * 1000 < 50) {
-              nearby.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
+              nearby.push({ route, pos })
             }
             callback()
           })
         },
         () => {
-          let div = document.createElement('div')
-
-          if (nearby.length) {
-            div.innerHTML = 'Routen:<ul>' +
-              nearby.join('\n') +
-              '</ul>'
-          } else {
-            div.innerHTML = 'Keine Routen in der Nähe gefunden!'
-          }
-
-          appifyLinks(div)
-
-          let popup = L.popup()
-            .setLatLng(latlng)
-            .setContent(div)
-            .openOn(this.map)
+          callback(null, nearby)
         }
       )
     })
+  }
+
+  showPopupAt (latlng) {
+    let result = []
+
+    this.findRoutesNear(latlng,
+      (err, nearby) => {
+        nearby.forEach(d => {
+          let { route, pos } = d
+
+          result.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
+        })
+
+        let div = document.createElement('div')
+
+        if (result.length) {
+          div.innerHTML = 'Routen:<ul>' +
+            result.join('\n') +
+            '</ul>'
+        } else {
+          div.innerHTML = 'Keine Routen in der Nähe gefunden!'
+        }
+
+        appifyLinks(div)
+
+        L.popup()
+          .setLatLng(latlng)
+          .setContent(div)
+          .openOn(this.map)
+      },
+    )
   }
 
   getPosition (at) {
