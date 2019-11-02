@@ -22,7 +22,7 @@ module.exports = class Edit {
     a.href = '#'
     a.innerHTML = 'Grundwerte bearbeiten'
     a.onclick = () => {
-      this.editRoot()
+      this.editBasic()
       return false
     }
     div.appendChild(a)
@@ -56,10 +56,10 @@ module.exports = class Edit {
     this.dom.innerHTML = ''
   }
 
-  editRoot () {
+  editBasic () {
     this.clear()
 
-    this.form = new Form('root', require('./entryRoot.json'))
+    this.form = new Form('root', require('./routeBasic.json'))
     this.form.set_data(this.route.data)
 
     this.form.show(this.dom)
