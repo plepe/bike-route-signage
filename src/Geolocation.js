@@ -44,6 +44,15 @@ module.exports = class Geolocation {
           } else {
             global.updateStatus({ at: poi.at })
           }
+        } else {
+          // switch to other route, if available
+          this.app.modules.map.findRoutesNear(e.latlng, (err, list) => {
+            if (list && list.length) {
+              let index = 0
+
+              global.updateStatus({ file: list[index].route.id, at: list[index].pos.at })
+            }
+          })
         }
       })
 
