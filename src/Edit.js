@@ -1,5 +1,6 @@
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
+const forEach = require('for-each')
 
 const Route = require('./Route')
 const clone = require('./clone')
@@ -60,7 +61,13 @@ module.exports = class Edit {
     this.clear()
 
     this.form = new Form('root', require('./routeBasic.json'))
-    this.form.set_data(this.route.data)
+
+    let data = clone(this.route.data)
+    if (typeof data.title === 'string') {
+      data.title = { 0: data.title }
+    }
+
+    this.form.set_data(data)
 
     this.form.show(this.dom)
 
@@ -80,8 +87,23 @@ module.exports = class Edit {
 
     this.dom.onsubmit = () => {
       let data = this.form.get_data()
+
+      if (Object.keys(data.title).length === 0) {
+        data.title = null
+      } else if (Object.keys(data.title).length === 1 && ('0' in data.title)) {
+        data.title = data.title['0']
+      }
+
+      if (Object.keys(data.continue).length === 0) {
+        data.continue = null
+      }
+
       for (let k in data) {
-        this.route.data[k] = data[k]
+        if (data[k] === null) {
+          delete this.route.data[k]
+        } else {
+          this.route.data[k] = data[k]
+        }
       }
 
       this.clear()
@@ -189,6 +211,14 @@ module.exports = class Edit {
         })
         .reverse()
       data.coordinates = data.coordinates.reverse()
+
+      if (typeof data.title === 'object') {
+        let title = {}
+        forEach(data.title, (name, at) => {
+          title[len - at] = name
+        })
+        data.title = title
+      }
 
       global.setRoute(new Route('', data))
 

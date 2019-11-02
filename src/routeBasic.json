@@ -1,7 +1,16 @@
 {
   "title": {
-    "type": "text",
-    "name": "Titel"
+    "type": "hash",
+    "name": "Titel",
+    "key_def": {
+      "type": "integer",
+      "name": "Ab position",
+      "default": 0
+    },
+    "def": {
+      "type": "text",
+      "name": "Text"
+    }
   },
   "length": {
     "type": "integer",
@@ -13,11 +22,13 @@
     "def": {
       "file": {
         "type": "text",
-        "name": "Dateiname"
+        "name": "Dateiname",
+        "include_data": "not_null"
       },
       "at": {
         "type": "integer",
-        "name": "Position"
+        "name": "Position",
+        "include_data": "not_null"
       }
     }
   }
