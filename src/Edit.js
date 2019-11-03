@@ -34,7 +34,11 @@ module.exports = class Edit {
     a.onclick = () => {
       let entry = { name: '', at }
       let pos = this.route.data.route.findIndex(entry => entry.at >= at)
-      this.route.data.route.splice(pos, 0, entry)
+      if (pos === -1) {
+        this.route.data.route.push(entry)
+      } else {
+        this.route.data.route.splice(pos, 0, entry)
+      }
       this.route.update()
 
       this.edit(entry)
