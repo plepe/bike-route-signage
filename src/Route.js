@@ -11,6 +11,7 @@ const clone = require('./clone')
 const toPick = [4, 3, 2, 1, 1]
 
 let routes = {}
+let beingLoaded = {}
 
 class Route extends EventEmitter {
   constructor (id, data) {
@@ -213,6 +214,13 @@ function get (id, callback) {
     return callback(null, routes[id])
   }
 
+  if (id in beingLoaded) {
+    beingLoaded[id].push(callback)
+    return
+  }
+
+  beingLoaded[id] = [ callback ]
+
   global.loadFile(id, (err, route) => {
     if (err) {
       return callback(err)
@@ -220,7 +228,8 @@ function get (id, callback) {
 
     routes[id] = new Route(id, route)
 
-    callback(null, routes[id])
+    beingLoaded[id].forEach(cb => cb(null, routes[id]))
+    delete beingLoaded[id]
   })
 }
 

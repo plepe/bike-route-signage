@@ -109,11 +109,18 @@ function load () {
   _load2()
 }
 
+let loadListCallbacks
 function loadList (callback) {
   if (global.files) {
     return callback(null, global.files)
   }
 
+  if (loadListCallbacks) {
+    loadListCallbacks.push(callback)
+    return
+  }
+
+  loadListCallbacks = [ callback ]
   let files = []
 
   httpGet('data/', {}, (err, result) => {
@@ -129,7 +136,8 @@ function loadList (callback) {
 
     global.files = files
 
-    callback(null, files)
+    loadListCallbacks.forEach(cb => cb(null, files))
+    delete loadListCallbacks
   })
 }
 global.loadList = loadList
