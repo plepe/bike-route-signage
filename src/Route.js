@@ -48,6 +48,10 @@ class Route extends EventEmitter {
       return result
     })
 
+    this._pickContinue(route, toPick, pickIndex, callback)
+  }
+
+  _pickContinue (route, toPick, pickIndex, callback) {
     if (pickIndex < toPick.length && this.data.continue) {
       get(this.data.continue.file, (err, nextRoute) => {
         if (err) {
