@@ -145,7 +145,9 @@ module.exports = class Edit {
     this.dom.onsubmit = () => {
       let data = this.form.get_data()
       for (let k in data) {
-        if (data[k]) {
+        if (data[k] === null) {
+          delete entry[k]
+        } else {
           entry[k] = data[k]
         }
       }

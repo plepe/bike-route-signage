@@ -13,7 +13,6 @@
       "ptStop",
       "park"
     ],
-    "include_data": "not_null",
     "default": "place"
   },
   "at": {
@@ -24,13 +23,11 @@
   },
   "ptRoutes": {
     "type": "keywords",
-    "name": "Umsteigen, öffentlicher Verkehr",
-    "include_data": "not_null"
+    "name": "Umsteigen, öffentlicher Verkehr"
   },
   "priority": {
     "name": "Priorität",
     "type": "select",
-    "include_data": "not_null",
     "values": {
       "1": "Wichtig",
       "2": "Mittel",
@@ -41,7 +38,6 @@
   "hidePriority": {
     "name": "Verstecke unter Priorität",
     "type": "select",
-    "include_data": "not_null",
     "placeholder": "nie",
     "values": {
       "1": "Wichtig",
@@ -54,7 +50,7 @@
     "name": "Richtung",
     "type": "select",
     "desc": "Richtung, wie in der Routevorschau gezeigt",
-    "include_data": "not_null",
+    "placeholder": "keine Richtung angegeben",
     "values": {
       "left": "links",
       "right": "rechts",
@@ -65,7 +61,7 @@
     "name": "Echte Richtung",
     "desc": "Richtung, in die die Abzweigung tatsächlich verläuft",
     "type": "select",
-    "include_data": "not_null",
+    "placeholder": "weicht nicht von 'Richtung' ab",
     "values": {
       "left": "links",
       "diagleft": "schräg links",
@@ -79,7 +75,7 @@
     "name": "Routenrichtung",
     "desc": "Richtungsänderung der Route selber",
     "type": "select",
-    "include_data": "not_null",
+    "placeholder": "keine Angabe",
     "values": {
       "left": "links",
       "diagleft": "schräg links",
@@ -92,7 +88,6 @@
     "name": "Verbindungen",
     "desc": "Weitere Ziele, von hier erreichbar",
     "type": "array",
-    "include_data": "not_null",
     "index_type": "array",
     "default": 0,
     "def": {
