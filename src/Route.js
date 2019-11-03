@@ -1,5 +1,6 @@
 const yaml = require('yaml')
 const EventEmitter = require('events')
+const asyncForEach = require('async-each')
 const turf = {
   length: require('@turf/length').default,
   nearestPointOnLine: require('@turf/nearest-point-on-line').default
@@ -48,7 +49,24 @@ class Route extends EventEmitter {
       return result
     })
 
-    this._pickContinue(route, toPick, pickIndex, callback)
+    asyncForEach(route,
+      (entry, done) => {
+        if (entry.continue) {
+          get(entry.continue.file, (err, nextRoute) => {
+            nextRoute.pick(entry.continue.at, [ 3, 1 ], (err, entries) => {
+              console.log(entries)
+              entry.connections = entries
+              done()
+            })
+          })
+        } else {
+          done()
+        }
+      },
+      () => {
+        this._pickContinue(route, toPick, pickIndex, callback)
+      }
+    )
   }
 
   _pickContinue (route, toPick, pickIndex, callback) {
