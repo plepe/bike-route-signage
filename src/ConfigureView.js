@@ -1,9 +1,9 @@
+/* global getComputedStyle:false */
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
 const forEach = require('for-each')
 
-const updateInput = require('./updateInput')
-let colors = {
+const colors = {
   mainColor: 'Route Farbe',
   otherColor: 'Fortgesetzt Farbe',
   backgroundColor: 'Hintergrundfarbe',
@@ -27,11 +27,11 @@ module.exports = class ConfigureView {
       pick: '4,3,2,1,1'
     }
 
-    let formDef = {
+    const formDef = {
       pick: {
         name: 'Prioritäten',
         type: 'text',
-        default: defaultValues.pick,
+        default: defaultValues.pick
       }
     }
 
@@ -49,7 +49,7 @@ module.exports = class ConfigureView {
     this.form.show(div)
 
     this.form.onchange = () => {
-      let data = this.form.get_data()
+      const data = this.form.get_data()
       global.updateStatus(data)
 
       forEach(colors, (title, color) => {
@@ -59,7 +59,7 @@ module.exports = class ConfigureView {
       })
     }
 
-    let submit = document.createElement('input')
+    const submit = document.createElement('input')
     submit.type = 'submit'
     submit.style.display = 'none'
     div.appendChild(submit)

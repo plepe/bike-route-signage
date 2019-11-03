@@ -1,7 +1,7 @@
 const formatDistance = require('./formatDistance')
 const filterPriority = require('./filterPriority')
 
-let directionText = {
+const directionText = {
   left: '<i class="fas fa-long-arrow-alt-left"></i>',
   diagleft: '<i class="fas fa-long-arrow-alt-left"></i>',
   diagright: '<i class="fas fa-long-arrow-alt-right"></i>',

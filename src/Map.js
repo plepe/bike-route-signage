@@ -1,3 +1,5 @@
+/* global L:false */
+
 require('leaflet')
 require('leaflet-draw')
 
@@ -21,8 +23,8 @@ module.exports = class Map {
     this.map = L.map('map')
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(this.map)
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map)
 
     polylineMeasure(this.map)
     fullscreen(this.map)
@@ -57,17 +59,17 @@ module.exports = class Map {
     this.map.addControl(this.drawControl)
 
     this.map.on(L.Draw.Event.EDITED, () => {
-      let geojson = this.path.toGeoJSON()
+      const geojson = this.path.toGeoJSON()
       this.route.data.coordinates = geojson.geometry.coordinates
       this.setRoute(this.route)
     })
     this.map.on(L.Draw.Event.CREATED, e => {
-      let coordinates = e.layer.editing.latlngs[0].map(latlng => [ latlng.lng, latlng.lat ])
+      const coordinates = e.layer.editing.latlngs[0].map(latlng => [latlng.lng, latlng.lat])
       this.route.data.coordinates = coordinates
       this.setRoute(this.route)
     })
 
-    this.map.setView([ 48.20837, 16.37239 ], 10)
+    this.map.setView([48.20837, 16.37239], 10)
 
     this.map.on('click', e => this.showPopupAt(e.latlng))
 
@@ -103,13 +105,13 @@ module.exports = class Map {
 
   update () {
     if (this.route.data.coordinates) {
-      this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute' }})
+      this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute' } })
       this.layers.addLayer(this.path)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
 
       this.path.on('click', e => {
-        let poi = this.route.positionNear(e.latlng)
+        const poi = this.route.positionNear(e.latlng)
         global.updateStatus({ at: poi.at })
       })
 
@@ -119,29 +121,40 @@ module.exports = class Map {
           return
         }
 
-        let poi = turf.along(this.route.GeoJSON(), entry.at / 1000)
-        let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
-        let marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1, pane: 'currentRoute' }).addTo(this.map)
+        const poi = turf.along(this.route.GeoJSON(), entry.at / 1000)
+        const latlng = [poi.geometry.coordinates[1], poi.geometry.coordinates[0]]
+        const marker = L.circleMarker(latlng, { color: '#ff0000', radius: 3, fillOpacity: 1, pane: 'currentRoute' }).addTo(this.map)
         marker.on('click', () => global.updateStatus({ at: entry.at }))
         this.markers.push(marker)
       })
     } else {
-      new L.Draw.Polyline(this.map, this.drawControl.options.polyline).enable();
+      new L.Draw.Polyline(this.map, this.drawControl.options.polyline).enable()
     }
   }
 
   showRoute (route, options) {
-    let path = L.polyline(route.data.coordinates.map(coord => [ coord[1], coord[0] ]), options.style)
+    const path = L.polyline(route.data.coordinates.map(coord => [coord[1], coord[0]]), options.style)
 
     return path
   }
 
   showAll () {
     global.loadList((err, list) => {
+      if (err) {
+        return console.error(err)
+      }
+
       asyncForEach(list,
         (file, callback) => {
           Route.get(file, (err, route) => {
-            let path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes' } })
+            if (err) {
+              // ignore (and report) errors on loading routes
+              console.error(err)
+              callback()
+              return
+            }
+
+            const path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes' } })
             path.addTo(this.map)
             callback()
           })
@@ -151,13 +164,24 @@ module.exports = class Map {
   }
 
   findRoutesNear (latlng, callback) {
-    let nearby = []
+    const nearby = []
 
     global.loadList((err, list) => {
+      if (err) {
+        return console.error(err)
+      }
+
       asyncForEach(list,
         (file, callback) => {
           Route.get(file, (err, route) => {
-            let pos = route.positionNear(latlng)
+            if (err) {
+              // ignore (and report) errors on loading routes
+              console.error(err)
+              callback()
+              return
+            }
+
+            const pos = route.positionNear(latlng)
             if (pos.properties.dist * 1000 < 50) {
               nearby.push({ route, pos })
             }
@@ -172,17 +196,21 @@ module.exports = class Map {
   }
 
   showPopupAt (latlng) {
-    let result = []
+    const result = []
 
     this.findRoutesNear(latlng,
       (err, nearby) => {
+        if (err) {
+          return console.error(err)
+        }
+
         nearby.forEach(d => {
-          let { route, pos } = d
+          const { route, pos } = d
 
           result.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
         })
 
-        let div = document.createElement('div')
+        const div = document.createElement('div')
 
         if (result.length) {
           div.innerHTML = 'Routen:<ul>' +
@@ -198,7 +226,7 @@ module.exports = class Map {
           .setLatLng(latlng)
           .setContent(div)
           .openOn(this.map)
-      },
+      }
     )
   }
 
@@ -211,8 +239,8 @@ module.exports = class Map {
       return
     }
 
-    let poi = this.getPosition(options.at)
-    let latlng = [ poi.geometry.coordinates[1], poi.geometry.coordinates[0] ]
+    const poi = this.getPosition(options.at)
+    const latlng = [poi.geometry.coordinates[1], poi.geometry.coordinates[0]]
 
     if (this.locationIndicator) {
       this.locationIndicator.setLatLng(latlng)
