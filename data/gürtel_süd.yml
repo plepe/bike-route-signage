@@ -1,3 +1,5 @@
+title: Gürtelradweg
+length: 7397
 route:
   - name: Währinger Straße
     at: 1154
@@ -17,8 +19,6 @@ route:
     ptRoutes:
       - U6
     priority: "2"
-  - name: ""
-    at: 3022
   - name: Josefstädter Straße
     at: 3022
     type: ptStop
@@ -89,15 +89,9 @@ route:
     at: 4750
     type: ptStop
     ptRoutes:
-      - Bahn
+      - train
       - U3
       - U6
-      - "6"
-      - "18"
-      - "9"
-      - "52"
-      - "60"
-      - "5"
     priority: "1"
   - name: Nußdorfer Straße
     at: 397
@@ -105,6 +99,77 @@ route:
     ptRoutes:
       - U6
     priority: "2"
+  - name: Mariahilfer Straße
+    at: 4975
+    type: bikeroute
+    ptRoutes: []
+    priority: "2"
+    direction: left
+    realDirection: straight
+    routeDirection: right
+    connections:
+      - name: Ring-Rund
+        type: bikeroute
+        ptRoutes: []
+        priority: "3"
+  - name: Ullmannstraße
+    at: 5715
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: right
+    connections:
+      - name: Meidlinger Hauptstraße
+        type: ptStop
+        ptRoutes:
+          - U4
+  - name: Mollardgasse
+    at: 5739
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: left
+    connections:
+      - name: Ring-Rund
+        type: bikeroute
+        ptRoutes: []
+  - name: Wientalradweg (West)
+    at: 5823
+    type: bikeroute
+    ptRoutes: []
+    priority: "2"
+    direction: right
+  - name: Margaretengürtel
+    at: 6009
+    type: ptStop
+    ptRoutes:
+      - U4
+    priority: "2"
+  - name: Wientalradweg (Ost)
+    at: 6074
+    type: bikeroute
+    ptRoutes: []
+    priority: "2"
+    direction: left
+    routeDirection: diagright
+    connections:
+      - name: Ring-Rund
+        type: bikeroute
+        ptRoutes: []
+  - name: Siebenbrunnengasse, Flurschützstraße
+    at: 6913
+    type: bikeroute
+    ptRoutes: []
+    priority: "3"
+    direction: both
+    connections:
+      - name: Bhf. Meidling
+        type: ptStop
+        ptRoutes:
+          - U6
+          - REX
+          - train
+        direction: right
 coordinates:
   - [ 16.356282, 48.232935 ]
   - [ 16.355467, 48.232742 ]
@@ -156,12 +221,31 @@ coordinates:
   - [ 16.338161, 48.198076 ]
   - [ 16.338065, 48.197915 ]
   - [ 16.338628, 48.1966 ]
+  - [ 16.338977, 48.19548 ]
   - [ 16.339771, 48.195623 ]
-  - [ 16.337528, 48.190696 ]
-  - [ 16.33873, 48.188063 ]
-  - [ 16.343193, 48.186805 ]
-  - [ 16.34697, 48.182684 ]
-  - [ 16.356583, 48.184744 ]
-  - [ 16.360188, 48.180395 ]
-  - [ 16.375122, 48.185889 ]
-  - [ 16.385422, 48.188292 ]
+  - [ 16.339878, 48.195216 ]
+  - [ 16.339556, 48.194222 ]
+  - [ 16.337968, 48.191475 ]
+  - [ 16.337872, 48.190832 ]
+  - [ 16.337979, 48.190166 ]
+  - [ 16.33844, 48.189587 ]
+  - [ 16.338966, 48.1888 ]
+  - [ 16.338885, 48.188564 ]
+  - [ 16.339014, 48.188425 ]
+  - [ 16.339213, 48.188339 ]
+  - [ 16.341235, 48.188371 ]
+  - [ 16.341594, 48.188307 ]
+  - [ 16.341906, 48.18816 ]
+  - [ 16.34226, 48.188056 ]
+  - [ 16.342319, 48.187845 ]
+  - [ 16.342748, 48.187323 ]
+  - [ 16.342834, 48.187123 ]
+  - [ 16.348161, 48.180953 ]
+  - [ 16.348649, 48.180567 ]
+  - [ 16.349271, 48.180274 ]
+  - [ 16.34941, 48.180381 ]
+  - [ 16.349577, 48.180377 ]
+  - [ 16.349561, 48.180316 ]
+  - [ 16.351658, 48.180288 ]
+  - [ 16.35183, 48.180184 ]
+  - [ 16.353139, 48.18012 ]
