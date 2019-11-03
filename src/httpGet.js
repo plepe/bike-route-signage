@@ -1,3 +1,5 @@
+/* global XMLHttpRequest:false */
+
 function httpGet (url, options, callback) {
   let corsRetry = true
   var xhr

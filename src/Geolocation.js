@@ -1,3 +1,5 @@
+/* global L:false */
+
 require('leaflet.locatecontrol')
 
 const forEach = require('for-each')
@@ -27,8 +29,8 @@ module.exports = class Geolocation {
         }
       }).addTo(this.map)
 
-      let trackEvent = 'locationfound'
-      //trackEvent = 'mousemove' // enable for testing
+      const trackEvent = 'locationfound'
+      // trackEvent = 'mousemove' // enable for testing
       this.map.on(trackEvent, e => {
         if (this.control._userPanned) {
           return
@@ -39,7 +41,7 @@ module.exports = class Geolocation {
           return
         }
 
-        let poi = this.route.positionNear(e.latlng)
+        const poi = this.route.positionNear(e.latlng)
         this.positions[new Date().getTime()] = e.latlng
         this.clearPositions()
         if (poi.properties.dist * 1000 < 50 && poi.at > this.maxAt - 10) { // only when nearer than 50m and going forward (with a tolerance of 10m)
@@ -56,10 +58,14 @@ module.exports = class Geolocation {
         } else {
           // switch to other route, if available
           this.app.modules.map.findRoutesNear(e.latlng, (err, list) => {
+            if (err) {
+              return console.error(err)
+            }
+
             if (list && list.length) {
               // Get a position more than 2sec ago
               let oldLatLng
-              let oldTime = new Date().getTime() - 2 * 1000
+              const oldTime = new Date().getTime() - 2 * 1000
               forEach(this.positions, (latlng, time) => {
                 if (time < oldTime) {
                   oldLatLng = latlng
@@ -72,8 +78,8 @@ module.exports = class Geolocation {
 
               // Check which routes are used forward
               list = list.filter(d => {
-                let { route, pos } = d
-                let oldPos = route.positionNear(oldLatLng)
+                const { route, pos } = d
+                const oldPos = route.positionNear(oldLatLng)
 
                 if (oldPos.at < pos.at) {
                   return true
@@ -98,8 +104,8 @@ module.exports = class Geolocation {
   }
 
   clearPositions () {
-    let t = new Date().getTime() - 10 * 1000
-    for (let k in this.positions) {
+    const t = new Date().getTime() - 10 * 1000
+    for (const k in this.positions) {
       if (k < t) {
         delete this.positions[k]
       }

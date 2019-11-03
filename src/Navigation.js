@@ -1,18 +1,10 @@
+/* global Blob:false */
+
 const { saveAs } = require('file-saver')
 const Tab = require('modulekit-tabs').Tab
 
-const Route = require('./Route')
 const updateInput = require('./updateInput')
 const updateFileSelect = require('./updateFileSelect')
-
-turn = {
-  left: 'right',
-  right: 'left',
-  diagleft: 'diagright',
-  diagright: 'diagleft',
-  straight: 'straight',
-  both: 'both'
-}
 
 module.exports = class Navigation {
   constructor (app) {
@@ -25,15 +17,15 @@ module.exports = class Navigation {
     this.tab.header.innerHTML = 'Navigation'
     this.tab.content.appendChild(this.dom)
 
-    let div = document.createElement('div')
+    const div = document.createElement('div')
     this.dom.appendChild(div)
 
     global.loadList(() => updateFileSelect(global.files, app.options, document))
 
-    let a = document.createElement('a')
+    const a = document.createElement('a')
     a.href = '#'
     a.onclick = () => {
-      let blob = new Blob([ this.route.save() ], {
+      const blob = new Blob([this.route.save()], {
         type: 'text/vnd.yaml;charset=utf-8'
       })
 

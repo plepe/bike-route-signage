@@ -1,3 +1,5 @@
+/* global L:false */
+
 var FullscreenControl = L.Control.extend({
   options: {
     position: 'topleft'
