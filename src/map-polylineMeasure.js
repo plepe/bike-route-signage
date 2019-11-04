@@ -1,3 +1,5 @@
+/* global L:false */
+
 require('leaflet.polylinemeasure')
 
 module.exports = function polylineMeasure (map) {

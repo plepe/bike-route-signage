@@ -10,8 +10,8 @@ const filterPriority = require('./filterPriority')
 const clone = require('./clone')
 const toPick = [4, 3, 2, 1, 1]
 
-let routes = {}
-let beingLoaded = {}
+const routes = {}
+const beingLoaded = {}
 
 class Route extends EventEmitter {
   constructor (id, data) {
@@ -84,7 +84,7 @@ class Route extends EventEmitter {
   title (options) {
     if (typeof this.data.title === 'object') {
       let title = this.data.title[0]
-      for (let k in this.data.title) {
+      for (const k in this.data.title) {
         if (+k <= +options.at) {
           title = this.data.title[k]
         }
@@ -108,11 +108,15 @@ class Route extends EventEmitter {
     })
     this.pick(+options.at + 50, options.pick ? options.pick.split(/,/) : toPick,
       (err, route) => {
+        if (err) {
+          return callback(err)
+        }
+
         route.reverse()
 
         let result = ''
 
-        let title = this.title(options)
+        const title = this.title(options)
         if (title) {
           result += '<h1>' + title + '</h1>'
         }
@@ -154,7 +158,7 @@ class Route extends EventEmitter {
 
   save () {
     let result = {}
-    for (let k in this.data) {
+    for (const k in this.data) {
       switch (k) {
         case 'route':
         case 'coordinates':
@@ -165,10 +169,10 @@ class Route extends EventEmitter {
     }
 
     result.route = this.data.route.map(entry => {
-      let _entry = {}
-      for (let l in entry) {
+      const _entry = {}
+      for (const l in entry) {
         // remove 'index' and 'file' attributes
-        if (![ 'index', 'file' ].includes(l)) {
+        if (!['index', 'file'].includes(l)) {
           _entry[l] = entry[l]
         }
       }
@@ -206,7 +210,7 @@ class Route extends EventEmitter {
   }
 
   positionNear (latlng) {
-    let poi = turf.nearestPointOnLine(this.GeoJSON(), { type: 'Feature', geometry: { type: 'Point', coordinates: [latlng.lng, latlng.lat]}})
+    const poi = turf.nearestPointOnLine(this.GeoJSON(), { type: 'Feature', geometry: { type: 'Point', coordinates: [latlng.lng, latlng.lat] } })
     poi.at = Math.round(poi.properties.location * 1000)
 
     return poi
@@ -223,7 +227,7 @@ function get (id, callback) {
     return
   }
 
-  beingLoaded[id] = [ callback ]
+  beingLoaded[id] = [callback]
 
   global.loadFile(id, (err, route) => {
     if (err) {
