@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html><head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
   <link rel="stylesheet" href="node_modules/leaflet-draw/dist/leaflet.draw.css">
@@ -20,20 +21,22 @@
 
 <div id="menu">
 <div id="navigation">
+<div>
 Location: 
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at-100" name="at" value=""><input type="submit" value="-100&#x202F;m"></form>
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at-25" name="at" value=""><input type="submit" value="-25&#x202F;m"></form>
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="text" id="at" name="at" value="0">&#x202F;m</form>
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at+25" name="at" value=""><input type="submit" value="+25&#x202F;m"></form>
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at+100" name="at" value=""><input type="submit" value="+100&#x202F;m"></form>
+</div>
 
-<br/>
-Open File: <form method="get"><select name="file"></select><input type="submit" value="Load"></form>
+<form method="get">Open File: <select name="file"></select><input type="submit" value="Load"></form>
+
+<div id="map-container"></div>
 </div>
 
 <div id="editor">
 </div>
 </div>
 
-<div id="map-container"></div>
 </body></html>

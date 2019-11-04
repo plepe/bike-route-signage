@@ -21,7 +21,7 @@ body {
   border-bottom: none;
   background: var(--backgroundColor);
   color: var(--mainColor);
-  height: 100%;
+  height: calc(100% - 0.1em);
 }
 #environment {
   position: absolute;
@@ -46,7 +46,8 @@ body {
   top: 10px;
   left: 28em;
   right: 10px;
-  bottom: 50%;
+  bottom: 10px;
+  box-sizing: border-box;
 }
 #menu a:after {
   content: '';
@@ -69,12 +70,14 @@ body {
   text-align: right;
 }
 
+#navigation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 #map-container {
-  position: absolute;
-  top: 50%;
-  left: 28em;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 #map {
   width: 100%;
@@ -111,7 +114,7 @@ body.map-fullscreen #map-container {
 .tabs {
   position: absolute;
   top: 0;
-  bottom: 2px;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
