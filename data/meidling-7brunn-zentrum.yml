@@ -213,21 +213,13 @@ route:
     ptRoutes: []
     direction: both
     connections:
-      - name: Innenstadtquerung
-        type: bikeroute
-        direction: straight
-        connections:
-          - name: Michaelerplatz
-            type: place
-            distance: 650
-            ptRoutes: []
-            priority: "3"
-          - name: Schottentor
-            type: ptStop
-            distance: 1450
-            ptRoutes:
-              - U2
-            priority: "2"
+  - name: Innenstadtquerung
+    at: 4787
+    type: bikeroute
+    direction: straight
+    continue:
+      file: innenstadt_nord
+      at: 0
 coordinates:
   - [ 16.3296, 48.173996 ]
   - [ 16.329353, 48.17435 ]
