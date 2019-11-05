@@ -1,3 +1,6 @@
+/* global Blob:false */
+
+const { saveAs } = require('file-saver')
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
 const forEach = require('for-each')
@@ -30,6 +33,19 @@ module.exports = class Edit {
 
     let a = document.createElement('a')
     a.href = '#'
+    a.onclick = () => {
+      const blob = new Blob([this.route.save()], {
+        type: 'text/vnd.yaml;charset=utf-8'
+      })
+
+      saveAs(blob, 'x.yml')
+      return false
+    }
+    a.appendChild(document.createTextNode('Download file'))
+    div.appendChild(a)
+    a = document.createElement('a')
+    a.href = '#'
+
     a.innerHTML = 'Grundwerte bearbeiten'
     a.onclick = () => {
       this.editBasic()
