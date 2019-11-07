@@ -18,6 +18,11 @@ module.exports = class Navigation {
     this.dom.appendChild(div)
 
     global.loadList(() => updateFileSelect(global.files, app.options, document))
+
+    // the map is shown inside this tab
+    this.tab.on('select', () => {
+      app.modules.map.map.invalidateSize()
+    })
   }
 
   setRoute (route) {

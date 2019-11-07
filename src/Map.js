@@ -15,7 +15,8 @@ const turf = {
 }
 
 module.exports = class Map {
-  constructor () {
+  constructor (app) {
+    this.app = app
     const div = document.createElement('div')
     div.id = 'map'
     document.getElementById('map-container').appendChild(div)
@@ -74,6 +75,10 @@ module.exports = class Map {
     this.map.on('click', e => this.showPopupAt(e.latlng))
 
     this.showAll()
+
+    this.app.on('resize', () => {
+      this.map.invalidateSize()
+    })
   }
 
   clear () {
