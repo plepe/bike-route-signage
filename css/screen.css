@@ -134,3 +134,14 @@ body.map-fullscreen #map-container {
   overflow: auto;
   height: 100%;
 }
+
+.environment-tabbed #menu {
+  left: 10px;
+}
+.environment-tabbed #environment {
+  margin: 0 auto;
+  position: static;
+  height: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}

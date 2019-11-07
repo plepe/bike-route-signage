@@ -4,10 +4,12 @@ const queryString = require('query-string')
 const yaml = require('yaml')
 const forEach = require('for-each')
 const Tabs = require('modulekit-tabs').Tabs
+const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
 const clearDomNode = require('./clearDomNode')
+const getEmSize = require('./getEmSize')
 const Modules = {
   map: require('./Map'),
   navigation: require('./Navigation'),
@@ -18,8 +20,10 @@ const Modules = {
 }
 
 const modules = {}
+let app = {}
 let options
 let route
+let environmentTab
 
 global.loadFile = (file, callback) => {
   httpGet('data/' + file + '.yml', {}, (err, result) => {
@@ -187,9 +191,9 @@ function showList (err, data) {
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  var tabs = new Tabs(document.getElementById('menu'))
+  let tabs = new Tabs(document.getElementById('menu'))
 
-  const app = { modules, tabs, options }
+  app = { modules, tabs, options }
   forEach(Modules, (Module, k) => {
     modules[k] = new Module(app)
   })
@@ -218,6 +222,37 @@ window.onload = function () {
       updateStatus(data)
 
       return false
+    }
+  }
+
+  checkResponsive()
+  window.onresize = checkResponsive
+}
+
+function checkResponsive () {
+  const environment = document.getElementById('environment')
+  const size = getEmSize(environment)
+  const bodyWidthEm = document.body.offsetWidth / size
+
+  console.log(bodyWidthEm)
+
+  if (bodyWidthEm < 50 && !environmentTab) {
+    environmentTab = new Tab({ id: 'environment', weight: -1 })
+    app.tabs.add(environmentTab)
+    environmentTab.select()
+
+    environmentTab.header.innerHTML = 'Routentafel'
+    environmentTab.content.appendChild(environment)
+    document.body.classList.add('environment-tabbed')
+  }
+  if (bodyWidthEm >= 50 && environmentTab) {
+    let isSelected = environmentTab.isSelected()
+    document.body.appendChild(environment)
+    app.tabs.remove(environmentTab)
+    environmentTab = null
+    document.body.classList.remove('environment-tabbed')
+    if (isSelected && app.tabs.list.length) {
+      app.tabs.list[0].select()
     }
   }
 }
