@@ -8,7 +8,8 @@ const colors = {
   otherColor: 'Fortgesetzt Farbe',
   backgroundColor: 'Hintergrundfarbe',
   titleColor: 'Titel Farbe',
-  titleBackgroundColor: 'Titel Hintergrundfarbe'
+  titleBackgroundColor: 'Titel Hintergrundfarbe',
+  baseFontSize: 'Schriftgröße (Basis)'
 }
 let defaultValues = {}
 
