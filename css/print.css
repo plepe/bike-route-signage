@@ -4,6 +4,7 @@
   --backgroundColor: #ffffff;
   --titleColor: #000000;
   --titleBackgroundColor: #ff0000;
+  --baseFontSize: 19pt;
 }
 
 body {
@@ -15,7 +16,6 @@ body {
 
 #route-sign {
   width: 100%;
-  font-size: 19pt;
 }
 #menu, #map {
   display: none;

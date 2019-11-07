@@ -1,3 +1,6 @@
+#route-sign {
+  font-size: var(--baseFontSize);
+}
 #route-sign h1:before {
   content: '\f84a';
   font-family: 'Font Awesome 5 Free';
@@ -10,12 +13,13 @@
   margin-bottom: 0;
   background: var(--titleBackgroundColor);
   color: var(--titleColor);
+  font-size: 150%;
 }
 #route-sign ul {
   margin: 0;
   width: 100%;
   padding: 0;
-  font-size: 15pt;
+  font-size: 100%;
 }
 #route-sign ul.line > li.header {
   padding: 0;
@@ -178,6 +182,7 @@
 #route-sign ul.connections {
   margin-left: 0;
   padding-left: 0;
+  font-size: 80%; /* 1 div font-size of parent node */
 }
 #route-sign ul.connections > li {
   display: grid;
@@ -265,7 +270,7 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 20pt;
+  font-size: 125%;
   margin-right: 0.25em;
   text-align: center;
 }
@@ -274,7 +279,7 @@
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 20pt;
+  font-size: 125%;
   list-style-type: none;
   display: inline-block;
 }

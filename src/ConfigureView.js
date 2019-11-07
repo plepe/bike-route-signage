@@ -8,7 +8,8 @@ const colors = {
   otherColor: 'Fortgesetzt Farbe',
   backgroundColor: 'Hintergrundfarbe',
   titleColor: 'Titel Farbe',
-  titleBackgroundColor: 'Titel Hintergrundfarbe'
+  titleBackgroundColor: 'Titel Hintergrundfarbe',
+  baseFontSize: 'Schriftgröße (Basis)'
 }
 let defaultValues = {}
 
@@ -48,21 +49,27 @@ module.exports = class ConfigureView {
 
     this.form.show(div)
 
-    this.form.onchange = () => {
-      const data = this.form.get_data()
-      global.updateStatus(data)
-
-      forEach(colors, (title, color) => {
-        if (data[color] !== defaultValues[color]) {
-          document.documentElement.style.setProperty('--' + color, data[color])
-        }
-      })
+    this.form.onchange = () => this.apply()
+    div.onsubmit = () => {
+      this.apply()
+      return false
     }
 
     const submit = document.createElement('input')
     submit.type = 'submit'
-    submit.style.display = 'none'
+    submit.value = 'Ok'
     div.appendChild(submit)
+  }
+
+  apply () {
+    const data = this.form.get_data()
+    global.updateStatus(data)
+
+    forEach(colors, (title, color) => {
+      if (data[color] !== defaultValues[color]) {
+        document.documentElement.style.setProperty('--' + color, data[color])
+      }
+    })
   }
 
   setRoute (route) {

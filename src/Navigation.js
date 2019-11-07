@@ -1,6 +1,3 @@
-/* global Blob:false */
-
-const { saveAs } = require('file-saver')
 const Tab = require('modulekit-tabs').Tab
 
 const updateInput = require('./updateInput')
@@ -22,18 +19,10 @@ module.exports = class Navigation {
 
     global.loadList(() => updateFileSelect(global.files, app.options, document))
 
-    const a = document.createElement('a')
-    a.href = '#'
-    a.onclick = () => {
-      const blob = new Blob([this.route.save()], {
-        type: 'text/vnd.yaml;charset=utf-8'
-      })
-
-      saveAs(blob, 'x.yml')
-      return false
-    }
-    a.appendChild(document.createTextNode('Download file'))
-    div.appendChild(a)
+    // the map is shown inside this tab
+    this.tab.on('select', () => {
+      app.modules.map.map.invalidateSize()
+    })
   }
 
   setRoute (route) {
