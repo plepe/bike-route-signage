@@ -182,6 +182,7 @@
 #route-sign ul.connections {
   margin-left: 0;
   padding-left: 0;
+  font-size: 80%; /* 1 div font-size of parent node */
 }
 #route-sign ul.connections > li {
   display: grid;
