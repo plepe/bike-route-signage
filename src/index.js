@@ -10,6 +10,7 @@ const Route = require('./Route')
 const httpGet = require('./httpGet')
 const clearDomNode = require('./clearDomNode')
 const getEmSize = require('./getEmSize')
+const App = require('./App')
 const Modules = {
   map: require('./Map'),
   navigation: require('./Navigation'),
@@ -20,7 +21,7 @@ const Modules = {
 }
 
 const modules = {}
-let app = {}
+let app = new App()
 let options
 let route
 let environmentTab
@@ -193,7 +194,10 @@ window.onload = function () {
 
   let tabs = new Tabs(document.getElementById('menu'))
 
-  app = { modules, tabs, options }
+  app.modules = modules
+  app.tabs = tabs
+  app.options = options
+
   forEach(Modules, (Module, k) => {
     modules[k] = new Module(app)
   })
@@ -234,8 +238,6 @@ function checkResponsive () {
   const size = getEmSize(environment)
   const bodyWidthEm = document.body.offsetWidth / size
 
-  console.log(bodyWidthEm)
-
   if (bodyWidthEm < 50 && !environmentTab) {
     environmentTab = new Tab({ id: 'environment', weight: -1 })
     app.tabs.add(environmentTab)
@@ -255,4 +257,6 @@ function checkResponsive () {
       app.tabs.list[0].select()
     }
   }
+
+  app.emit('resize')
 }
