@@ -199,6 +199,10 @@ route:
     direction: left
     priority: "3"
     connections:
+      - name: Mollardgasse
+        type: bikeroute
+        distance: 90
+        ptRoutes: []
       - name: Mariahilfer Straße
         type: place
         distance: 960
