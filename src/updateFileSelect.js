@@ -3,18 +3,18 @@ const clearDomNode = require('./clearDomNode')
 module.exports = function updateFileSelect (files, options, document) {
   if (!files) {
     if (options.file) {
-      files = [ options.file ]
+      files = [options.file]
     } else {
       files = []
     }
   }
 
-  let fileSelect = document.querySelectorAll('select[name=file]')
+  const fileSelect = document.querySelectorAll('select[name=file]')
   if (fileSelect.length) {
     clearDomNode(fileSelect[0])
 
     files.forEach(file => {
-      let option = document.createElement('option')
+      const option = document.createElement('option')
       option.setAttribute('value', file)
       if (file === options.file) {
         option.setAttribute('selected', 'true')

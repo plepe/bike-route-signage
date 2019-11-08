@@ -1,8 +1,6 @@
 const Tab = require('modulekit-tabs').Tab
 const yaml = require('yaml')
 
-const Route = require('./Route')
-
 module.exports = class Source {
   constructor (app) {
     this.dom = document.createElement('pre')

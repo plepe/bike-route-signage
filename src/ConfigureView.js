@@ -1,14 +1,15 @@
+/* global getComputedStyle:false */
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
 const forEach = require('for-each')
 
-const updateInput = require('./updateInput')
-let colors = {
+const colors = {
   mainColor: 'Route Farbe',
   otherColor: 'Fortgesetzt Farbe',
   backgroundColor: 'Hintergrundfarbe',
   titleColor: 'Titel Farbe',
-  titleBackgroundColor: 'Titel Hintergrundfarbe'
+  titleBackgroundColor: 'Titel Hintergrundfarbe',
+  baseFontSize: 'Schriftgröße (Basis)'
 }
 let defaultValues = {}
 
@@ -27,11 +28,11 @@ module.exports = class ConfigureView {
       pick: '4,3,2,1,1'
     }
 
-    let formDef = {
+    const formDef = {
       pick: {
         name: 'Prioritäten',
         type: 'text',
-        default: defaultValues.pick,
+        default: defaultValues.pick
       }
     }
 
@@ -48,21 +49,27 @@ module.exports = class ConfigureView {
 
     this.form.show(div)
 
-    this.form.onchange = () => {
-      let data = this.form.get_data()
-      global.updateStatus(data)
-
-      forEach(colors, (title, color) => {
-        if (data[color] !== defaultValues[color]) {
-          document.documentElement.style.setProperty('--' + color, data[color])
-        }
-      })
+    this.form.onchange = () => this.apply()
+    div.onsubmit = () => {
+      this.apply()
+      return false
     }
 
-    let submit = document.createElement('input')
+    const submit = document.createElement('input')
     submit.type = 'submit'
-    submit.style.display = 'none'
+    submit.value = 'Ok'
     div.appendChild(submit)
+  }
+
+  apply () {
+    const data = this.form.get_data()
+    global.updateStatus(data)
+
+    forEach(colors, (title, color) => {
+      if (data[color] !== defaultValues[color]) {
+        document.documentElement.style.setProperty('--' + color, data[color])
+      }
+    })
   }
 
   setRoute (route) {

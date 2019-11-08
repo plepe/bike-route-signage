@@ -1,9 +1,21 @@
+/* global Blob:false */
+
+const { saveAs } = require('file-saver')
 const Form = require('modulekit-form')
 const Tab = require('modulekit-tabs').Tab
 const forEach = require('for-each')
 
 const Route = require('./Route')
 const clone = require('./clone')
+
+const turn = {
+  left: 'right',
+  right: 'left',
+  diagleft: 'diagright',
+  diagright: 'diagleft',
+  straight: 'straight',
+  both: 'both'
+}
 
 // TODO: embed modulekit-lang
 global.lang_str = {}
@@ -21,6 +33,19 @@ module.exports = class Edit {
 
     let a = document.createElement('a')
     a.href = '#'
+    a.onclick = () => {
+      const blob = new Blob([this.route.save()], {
+        type: 'text/vnd.yaml;charset=utf-8'
+      })
+
+      saveAs(blob, 'x.yml')
+      return false
+    }
+    a.appendChild(document.createTextNode('Download file'))
+    div.appendChild(a)
+    a = document.createElement('a')
+    a.href = '#'
+
     a.innerHTML = 'Grundwerte bearbeiten'
     a.onclick = () => {
       this.editBasic()
@@ -32,8 +57,8 @@ module.exports = class Edit {
     a.href = '#'
     a.innerHTML = 'Neuen Knoten an aktueller Position anlegen'
     a.onclick = () => {
-      let entry = { name: '', at }
-      let pos = this.route.data.route.findIndex(entry => entry.at >= at)
+      const entry = { name: '', at }
+      const pos = this.route.data.route.findIndex(entry => entry.at >= at)
       if (pos === -1) {
         this.route.data.route.push(entry)
       } else {
@@ -66,7 +91,7 @@ module.exports = class Edit {
 
     this.form = new Form('root', require('./routeBasic.json'))
 
-    let data = clone(this.route.data)
+    const data = clone(this.route.data)
     if (typeof data.title === 'string') {
       data.title = { 0: data.title }
     }
@@ -90,7 +115,7 @@ module.exports = class Edit {
     this.dom.appendChild(input)
 
     this.dom.onsubmit = () => {
-      let data = this.form.get_data()
+      const data = this.form.get_data()
 
       if (Object.keys(data.title).length === 0) {
         data.title = null
@@ -102,7 +127,7 @@ module.exports = class Edit {
         data.continue = null
       }
 
-      for (let k in data) {
+      for (const k in data) {
         if (data[k] === null) {
           delete this.route.data[k]
         } else {
@@ -123,7 +148,7 @@ module.exports = class Edit {
     this.form = new Form('data', require('./entry.json'))
 
     if (this.route.id !== entry.file) {
-      let warning = document.createElement('div')
+      const warning = document.createElement('div')
       warning.className = 'warning'
       warning.innerHTML = 'Achtung! Eintrag liegt an einer fortgesetzten Route.'
       this.dom.appendChild(warning)
@@ -147,8 +172,8 @@ module.exports = class Edit {
     this.dom.appendChild(input)
 
     this.dom.onsubmit = () => {
-      let data = this.form.get_data()
-      for (let k in data) {
+      const data = this.form.get_data()
+      for (const k in data) {
         if (data[k] === null) {
           delete entry[k]
         } else {
@@ -164,14 +189,18 @@ module.exports = class Edit {
   }
 
   updateStatus (options) {
-    let as = document.querySelectorAll("#route-sign > ul > li > .content > .name > a")
+    const as = document.querySelectorAll('#route-sign > ul > li > .content > .name > a')
 
     for (let i = 0; i < as.length; i++) {
-      let a = as[i]
-      let li = a.parentNode.parentNode.parentNode
+      const a = as[i]
+      const li = a.parentNode.parentNode.parentNode
 
       a.onclick = () => {
         Route.get(li.getAttribute('data-file'), (err, _route) => {
+          if (err) {
+            return console.error(err)
+          }
+
           const entry = _route.data.route[li.getAttribute('data-index')]
           this.edit(entry)
           this.tab.select()
@@ -186,12 +215,12 @@ module.exports = class Edit {
   }
 
   rotateRoute () {
-    let a = document.createElement('a')
+    const a = document.createElement('a')
     a.href = '#'
     a.onclick = () => {
-      let len = this.route.data.length
+      const len = this.route.data.length
 
-      let data = clone(this.route.data)
+      const data = clone(this.route.data)
       data.route = data.route
         .map(entry => {
           entry = clone(entry)
@@ -203,7 +232,7 @@ module.exports = class Edit {
             entry.realDirection = turn[entry.realDirection]
           }
           if (entry.routeDirection) {
-            entry.routeDirection= turn[entry.routeDirection]
+            entry.routeDirection = turn[entry.routeDirection]
           }
           if (entry.connections) {
             entry.connections.forEach(conn => {
@@ -219,7 +248,7 @@ module.exports = class Edit {
       data.coordinates = data.coordinates.reverse()
 
       if (typeof data.title === 'object') {
-        let title = {}
+        const title = {}
         forEach(data.title, (name, at) => {
           title[len - at] = name
         })
@@ -234,5 +263,4 @@ module.exports = class Edit {
 
     return a
   }
-
 }

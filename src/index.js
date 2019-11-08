@@ -1,11 +1,16 @@
+/* global FileReader:false, alert:false, location:false */
+
 const queryString = require('query-string')
 const yaml = require('yaml')
 const forEach = require('for-each')
-const asyncForEach = require('async-each')
 const Tabs = require('modulekit-tabs').Tabs
+const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
+const clearDomNode = require('./clearDomNode')
+const getEmSize = require('./getEmSize')
+const App = require('./App')
 const Modules = {
   map: require('./Map'),
   navigation: require('./Navigation'),
@@ -15,9 +20,11 @@ const Modules = {
   geolocation: require('./Geolocation')
 }
 
-let modules = {}
+const modules = {}
+let app = new App()
 let options
 let route
+let environmentTab
 
 global.loadFile = (file, callback) => {
   httpGet('data/' + file + '.yml', {}, (err, result) => {
@@ -25,7 +32,7 @@ global.loadFile = (file, callback) => {
       return callback(err)
     }
 
-    let data = yaml.parse(result.body)
+    const data = yaml.parse(result.body)
     callback(null, data)
   })
 }
@@ -61,7 +68,7 @@ function updateStatus (data) {
     options.pick = data.pick
   }
 
-  history.replaceState(options, "", "?" + queryString.stringify(options))
+  global.history.replaceState(options, '', '?' + queryString.stringify(options))
 
   update()
 }
@@ -96,7 +103,13 @@ function setRoute (_route) {
 global.setRoute = setRoute
 
 function _load2 () {
-  Route.get(options.file, (err, route) => setRoute(route))
+  Route.get(options.file, (err, route) => {
+    if (err) {
+      return alert(err)
+    }
+
+    setRoute(route)
+  })
 }
 
 function load () {
@@ -120,29 +133,35 @@ function loadList (callback) {
     return
   }
 
-  loadListCallbacks = [ callback ]
-  let files = []
+  loadListCallbacks = [callback]
+  const files = []
 
   httpGet('data/', {}, (err, result) => {
     if (err) {
       return callback(err)
     }
 
-    let regexp = new RegExp(/href="(.*data\/)?([^"]+)\.yml"/g)
+    const regexp = new RegExp(/href="(.*data\/)?([^"]+)\.yml"/g)
     let m
-    while (m = regexp.exec(result.body)) {
+    // grep all files from page
+    while (m = regexp.exec(result.body)) { // eslint-disable-line
       files.push(decodeURIComponent(m[2]))
     }
 
     global.files = files
 
     loadListCallbacks.forEach(cb => cb(null, files))
-    delete loadListCallbacks
+    loadListCallbacks = null
   })
 }
 global.loadList = loadList
 
 function showList (err, data) {
+  if (err) {
+    clearDomNode(document.getElementById('route-sign'))
+    return alert(err)
+  }
+
   let result = '<ul>\n'
 
   data.forEach(file => {
@@ -160,7 +179,7 @@ function showList (err, data) {
       var reader = new FileReader()
       reader.onload = (e) => {
         var contents = e.target.result
-        let m = file.name.match(/^(.*)\.yml$/)
+        const m = file.name.match(/^(.*)\.yml$/)
         this.setRoute(new Route(m || file.name, yaml.parse(contents)))
       }
       reader.readAsText(file)
@@ -173,10 +192,15 @@ function showList (err, data) {
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  var tabs = new Tabs(document.getElementById('menu'))
+  let tabs = new Tabs(document.getElementById('menu'))
 
-  let app = { modules, tabs, options }
-  forEach(Modules, (Module, k) => modules[k] = new Module(app))
+  app.modules = modules
+  app.tabs = tabs
+  app.options = options
+
+  forEach(Modules, (Module, k) => {
+    modules[k] = new Module(app)
+  })
 
   if ('file' in options) {
     load()
@@ -189,7 +213,7 @@ window.onload = function () {
     const form = forms[i]
 
     form.onsubmit = () => {
-      let data = {}
+      const data = {}
 
       for (let j = 0; j < form.elements.length; j++) {
         const element = form.elements[j]
@@ -204,4 +228,35 @@ window.onload = function () {
       return false
     }
   }
+
+  checkResponsive()
+  window.onresize = checkResponsive
+}
+
+function checkResponsive () {
+  const environment = document.getElementById('environment')
+  const size = getEmSize(environment)
+  const bodyWidthEm = document.body.offsetWidth / size
+
+  if (bodyWidthEm < 50 && !environmentTab) {
+    environmentTab = new Tab({ id: 'environment', weight: -1 })
+    app.tabs.add(environmentTab)
+    environmentTab.select()
+
+    environmentTab.header.innerHTML = 'Routentafel'
+    environmentTab.content.appendChild(environment)
+    document.body.classList.add('environment-tabbed')
+  }
+  if (bodyWidthEm >= 50 && environmentTab) {
+    let isSelected = environmentTab.isSelected()
+    document.body.appendChild(environment)
+    app.tabs.remove(environmentTab)
+    environmentTab = null
+    document.body.classList.remove('environment-tabbed')
+    if (isSelected && app.tabs.list.length) {
+      app.tabs.list[0].select()
+    }
+  }
+
+  app.emit('resize')
 }
