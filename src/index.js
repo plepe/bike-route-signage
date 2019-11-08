@@ -42,15 +42,19 @@ function updateStatus (data) {
     options.file = data.file
 
     if (route.id !== data.file) {
-      Route.get(data.file, (err, _route) => {
-        if (err) {
-          return console.error(err)
-        }
+      if (data.file === '') {
+        setRoute(new Route('', { route: [] }))
+      } else {
+        Route.get(data.file, (err, _route) => {
+          if (err) {
+            return console.error(err)
+          }
 
-        setRoute(_route)
-        updateStatus(data)
-      })
-      return
+          setRoute(_route)
+          updateStatus(data)
+        })
+        return
+      }
     }
   }
 
