@@ -2,6 +2,8 @@ const Tab = require('modulekit-tabs').Tab
 
 const updateInput = require('./updateInput')
 const updateFileSelect = require('./updateFileSelect')
+const Route = require('./Route')
+const yaml = require('yaml')
 
 module.exports = class Navigation {
   constructor (app) {
@@ -23,6 +25,55 @@ module.exports = class Navigation {
     this.tab.on('select', () => {
       app.modules.map.map.invalidateSize()
     })
+
+    this.addNewButton()
+    this.addUploadButton()
+  }
+
+  addNewButton () {
+    const form = document.getElementById('open-file')
+    if (!form) {
+      return
+    }
+
+    const newFile = document.createElement('button')
+    newFile.appendChild(document.createTextNode('Neue Datei'))
+    form.appendChild(newFile)
+    newFile.onclick = () => {
+      global.updateStatus({ file: '', at: 0 })
+      return false
+    }
+  }
+
+  addUploadButton () {
+    const form = document.getElementById('open-file')
+    if (!form) {
+      return
+    }
+
+    const label = document.createElement('label')
+    label.className = 'upload-file'
+    const uploadFile = document.createElement('input')
+    uploadFile.type = 'file'
+    uploadFile.setAttribute('style', 'position: fixed; top: -1000px;')
+    uploadFile.onchange = e => {
+      Array.from(e.target.files).forEach(file => {
+        var reader = new FileReader()
+        reader.onload = (e) => {
+          var contents = e.target.result
+          const m = file.name.match(/^(.*)\.yml$/)
+          let route = new Route(m ? m[1] : file.name, yaml.parse(contents))
+          global.setRoute(route)
+          global.updateStatus({ at: 0, file: route.id })
+        }
+        reader.readAsText(file)
+      })
+      return false
+    }
+
+    label.appendChild(document.createTextNode('Lokale Datei öffnen'))
+    label.appendChild(uploadFile)
+    form.appendChild(label)
   }
 
   setRoute (route) {
