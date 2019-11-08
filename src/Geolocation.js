@@ -34,7 +34,7 @@ module.exports = class Geolocation {
 
     const trackEvent = 'locationfound'
     // trackEvent = 'mousemove' // enable for testing
-    this.map.on(trackEvent, e => this.update(e.latlng))
+    this.map.on(trackEvent, e => this.update({ lat: 48.20040, lng: 16.36659 }))//e.latlng))
 
     if (!('file' in this.app.options) && !('at' in this.app.options)) {
       this.map.once('locationfound', () => {
@@ -51,15 +51,14 @@ module.exports = class Geolocation {
       return
     }
 
-    // route not loaded (yet)
-    if (!this.route) {
-      return
+    let poi
+    if (this.route) {
+      poi = this.route.positionNear(latlng)
     }
 
-    const poi = this.route.positionNear(latlng)
     this.positions[new Date().getTime()] = latlng
     this.clearPositions()
-    if (poi.properties.dist * 1000 < 50 && poi.at > this.maxAt - 10) { // only when nearer than 50m and going forward (with a tolerance of 10m)
+    if (poi && poi.properties.dist * 1000 < 50 && poi.at > this.maxAt - 10) { // only when nearer than 50m and going forward (with a tolerance of 10m)
       // at end of route -> skip to continued route (if available)
       if (poi.at >= this.route.data.length) {
         global.updateStatus({ at: this.route.data.length + 1 })
@@ -96,7 +95,7 @@ module.exports = class Geolocation {
             const { route, pos } = d
             const oldPos = route.positionNear(oldLatLng)
 
-            if (oldPos.at < pos.at) {
+            if (oldPos.at <= pos.at) {
               return true
             }
           })

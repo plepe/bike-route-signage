@@ -41,7 +41,7 @@ function updateStatus (data) {
   if ('file' in data && (!route || data.file !== options.id)) {
     options.file = data.file
 
-    if (route.id !== data.file) {
+    if (!route || route.id !== data.file) {
       Route.get(data.file, (err, _route) => {
         if (err) {
           return console.error(err)
