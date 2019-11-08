@@ -36,6 +36,10 @@ module.exports = class Geolocation {
     // trackEvent = 'mousemove' // enable for testing
     this.map.on(trackEvent, e => this.update(e.latlng))
 
+    if (!('file' in this.app.options) && !('at' in this.app.options)) {
+      this.control.start()
+    }
+
     this.isInit = true
   }
 
