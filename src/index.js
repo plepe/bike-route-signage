@@ -160,39 +160,6 @@ function loadList (callback) {
 }
 global.loadList = loadList
 
-function showList (err, data) {
-  if (err) {
-    clearDomNode(document.getElementById('route-sign'))
-    return alert(err)
-  }
-
-  let result = '<ul>\n'
-
-  data.forEach(file => {
-    result += '  <li><a href="?file=' + encodeURIComponent(file) + '">' + file + '</a></li>\n'
-  })
-
-  result += '<li><a href="?file=">Neue Datei</a></li>'
-  result += '<li><a><label><input id="upload" type="file" style="position: fixed; top: -1000px" onchange="form.submit()">Lokale Datei öffnen</label></a></li>'
-  result += '</ul>'
-
-  document.getElementById('route-sign').innerHTML = result
-
-  document.getElementById('upload').onchange = e => {
-    Array.from(e.target.files).forEach(file => {
-      var reader = new FileReader()
-      reader.onload = (e) => {
-        var contents = e.target.result
-        const m = file.name.match(/^(.*)\.yml$/)
-        this.setRoute(new Route(m || file.name, yaml.parse(contents)))
-      }
-      reader.readAsText(file)
-    })
-
-    return false
-  }
-}
-
 window.onload = function () {
   options = queryString.parse(location.search)
 
@@ -208,8 +175,6 @@ window.onload = function () {
 
   if ('file' in options) {
     load()
-  } else {
-    loadList(showList)
   }
 
   const forms = document.getElementsByTagName('form')
