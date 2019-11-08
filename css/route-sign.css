@@ -182,7 +182,7 @@
 #route-sign ul.connections {
   margin-left: 0;
   padding-left: 0;
-  font-size: 80%; /* 1 div font-size of parent node */
+  font-size: 90%; /* when changing, also update font-size in .current > li > .type and .content */
 }
 #route-sign ul.connections > li {
   display: grid;
@@ -226,7 +226,6 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 0.8em;
 }
 #route-sign ul.connections > li > .content > .name {
   font-weight: normal;
@@ -270,7 +269,7 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 125%;
+  font-size: 1.1111em; /* 1 div font-size from ul.connections */
   margin-right: 0.25em;
   text-align: center;
 }
@@ -279,7 +278,7 @@
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 125%;
+  font-size: 1.1111em; /* 1 div font-size from ul.connections */
   list-style-type: none;
   display: inline-block;
 }
