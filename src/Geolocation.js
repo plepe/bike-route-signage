@@ -37,6 +37,9 @@ module.exports = class Geolocation {
     this.map.on(trackEvent, e => this.update(e.latlng))
 
     if (!('file' in this.app.options) && !('at' in this.app.options)) {
+      this.map.once('locationfound', () => {
+        this.map.setZoom(17)
+      })
       this.control.start()
     }
 
