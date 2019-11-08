@@ -56,8 +56,8 @@ module.exports = class Geolocation {
       return
     }
 
-    const poi = this.route.positionNear(e.latlng)
-    this.positions[new Date().getTime()] = e.latlng
+    const poi = this.route.positionNear(latlng)
+    this.positions[new Date().getTime()] = latlng
     this.clearPositions()
     if (poi.properties.dist * 1000 < 50 && poi.at > this.maxAt - 10) { // only when nearer than 50m and going forward (with a tolerance of 10m)
       // at end of route -> skip to continued route (if available)
@@ -72,7 +72,7 @@ module.exports = class Geolocation {
       }
     } else {
       // switch to other route, if available
-      this.app.modules.map.findRoutesNear(e.latlng, (err, list) => {
+      this.app.modules.map.findRoutesNear(latlng, (err, list) => {
         if (err) {
           return console.error(err)
         }
