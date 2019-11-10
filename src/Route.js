@@ -123,7 +123,12 @@ class Route extends EventEmitter {
 
         if (route.length) {
           result += '<ul class="line">'
-          result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' "><span class="dot"><i class="fas fa-caret-up"></i></span></li>'
+          if (true) {
+            result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' endRoute"></li>'
+          } else {
+            result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' "><span class="dot"><i class="fas fa-caret-up"></i></span></li>'
+          }
+
           route.forEach((entry, index) => {
             const opt = JSON.parse(JSON.stringify(options))
             opt.priority = toPick[route.length - index - 1]

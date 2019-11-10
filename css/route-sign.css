@@ -150,6 +150,9 @@
 #route-sign ul.line > li.other a {
   color: var(--otherColor);
 }
+#route-sign ul.line > li.endRoute:after {
+  margin-top: 1em;
+}
 #route-sign ul.line > li.other:after {
   border-color: var(--otherColor);
   margin-bottom: -1em;
