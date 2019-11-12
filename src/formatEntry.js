@@ -16,7 +16,12 @@ module.exports = function formatEntry (entry, options = {}) {
     direction = entry.realDirection
   }
 
-  let result = '<li class="' + (options.file === entry.file ? 'this' : 'other') + '" ' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + ('file' in entry ? ' data-file="' + entry.file + '"' : '') + '>'
+  let connections = []
+  if (entry.connections) {
+    connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
+  }
+
+  let result = '<li class="' + (options.file === entry.file ? 'this' : 'other') + (connections.length ? ' hasConnections' : '') + '" ' + ('index' in entry ? ' data-index="' + entry.index + '"' : '') + ('file' in entry ? ' data-file="' + entry.file + '"' : '') + '>'
   result += '<span class="dot"><i class="fas fa-circle"></i></span>'
 
   if (direction) {
@@ -57,9 +62,7 @@ module.exports = function formatEntry (entry, options = {}) {
     result += '</span>'
   }
 
-  if (entry.connections) {
-    const connections = entry.connections.filter(connection => filterPriority(connection, options.priority, 4))
-
+  if (connections) {
     result += '<ul class="connections">'
     connections.forEach(connection => {
       result += formatEntry(connection, options)
