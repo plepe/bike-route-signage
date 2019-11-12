@@ -25,7 +25,7 @@
   padding: 0;
   height: 1em;
 }
-#route-sign ul.line > li.header:after {
+#route-sign ul.line > li.header.endRoute:after {
   border-left: none;
 }
 #route-sign ul.line > li {
@@ -35,14 +35,6 @@
   position: relative;
   display: grid;
   grid-template-columns: 4em 2.5em 2.5em auto;
-}
-#route-sign ul.line > li:after {
-  content: '';
-  border-left: 0.25em solid var(--mainColor);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(4em + 2.5em / 2 - 0.125em);
 }
 #route-sign ul.line > li > .dot {
   grid-column-start: 2;
@@ -150,8 +142,17 @@
 #route-sign ul.line > li.other a {
   color: var(--otherColor);
 }
-#route-sign ul.line > li.endRoute:after {
+#route-sign ul.line > li:after {
+  content: '';
+  border-left: 0.25em solid var(--mainColor);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(4em + 2.5em / 2 - 0.125em);
   margin-top: 1em;
+  margin-bottom: -1em;
+}
+#route-sign ul.line > li.endRoute:after {
 }
 #route-sign ul.line > li.other:after {
   border-color: var(--otherColor);
@@ -164,7 +165,7 @@
 #route-sign ul.line > li.other ul li:after {
   border-color: var(--otherColor);
 }
-#route-sign ul.line > li.other:last-of-type:after {
+#route-sign ul.line > li:last-of-type:after {
   margin-bottom: 0;
 }
 #route-sign .name {

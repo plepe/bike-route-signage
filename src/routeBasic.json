@@ -31,5 +31,10 @@
         "include_data": "not_null"
       }
     }
+  },
+  "endRoute": {
+    "type": "boolean",
+    "name": "Ende der Radroute",
+    "desc": "Es gibt keine Weiterführung nach dieser Route (es wird kein Pfeil angezeigt)"
   }
 }

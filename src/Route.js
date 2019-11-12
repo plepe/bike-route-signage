@@ -32,6 +32,7 @@ class Route extends EventEmitter {
       entry.index = index
       entry.file = this.id
     })
+    this.data.route[this.data.route.length - 1].lastNode = true
 
     this.emit('update')
   }
@@ -123,7 +124,7 @@ class Route extends EventEmitter {
 
         if (route.length) {
           result += '<ul class="line">'
-          if (true) {
+          if (this.data.endRoute && route[0].lastNode) {
             result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' endRoute"></li>'
           } else {
             result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' "><span class="dot"><i class="fas fa-caret-up"></i></span></li>'
@@ -177,7 +178,7 @@ class Route extends EventEmitter {
       const _entry = {}
       for (const l in entry) {
         // remove 'index' and 'file' attributes
-        if (!['index', 'file'].includes(l)) {
+        if (!['index', 'file', 'lastNode'].includes(l)) {
           _entry[l] = entry[l]
         }
       }
