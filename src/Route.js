@@ -32,7 +32,9 @@ class Route extends EventEmitter {
       entry.index = index
       entry.file = this.id
     })
-    this.data.route[this.data.route.length - 1].lastNode = true
+    if (this.data.route.length) {
+      this.data.route[this.data.route.length - 1].lastNode = true
+    }
 
     this.emit('update')
   }
