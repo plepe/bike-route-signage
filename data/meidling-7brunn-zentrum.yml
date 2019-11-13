@@ -1,6 +1,6 @@
 title: Zentrum
 continue:
-    file: innenstadt_nord
+    file: city-schottentor
     at: 0
 route:
   - name: Tanbruckgasse
