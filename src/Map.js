@@ -27,8 +27,10 @@ module.exports = class Map {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map)
 
-    polylineMeasure(this.map)
-    fullscreen(this.map)
+    this.modules = [
+      polylineMeasure(this.map),
+      fullscreen(this.map)
+    ]
 
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
@@ -202,6 +204,11 @@ module.exports = class Map {
 
   showPopupAt (latlng) {
     const result = []
+
+    let blocker = this.modules.filter(module => module && module.blockPopup && module.blockPopup())
+    if (blocker.length) {
+      return
+    }
 
     this.findRoutesNear(latlng,
       (err, nearby) => {
