@@ -1,6 +1,7 @@
 const yaml = require('yaml')
 const EventEmitter = require('events')
 const turf = {
+  along: require('@turf/along').default,
   length: require('@turf/length').default,
   nearestPointOnLine: require('@turf/nearest-point-on-line').default
 }
@@ -35,6 +36,21 @@ class Route extends EventEmitter {
     }
 
     this.emit('update')
+  }
+
+  setCoordinates (coordinates) {
+    let geojson = this.GeoJSON()
+    let nodeLatLons = this.data.route.map(entry => {
+      let poi = turf.along(geojson, entry.at / 1000)
+      return {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]}
+    })
+
+    this.data.coordinates = coordinates
+    geojson = this.GeoJSON()
+
+    this.data.route.forEach((entry, index) => {
+      entry.at = this.positionNear(nodeLatLons[index]).at
+    })
   }
 
   pick (at, toPick, callback) {
