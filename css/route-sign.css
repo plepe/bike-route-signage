@@ -25,7 +25,7 @@
   padding: 0;
   height: 1em;
 }
-#route-sign ul.line > li.header:after {
+#route-sign ul.line > li.header.endRoute:after {
   border-left: none;
 }
 #route-sign ul.line > li {
@@ -35,14 +35,6 @@
   position: relative;
   display: grid;
   grid-template-columns: 4em 2.5em 2.5em auto;
-}
-#route-sign ul.line > li:after {
-  content: '';
-  border-left: 0.25em solid var(--mainColor);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(4em + 2.5em / 2 - 0.125em);
 }
 #route-sign ul.line > li > .dot {
   grid-column-start: 2;
@@ -150,6 +142,18 @@
 #route-sign ul.line > li.other a {
   color: var(--otherColor);
 }
+#route-sign ul.line > li:after {
+  content: '';
+  border-left: 0.25em solid var(--mainColor);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(4em + 2.5em / 2 - 0.125em);
+  margin-top: 1em;
+  margin-bottom: -1em;
+}
+#route-sign ul.line > li.endRoute:after {
+}
 #route-sign ul.line > li.other:after {
   border-color: var(--otherColor);
   margin-bottom: -1em;
@@ -161,7 +165,7 @@
 #route-sign ul.line > li.other ul li:after {
   border-color: var(--otherColor);
 }
-#route-sign ul.line > li.other:last-of-type:after {
+#route-sign ul.line > li:last-of-type:after {
   margin-bottom: 0;
 }
 #route-sign .name {
@@ -182,7 +186,7 @@
 #route-sign ul.connections {
   margin-left: 0;
   padding-left: 0;
-  font-size: 80%; /* 1 div font-size of parent node */
+  font-size: 90%; /* when changing, also update font-size in .current > li > .type and .content */
 }
 #route-sign ul.connections > li {
   display: grid;
@@ -226,7 +230,6 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 0.8em;
 }
 #route-sign ul.connections > li > .content > .name {
   font-weight: normal;
@@ -270,7 +273,7 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 125%;
+  font-size: 1.1111em; /* 1 div font-size from ul.connections */
   margin-right: 0.25em;
   text-align: center;
 }
@@ -279,7 +282,7 @@
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 125%;
+  font-size: 1.1111em; /* 1 div font-size from ul.connections */
   list-style-type: none;
   display: inline-block;
 }

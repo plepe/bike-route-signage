@@ -28,8 +28,13 @@ module.exports = class Map {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map)
 
-    polylineMeasure(this.map)
-    fullscreen(this.map)
+    this.modules = [
+      {
+        blockPopup: () => this.editing
+      },
+      polylineMeasure(this.map),
+      fullscreen(this.map)
+    ].filter(module => module)
 
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
@@ -60,20 +65,26 @@ module.exports = class Map {
     })
     this.map.addControl(this.drawControl)
 
-    this.map.on(L.Draw.Event.EDITED, () => {
+    this.map.on(L.Draw.Event.EDITED, e => {
       const geojson = this.path.toGeoJSON()
-      this.route.data.coordinates = geojson.geometry.coordinates
+      this.route.setCoordinates(geojson.geometry.coordinates)
       this.setRoute(this.route)
+      this.route.update()
+      this.editing = false
     })
     this.map.on(L.Draw.Event.CREATED, e => {
       const coordinates = e.layer.editing.latlngs[0].map(latlng => [latlng.lng, latlng.lat])
       this.route.data.coordinates = coordinates
       this.setRoute(this.route)
     })
+    this.map.on(L.Draw.Event.EDITSTART, () => this.editing = true)
+    this.map.on(L.Draw.Event.EDITSTOP, () => this.editing = false)
+    this.map.on(L.Draw.Event.DRAWSTART, () => this.editing = true)
+    this.map.on(L.Draw.Event.DRAWSTOP, () => this.editing = false)
 
     this.map.setView([48.20837, 16.37239], 10)
 
-    this.map.on('click', e => this.showPopupAt(e.latlng))
+    this.map.on('click', e => this.notifyClick(e.latlng))
 
     this.showAll()
 
@@ -122,11 +133,6 @@ module.exports = class Map {
       }).addTo(this.map)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
-
-      this.path.on('click', e => {
-        const poi = this.route.positionNear(e.latlng)
-        global.updateStatus({ at: poi.at })
-      })
 
       this.markers = []
       this.route.data.route.forEach(entry => {
@@ -215,8 +221,13 @@ module.exports = class Map {
     })
   }
 
-  showPopupAt (latlng) {
+  notifyClick (latlng) {
     const result = []
+
+    let blocker = this.modules.filter(module => module.blockPopup && module.blockPopup())
+    if (blocker.length) {
+      return
+    }
 
     this.findRoutesNear(latlng,
       (err, nearby) => {
@@ -228,6 +239,11 @@ module.exports = class Map {
           const { route, pos } = d
 
           result.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
+
+          // if the current route is clicked on, adjust current position
+          if (route === this.route) {
+            global.updateStatus({ at: pos.at })
+          }
         })
 
         const div = document.createElement('div')

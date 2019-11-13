@@ -1,6 +1,7 @@
 const yaml = require('yaml')
 const EventEmitter = require('events')
 const turf = {
+  along: require('@turf/along').default,
   length: require('@turf/length').default,
   nearestPointOnLine: require('@turf/nearest-point-on-line').default
 }
@@ -19,21 +20,37 @@ class Route extends EventEmitter {
     this.id = id
     routes[id] = this
     this.data = data
-    if (!this.data.length) {
-      if (this.data.coordinates) {
-        this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
-      }
-    }
     this.update()
   }
 
   update () {
+    if (this.data.coordinates) {
+      this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
+    }
     this.data.route.forEach((entry, index) => {
       entry.index = index
       entry.file = this.id
     })
+    if (this.data.route.length) {
+      this.data.route[this.data.route.length - 1].lastNode = true
+    }
 
     this.emit('update')
+  }
+
+  setCoordinates (coordinates) {
+    let geojson = this.GeoJSON()
+    let nodeLatLons = this.data.route.map(entry => {
+      let poi = turf.along(geojson, entry.at / 1000)
+      return {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]}
+    })
+
+    this.data.coordinates = coordinates
+    geojson = this.GeoJSON()
+
+    this.data.route.forEach((entry, index) => {
+      entry.at = this.positionNear(nodeLatLons[index]).at
+    })
   }
 
   pick (at, toPick, callback) {
@@ -123,7 +140,12 @@ class Route extends EventEmitter {
 
         if (route.length) {
           result += '<ul class="line">'
-          result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' "><span class="dot"><i class="fas fa-caret-up"></i></span></li>'
+          if (this.data.endRoute && route[0].lastNode) {
+            result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' endRoute"></li>'
+          } else {
+            result += '<li class="header ' + (route[0].file === this.id ? 'this' : 'other') + ' "><span class="dot"><i class="fas fa-caret-up"></i></span></li>'
+          }
+
           route.forEach((entry, index) => {
             const opt = JSON.parse(JSON.stringify(options))
             opt.priority = toPick[route.length - index - 1]
@@ -172,7 +194,7 @@ class Route extends EventEmitter {
       const _entry = {}
       for (const l in entry) {
         // remove 'index' and 'file' attributes
-        if (!['index', 'file'].includes(l)) {
+        if (!['index', 'file', 'lastNode'].includes(l)) {
           _entry[l] = entry[l]
         }
       }

@@ -1,0 +1,79 @@
+title: Citydurchfahrt Stubentor
+endRoute: false
+route:
+  - name: Hoher Markt
+    at: 695
+    type: place
+    ptRoutes: []
+    priority: "2"
+    connections:
+      - name: Tuchlauben
+        type: bikeroute
+        ptRoutes: []
+        priority: "3"
+        direction: right
+        connections:
+          - name: Schottentor, Ring-Rund
+            type: ptStop
+            distance: 950
+            ptRoutes:
+              - U2
+      - name: Morzinplatz, Ring-Rund
+        type: bikeroute
+        distance: 325
+        ptRoutes: []
+        direction: left
+  - name: Rotenturmstraße
+    at: 893
+    type: place
+    ptRoutes: []
+    priority: "2"
+    direction: both
+    connections:
+      - name: Stephansplatz
+        type: place
+        distance: 150
+        ptRoutes:
+          - U1
+          - U3
+        priority: "2"
+        direction: right
+      - name: Schwedenplatz
+        type: place
+        distance: 250
+        ptRoutes:
+          - U1
+          - U4
+          - tram
+        priority: "2"
+        direction: left
+  - name: Stephansplatz
+    at: 969
+    type: place
+    ptRoutes: []
+    direction: right
+    realDirection: straight
+    routeDirection: left
+  - name: Dr. Karl Lueger Platz
+    at: 1443
+    type: place
+    ptRoutes: []
+    priority: "3"
+  - name: Stubentor, Ring-Rund
+    at: 1542
+    type: ptStop
+    ptRoutes:
+      - U3
+    priority: "1"
+    direction: both
+coordinates:
+  - [ 16.365326642990116, 48.215415576306064 ]
+  - [ 16.366887688636783, 48.213835630568404 ]
+  - [ 16.367601156234745, 48.213167177310815 ]
+  - [ 16.372048258781437, 48.211279732772724 ]
+  - [ 16.37345373630524, 48.21048612736238 ]
+  - [ 16.374140381813053, 48.210128643430004 ]
+  - [ 16.37348055839539, 48.20962816173223 ]
+  - [ 16.375293731689457, 48.208734432249145 ]
+  - [ 16.37746095657349, 48.20803016242876 ]
+  - [ 16.380647420883182, 48.20710065443883 ]

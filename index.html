@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="node_modules/leaflet-draw/dist/leaflet.draw.css">
   <link rel="stylesheet" href="node_modules/leaflet.polylinemeasure/Leaflet.PolylineMeasure.css">
   <link rel="stylesheet" href="node_modules/modulekit-form/dist/modulekit-form.css">
+  <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
   <link rel="stylesheet" href="css/route-sign.css">
   <link rel="stylesheet" href="css/ptRoutes.css">
   <link media="screen" rel="stylesheet" href="css/screen.css">
@@ -30,7 +31,7 @@ Location:
 <form method="get"><input type="hidden" name="file" value="FILE"><input type="hidden" id="at+100" name="at" value=""><input type="submit" value="+100&#x202F;m"></form>
 </div>
 
-<form method="get">Open File: <select name="file"></select><input type="submit" value="Load"></form>
+<form id="open-file" method="get">Open File: <select name="file"></select><input type="submit" value="Load"></form>
 
 <div id="map-container"></div>
 </div>

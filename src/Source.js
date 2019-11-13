@@ -1,40 +1,51 @@
+const CodeMirror = require('codemirror')
+require('codemirror/mode/yaml/yaml')
 const Tab = require('modulekit-tabs').Tab
 const yaml = require('yaml')
 
 module.exports = class Source {
   constructor (app) {
-    this.dom = document.createElement('pre')
-    this.dom.id = 'source'
-    this.dom.contentEditable = true
     this.tab = new Tab({ id: 'source' })
     app.tabs.add(this.tab)
 
+    this.editor = CodeMirror(this.tab.content, {
+      mode: 'yaml'
+    })
+
     this.tab.header.innerHTML = 'Quellcode'
-    this.tab.content.appendChild(this.dom)
 
     this.updateFun = () => {
       this.update()
     }
 
-    this.dom.oninput = () => {
+    this.tab.on('select', () => {
+      this.editor.refresh()
+      this.editor.focus()
+    })
+
+    this.editor.on('change', () => {
+      if (this.updateFromUpdate) {
+        return
+      }
+
       if (this.timeout) {
         global.clearTimeout(this.timeout)
       }
 
       this.timeout = global.setTimeout(() => this.submitChanges(), 100)
-    }
+    })
   }
 
   submitChanges () {
     let data
     try {
-      data = yaml.parse(this.dom.textContent)
+      data = yaml.parse(this.editor.getValue())
     } catch (e) {
-      this.dom.classList.add('error')
+      this.tab.content.classList.add('error')
       return console.log(e.message)
     }
 
-    this.dom.classList.remove('error')
+    this.tab.content.classList.remove('error')
     if (data) {
       this.route.data = data
       this.updateFromSource = true
@@ -58,8 +69,9 @@ module.exports = class Source {
       return
     }
 
-    this.dom.innerHTML = ''
-    this.dom.appendChild(document.createTextNode(this.route.save()))
+    this.updateFromUpdate = true
+    this.editor.setValue(this.route.save())
+    this.updateFromUpdate = false
   }
 
   updateStatus (options) {

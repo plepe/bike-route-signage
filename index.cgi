@@ -35,16 +35,11 @@ fs.readdirSync('data/', {})
       global.files.push(m[1])
     }
   })
+updateFileSelect(files, options, document)
 
 let text = ''
 text += '<script>var files = ' + JSON.stringify(global.files) + '</script>'
 if (!('file' in options)) {
-  text += '<ul>'
-  global.files.forEach(name => {
-    text += '<li><a href="?file=' + name + '">' + name + '</a></li>'
-  })
-  text += '<li><a href="?file=">Neue Datei</a></li>'
-  text += '</ul>'
   document.getElementById('route-sign').innerHTML = text
   final()
 } else {
@@ -62,8 +57,6 @@ if (!('file' in options)) {
     }
   }
 }
-
-updateFileSelect(files, options, document)
 
 function loadAndRender (id) {
   Route.get(id, (err, route) => {

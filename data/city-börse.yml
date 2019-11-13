@@ -1,0 +1,102 @@
+title: Citydurchfahrt Börse
+endRoute: true
+length: 1695
+route:
+  - name: Stubentor, Ring-Rund
+    at: 1
+    type: ptStop
+    ptRoutes:
+      - U3
+    priority: "1"
+    direction: both
+  - name: Dr. Karl Lueger Platz
+    at: 98
+    type: place
+    ptRoutes: []
+    priority: "3"
+  - name: Stephansplatz
+    at: 582
+    type: place
+    ptRoutes: []
+    routeDirection: right
+  - name: Rotenturmstraße
+    at: 727
+    type: place
+    ptRoutes: []
+    priority: "2"
+    direction: right
+    connections:
+      - name: Schwedenplatz
+        type: place
+        distance: 250
+        ptRoutes:
+          - U1
+          - U4
+          - tram
+        priority: "2"
+        direction: straight
+    routeDirection: left
+    realDirection: straight
+  - name: Hoher Markt
+    at: 925
+    type: place
+    ptRoutes: []
+    priority: "2"
+    connections:
+      - name: Tuchlauben
+        type: bikeroute
+        ptRoutes: []
+        priority: "3"
+        direction: left
+        connections:
+          - name: Schottentor, Ring-Rund
+            type: ptStop
+            distance: 950
+            ptRoutes:
+              - U2
+      - name: Morzinplatz, Ring-Rund
+        type: bikeroute
+        distance: 325
+        ptRoutes: []
+        direction: right
+  - name: Börse, Ring-Rund
+    at: 1590
+    type: bikeroute
+    ptRoutes:
+      - tram
+    priority: "1"
+    direction: both
+    connections:
+      - name: Schottentor
+        type: ptStop
+        distance: 300
+        ptRoutes:
+          - U2
+        direction: left
+      - name: Schottenring
+        type: ptStop
+        distance: 450
+        ptRoutes:
+          - U2
+          - U4
+        direction: right
+  - name: Maria-Theresien-Str.
+    at: 1693
+    type: bikeroute
+    ptRoutes: []
+    direction: both
+    priority: "2"
+coordinates:
+  - [ 16.379607, 48.206514 ]
+  - [ 16.37715, 48.207615 ]
+  - [ 16.376034, 48.208102 ]
+  - [ 16.375079, 48.208309 ]
+  - [ 16.374532, 48.208502 ]
+  - [ 16.373878, 48.208652 ]
+  - [ 16.372869, 48.209153 ]
+  - [ 16.37414, 48.210129 ]
+  - [ 16.373454, 48.210486 ]
+  - [ 16.372048, 48.21128 ]
+  - [ 16.367601, 48.213167 ]
+  - [ 16.366888, 48.213836 ]
+  - [ 16.364737, 48.215966 ]

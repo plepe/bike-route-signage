@@ -7,7 +7,7 @@ route:
     ptRoutes: []
     priority: "2"
   - name: Habsburgergasse
-    at: 586
+    at: 563
     type: bikeroute
     ptRoutes: []
     priority: "3"
