@@ -64,10 +64,11 @@ module.exports = class Map {
     })
     this.map.addControl(this.drawControl)
 
-    this.map.on(L.Draw.Event.EDITED, () => {
+    this.map.on(L.Draw.Event.EDITED, e => {
       const geojson = this.path.toGeoJSON()
-      this.route.data.coordinates = geojson.geometry.coordinates
+      this.route.setCoordinates(geojson.geometry.coordinates)
       this.setRoute(this.route)
+      this.route.update()
       this.editing = false
     })
     this.map.on(L.Draw.Event.CREATED, e => {
