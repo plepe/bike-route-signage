@@ -27,8 +27,10 @@ module.exports = class Map {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map)
 
-    polylineMeasure(this.map)
-    fullscreen(this.map)
+    this.modules = [
+      polylineMeasure(this.map),
+      fullscreen(this.map)
+    ].filter(module => module)
 
     this.layers = new L.FeatureGroup()
     this.map.addLayer(this.layers)
