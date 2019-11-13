@@ -82,7 +82,7 @@ module.exports = class Map {
 
     this.map.setView([48.20837, 16.37239], 10)
 
-    this.map.on('click', e => this.showPopupAt(e.latlng))
+    this.map.on('click', e => this.notifyClick(e.latlng))
 
     this.showAll()
 
@@ -124,11 +124,6 @@ module.exports = class Map {
       this.layers.addLayer(this.path)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
-
-      this.path.on('click', e => {
-        const poi = this.route.positionNear(e.latlng)
-        global.updateStatus({ at: poi.at })
-      })
 
       this.markers = []
       this.route.data.route.forEach(entry => {
@@ -210,7 +205,7 @@ module.exports = class Map {
     })
   }
 
-  showPopupAt (latlng) {
+  notifyClick (latlng) {
     const result = []
 
     let blocker = this.modules.filter(module => module.blockPopup && module.blockPopup())
@@ -228,6 +223,11 @@ module.exports = class Map {
           const { route, pos } = d
 
           result.push('<li><a href="?file=' + encodeURIComponent(route.id) + '&amp;at=' + pos.at + '">' + route.title({ at: pos.at }) + ' (' + route.id + ')</a></li>')
+
+          // if the current route is clicked on, adjust current position
+          if (route === this.route) {
+            global.updateStatus({ at: pos.at })
+          }
         })
 
         const div = document.createElement('div')
