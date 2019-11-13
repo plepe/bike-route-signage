@@ -1,27 +1,26 @@
 title: Citydurchfahrt Börse
 endRoute: true
-length: 1571
+length: 1695
 route:
   - name: Stubentor, Ring-Rund
-    at: 29
+    at: 1
     type: ptStop
     ptRoutes:
       - U3
     priority: "1"
     direction: both
   - name: Dr. Karl Lueger Platz
-    at: 128
+    at: 98
     type: place
     ptRoutes: []
     priority: "3"
   - name: Stephansplatz
-    at: 602
+    at: 582
     type: place
     ptRoutes: []
-    direction: left
     routeDirection: right
   - name: Rotenturmstraße
-    at: 678
+    at: 727
     type: place
     ptRoutes: []
     priority: "2"
@@ -39,7 +38,7 @@ route:
     routeDirection: left
     realDirection: straight
   - name: Hoher Markt
-    at: 876
+    at: 925
     type: place
     ptRoutes: []
     priority: "2"
@@ -61,7 +60,7 @@ route:
         ptRoutes: []
         direction: right
   - name: Börse, Ring-Rund
-    at: 1541
+    at: 1590
     type: bikeroute
     ptRoutes:
       - tram
@@ -82,16 +81,19 @@ route:
           - U4
         direction: right
   - name: Maria-Theresien-Str.
-    at: 1644
+    at: 1693
     type: bikeroute
     ptRoutes: []
     direction: both
     priority: "2"
 coordinates:
-  - [ 16.380647, 48.207101 ]
-  - [ 16.377461, 48.20803 ]
-  - [ 16.375294, 48.208734 ]
-  - [ 16.373481, 48.209628 ]
+  - [ 16.379607, 48.206514 ]
+  - [ 16.37715, 48.207615 ]
+  - [ 16.376034, 48.208102 ]
+  - [ 16.375079, 48.208309 ]
+  - [ 16.374532, 48.208502 ]
+  - [ 16.373878, 48.208652 ]
+  - [ 16.372869, 48.209153 ]
   - [ 16.37414, 48.210129 ]
   - [ 16.373454, 48.210486 ]
   - [ 16.372048, 48.21128 ]
