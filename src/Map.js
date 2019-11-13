@@ -205,6 +205,11 @@ module.exports = class Map {
   showPopupAt (latlng) {
     const result = []
 
+    let blocker = this.modules.filter(module => module.blockPopup && module.blockPopup())
+    if (blocker.length) {
+      return
+    }
+
     this.findRoutesNear(latlng,
       (err, nearby) => {
         if (err) {

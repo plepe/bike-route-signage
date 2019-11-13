@@ -2,10 +2,20 @@
 
 require('leaflet.polylinemeasure')
 
-module.exports = function polylineMeasure (map) {
+let control
+
+function polylineMeasure (map) {
   // Measurement plugin
   if (L.control.polylineMeasure) {
-    L.control.polylineMeasure({
+    control =  L.control.polylineMeasure({
     }).addTo(map)
   }
+
+  return {
+    blockPopup () {
+      return control._measuring
+    }
+  }
 }
+
+module.exports = polylineMeasure
