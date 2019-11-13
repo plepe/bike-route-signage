@@ -28,6 +28,9 @@ module.exports = class Map {
     }).addTo(this.map)
 
     this.modules = [
+      {
+        blockPopup: () => this.editing
+      },
       polylineMeasure(this.map),
       fullscreen(this.map)
     ].filter(module => module)
@@ -65,12 +68,17 @@ module.exports = class Map {
       const geojson = this.path.toGeoJSON()
       this.route.data.coordinates = geojson.geometry.coordinates
       this.setRoute(this.route)
+      this.editing = false
     })
     this.map.on(L.Draw.Event.CREATED, e => {
       const coordinates = e.layer.editing.latlngs[0].map(latlng => [latlng.lng, latlng.lat])
       this.route.data.coordinates = coordinates
       this.setRoute(this.route)
     })
+    this.map.on(L.Draw.Event.EDITSTART, () => this.editing = true)
+    this.map.on(L.Draw.Event.EDITSTOP, () => this.editing = false)
+    this.map.on(L.Draw.Event.DRAWSTART, () => this.editing = true)
+    this.map.on(L.Draw.Event.DRAWSTOP, () => this.editing = false)
 
     this.map.setView([48.20837, 16.37239], 10)
 
