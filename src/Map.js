@@ -68,6 +68,7 @@ module.exports = class Map {
       const geojson = this.path.toGeoJSON()
       this.route.data.coordinates = geojson.geometry.coordinates
       this.setRoute(this.route)
+      this.route.update()
       this.editing = false
     })
     this.map.on(L.Draw.Event.CREATED, e => {

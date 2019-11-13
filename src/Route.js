@@ -19,15 +19,13 @@ class Route extends EventEmitter {
     this.id = id
     routes[id] = this
     this.data = data
-    if (!this.data.length) {
-      if (this.data.coordinates) {
-        this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
-      }
-    }
     this.update()
   }
 
   update () {
+    if (this.data.coordinates) {
+      this.data.length = Math.round(turf.length(this.GeoJSON()) * 1000)
+    }
     this.data.route.forEach((entry, index) => {
       entry.index = index
       entry.file = this.id
