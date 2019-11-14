@@ -8,6 +8,7 @@ const asyncForEach = require('async-each')
 
 const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
+const routeList = require('./map-routeList')
 const Route = require('./Route')
 const appifyLinks = require('./appifyLinks')
 
@@ -33,7 +34,8 @@ module.exports = class Map {
         blockPopup: () => this.editing
       },
       polylineMeasure(this.map),
-      fullscreen(this.map)
+      fullscreen(this.map),
+      routeList(this.map)
     ].filter(module => module)
 
     this.layers = new L.FeatureGroup()
@@ -166,7 +168,6 @@ module.exports = class Map {
       asyncForEach(list,
         (file, callback) => {
           Route.get(file, (err, route) => {
-            const path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes', dashArray: '27 8', noClip: true } })
             if (err) {
               // ignore (and report) errors on loading routes
               console.error(err)
@@ -174,14 +175,7 @@ module.exports = class Map {
               return
             }
 
-            path.addTo(this.map)
-
-            path.decoration = L.polylineDecorator(path, {
-              patterns: [
-                { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'otherRoutes', stroke: 0, color: 'red', fillOpacity: 1 }})}
-              ]
-            }).addTo(this.map)
-
+            this.modules.forEach(module => module.addRoute && module.addRoute(route))
             callback()
           })
         }
