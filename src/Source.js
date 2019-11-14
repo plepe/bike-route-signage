@@ -5,6 +5,7 @@ const yaml = require('yaml')
 
 module.exports = class Source {
   constructor (app) {
+    this.app = app
     this.tab = new Tab({ id: 'source' })
     app.tabs.add(this.tab)
 
@@ -34,6 +35,30 @@ module.exports = class Source {
 
       this.timeout = global.setTimeout(() => this.submitChanges(), 100)
     })
+    this.editor.on('cursorActivity', () => this.updateMap())
+  }
+
+  updateMap () {
+    let cursor = this.editor.getCursor()
+    let line = this.editor.getValue().split(/\n/)[cursor.line]
+
+    if (this.app.modules.map && this.app.modules.map.map) {
+      let m = line.match(/\[ *(-?[0-9]+(?:\.[0-9]+)?), *(-?[0-9]+(?:\.[0-9]+)?) *\]/)
+      if (m) {
+        this.app.modules.map.map.panTo([m[2], m[1]])
+
+        if (this.poiMarker) {
+          this.poiMarker.setLatLng([m[2], m[1]])
+        } else {
+          this.poiMarker = L.circleMarker([m[2], m[1]], { pane: 'location', fillColor: 'green', fillOpacity: 1, weight: 0, radius: 7 }).addTo(this.app.modules.map.map)
+        }
+      } else {
+        if (this.poiMarker) {
+          this.app.modules.map.map.removeLayer(this.poiMarker)
+          delete this.poiMarker
+        }
+      }
+    }
   }
 
   submitChanges () {
@@ -52,6 +77,8 @@ module.exports = class Source {
       this.route.update()
       this.updateFromSource = false
     }
+
+    this.updateMap()
   }
 
   setRoute (route) {
