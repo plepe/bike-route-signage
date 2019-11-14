@@ -40,7 +40,7 @@ class RouteList {
           }
         })
 
-        if (match) {
+        if (match !== null) {
           if (index > start + 1) {
             segment = new Segment(this)
             segments.push(segment)
@@ -54,6 +54,9 @@ class RouteList {
           segmentDir = segmentIndex - segmentPrevIndex
 
           segment = segment.split(segmentPrevIndex, segmentDir);
+          if (segmentDir === -1) {
+            segment.backward = true
+          }
         }
       } else {
         if (!(segment.id in this.latLonIndex[poi]) ||
@@ -70,6 +73,10 @@ class RouteList {
     })
 
     if (segment) {
+      let lonLat = route.data.coordinates[route.data.coordinates.length - 1]
+      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      let segmentIndex = this.latLonIndex[poi][segment.id]
+      segment.split(segmentIndex)
       segments.push(segment)
     } else {
       segment = new Segment(this)
@@ -102,6 +109,7 @@ class Segment {
     this.routeList = routeList
     this.map = routeList.map
     this.routes = []
+    this.backward = false
   }
 
   setCoordinates (coord) {
@@ -150,10 +158,11 @@ class Segment {
   }
 
   split (index, dir) {
-    if (index === 0 && dir === 1) {
+    // console.log('split', this.id, index, dir)
+    if (index === 0) {
       return this
     }
-    if (index === this.coordinates.length - 1 && dir === -1) {
+    if (index === this.coordinates.length - 1) {
       return this
     }
 
