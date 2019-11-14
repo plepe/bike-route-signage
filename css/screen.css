@@ -53,6 +53,17 @@ body {
   bottom: 10px;
   box-sizing: border-box;
 }
+.body-map #menu {
+  left: 56.5em;
+}
+.body-map > #map-container {
+  position: absolute;
+  top: 10px;
+  left: 28em;
+  width: 28em;
+  bottom: 10px;
+  box-sizing: border-box;
+}
 #menu a:after {
   content: '';
   margin-right: 0.5em;

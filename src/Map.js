@@ -11,6 +11,7 @@ const polylineMeasure = require('./map-polylineMeasure')
 const routeList = require('./map-routeList')
 const Route = require('./Route')
 const appifyLinks = require('./appifyLinks')
+const getEmSize = require('./getEmSize')
 
 const turf = {
   along: require('@turf/along').default
@@ -91,8 +92,24 @@ module.exports = class Map {
     this.showAll()
 
     this.app.on('resize', () => {
+      this.checkResponsive()
       this.map.invalidateSize()
     })
+    this.checkResponsive()
+  }
+
+  checkResponsive () {
+    const size = getEmSize(environment)
+    const bodyWidthEm = document.body.offsetWidth / size
+
+    if (bodyWidthEm < 100) {
+      document.body.classList.remove('body-map')
+      document.getElementById('navigation').appendChild(document.getElementById('map-container'))
+    }
+    else {
+      document.body.classList.add('body-map')
+      document.body.appendChild(document.getElementById('map-container'))
+    }
   }
 
   clear () {
