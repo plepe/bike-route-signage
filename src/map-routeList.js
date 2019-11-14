@@ -1,11 +1,47 @@
 /* global L:false */
 
+const forEach = require('for-each')
+
 class RouteList {
   constructor (map) {
     this.map = map
+    this.latLonIndex = {}
+    this.segments = []
+  }
+
+  addToIndex (route) {
+    if (!route.data.coordinates) {
+      return
+    }
+
+    let prev = {}
+    let start = 0
+    route.data.coordinates.forEach((lonLat, index) => {
+      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      if (!(poi in this.latLonIndex)) {
+        this.latLonIndex[poi] = {}
+      }
+
+      let match = true
+      forEach(this.latLonIndex[poi], (i, r) => {
+        if (!(r in prev) || !((prev[r] === i + 1) || (prev[r] === i - 1))) {
+          match = false
+        }
+      })
+
+      if (!match) {
+        console.log(route.id, 'new segment', start, '-', index, Object.values(this.latLonIndex[poi]).length)
+        start = index
+      }
+
+      this.latLonIndex[poi][route.id] = index
+      prev = this.latLonIndex[poi]
+    })
   }
 
   addRoute (route) {
+    this.addToIndex(route)
+
     const path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes', dashArray: '27 8', noClip: true } })
     path.addTo(this.map)
 
