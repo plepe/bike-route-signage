@@ -126,7 +126,7 @@ module.exports = class Map {
   update () {
     if (this.route.data.coordinates) {
       this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute', dashArray: '27 8', noClip: true } })
-      this.layers.addLayer(this.path)
+      //this.layers.addLayer(this.path)
 
       this.path.decoration = L.polylineDecorator(this.path, {
         patterns: [

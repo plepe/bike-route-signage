@@ -128,6 +128,7 @@ function load () {
 
 let loadListCallbacks
 function loadList (callback) {
+  global.files = [ 'arndt-margareten-oper', 'oper-margareten-arndt' ]
   if (global.files) {
     return callback(null, global.files)
   }
