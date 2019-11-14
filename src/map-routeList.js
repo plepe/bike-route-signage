@@ -132,27 +132,36 @@ class Segment {
 
   addRoute (route) {
     this.routes.push(route)
-    if (this.path) {
-      this.path.bindPopup('' + this.id + ' ' + this.routes.map(route => route.id).join(','))
-    }
+    this.hide()
+    this.show()
   }
 
   show () {
     if (this.map) {
-      this.path = L.polyline(this.coordinates.map(coord => [coord[1], coord[0]]), { color: 'red', pane: 'otherRoutes', dashArray: '27 8', noClip: true })
-      this.path.addTo(this.map)
+      if (this.backward) {
+        this.path = L.polyline(this.coordinates.map(coord => [coord[1], coord[0]]), { color: 'red', pane: 'otherRoutes' })
+        this.path.addTo(this.map)
+        this.decoration = null
+      } else {
+        this.path = L.polyline(this.coordinates.map(coord => [coord[1], coord[0]]), { color: 'red', pane: 'otherRoutes', dashArray: '27 8', noClip: true })
+        this.path.addTo(this.map)
 
-      this.decoration = L.polylineDecorator(this.path, {
-        patterns: [
-          { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'otherRoutes', stroke: 0, color: 'red', fillOpacity: 1 }})}
-        ]
-      }).addTo(this.map)
+        this.decoration = L.polylineDecorator(this.path, {
+          patterns: [
+            { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'otherRoutes', stroke: 0, color: 'red', fillOpacity: 1 }})}
+          ]
+        }).addTo(this.map)
+      }
+
+      //this.path.bindPopup(this.id + ': ' + this.routes.map(route => route.id).join(',') + ' (' + (this.backward ? 'both' : 'forward') + ')')
     }
   }
 
   hide () {
     if (this.map) {
-      this.map.removeLayer(this.decoration)
+      if (this.decoration) {
+        this.map.removeLayer(this.decoration)
+      }
       this.map.removeLayer(this.path)
     }
   }
