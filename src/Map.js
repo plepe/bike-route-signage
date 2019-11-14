@@ -2,11 +2,13 @@
 
 require('leaflet')
 require('leaflet-draw')
+require('leaflet-polylinedecorator')
 
 const asyncForEach = require('async-each')
 
 const fullscreen = require('./map-fullscreen')
 const polylineMeasure = require('./map-polylineMeasure')
+const routeList = require('./map-routeList')
 const Route = require('./Route')
 const appifyLinks = require('./appifyLinks')
 
@@ -32,7 +34,8 @@ module.exports = class Map {
         blockPopup: () => this.editing
       },
       polylineMeasure(this.map),
-      fullscreen(this.map)
+      fullscreen(this.map),
+      routeList(this.map)
     ].filter(module => module)
 
     this.layers = new L.FeatureGroup()
@@ -95,6 +98,7 @@ module.exports = class Map {
   clear () {
     if (this.path) {
       this.layers.removeLayer(this.path)
+      this.map.removeLayer(this.path.decoration)
       delete this.path
     }
     if (this.markers) {
@@ -121,8 +125,14 @@ module.exports = class Map {
 
   update () {
     if (this.route.data.coordinates) {
-      this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute' } })
+      this.path = this.showRoute(this.route, { style: { color: 'red', pane: 'currentRoute', dashArray: '27 8', noClip: true } })
       this.layers.addLayer(this.path)
+
+      this.path.decoration = L.polylineDecorator(this.path, {
+        patterns: [
+          { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'currentRoute', stroke: 0, color: 'red', fillOpacity: 1 }})}
+        ]
+      }).addTo(this.map)
 
       this.map.setView([this.route.data.coordinates[0][1], this.route.data.coordinates[0][0]], 17)
 
@@ -165,8 +175,7 @@ module.exports = class Map {
               return
             }
 
-            const path = this.showRoute(route, { style: { color: 'red', pane: 'otherRoutes' } })
-            path.addTo(this.map)
+            this.modules.forEach(module => module.addRoute && module.addRoute(route))
             callback()
           })
         }

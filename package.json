@@ -12,6 +12,7 @@
     "jsdom": "^15.2.0",
     "leaflet": "^1.5.1",
     "leaflet-draw": "^1.0.4",
+    "leaflet-polylinedecorator": "git+https://github.com/plepe/Leaflet.PolylineDecorator.git",
     "leaflet.locatecontrol": "^0.68.0",
     "leaflet.polylinemeasure": "^2.0.0",
     "modulekit-form": "git+https://github.com/plepe/modulekit-form.git#browserify",
@@ -23,10 +24,12 @@
   "devDependencies": {
     "browserify": "^16.5.0",
     "http-server": "^0.11.1",
+    "mocha": "^6.2.2",
     "standard": "^14.3.1",
     "watchify": "^3.11.1"
   },
   "scripts": {
+    "test": "mocha --bail",
     "lint": "standard --fix src/*.js",
     "build": "browserify -g browserify-css src/index.js -o dist/app.js",
     "watch": "watchify --debug -g browserify-css src/index.js -o dist/app.js -v",
