@@ -14,6 +14,7 @@ Open a Terminal and run:
 ```sh
 git clone https://github.com/plepe/bike-route-signage
 cd bike-route-signage
+git clone https://github.com/plepe/bike-route-signage-wien data/
 npm install
 npm run start
 ```
