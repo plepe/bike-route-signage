@@ -1,3 +1,5 @@
+/* global FileReader:false */
+
 const Tab = require('modulekit-tabs').Tab
 
 const updateInput = require('./updateInput')
@@ -62,7 +64,7 @@ module.exports = class Navigation {
         reader.onload = (e) => {
           var contents = e.target.result
           const m = file.name.match(/^(.*)\.yml$/)
-          let route = new Route(m ? m[1] : file.name, yaml.parse(contents))
+          const route = new Route(m ? m[1] : file.name, yaml.parse(contents))
           global.setRoute(route)
           global.updateStatus({ at: 0, file: route.id })
         }

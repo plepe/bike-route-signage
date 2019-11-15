@@ -1,3 +1,5 @@
+/* global L:false */
+
 const CodeMirror = require('codemirror')
 require('codemirror/mode/yaml/yaml')
 const Tab = require('modulekit-tabs').Tab
@@ -39,11 +41,11 @@ module.exports = class Source {
   }
 
   updateMap () {
-    let cursor = this.editor.getCursor()
-    let line = this.editor.getValue().split(/\n/)[cursor.line]
+    const cursor = this.editor.getCursor()
+    const line = this.editor.getValue().split(/\n/)[cursor.line]
 
     if (this.app.modules.map && this.app.modules.map.map) {
-      let m = line.match(/\[ *(-?[0-9]+(?:\.[0-9]+)?), *(-?[0-9]+(?:\.[0-9]+)?) *\]/)
+      const m = line.match(/\[ *(-?[0-9]+(?:\.[0-9]+)?), *(-?[0-9]+(?:\.[0-9]+)?) *\]/)
       if (m) {
         this.app.modules.map.map.panTo([m[2], m[1]])
 

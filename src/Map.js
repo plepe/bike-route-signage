@@ -81,10 +81,10 @@ module.exports = class Map {
       this.route.data.coordinates = coordinates
       this.setRoute(this.route)
     })
-    this.map.on(L.Draw.Event.EDITSTART, () => this.editing = true)
-    this.map.on(L.Draw.Event.EDITSTOP, () => this.editing = false)
-    this.map.on(L.Draw.Event.DRAWSTART, () => this.editing = true)
-    this.map.on(L.Draw.Event.DRAWSTOP, () => this.editing = false)
+    this.map.on(L.Draw.Event.EDITSTART, () => this._notifyEditing(true))
+    this.map.on(L.Draw.Event.EDITSTOP, () => this._notifyEditing(false))
+    this.map.on(L.Draw.Event.DRAWSTART, () => this._notifyEditing(true))
+    this.map.on(L.Draw.Event.DRAWSTOP, () => this._notifyEditing(false))
 
     this.map.setView([48.20837, 16.37239], 10)
 
@@ -99,15 +99,19 @@ module.exports = class Map {
     this.checkResponsive()
   }
 
+  _notifyEditing (editing) {
+    this.editing = editing
+  }
+
   checkResponsive () {
+    const environment = document.getElementById('environment')
     const size = getEmSize(environment)
     const bodyWidthEm = document.body.offsetWidth / size
 
     if (bodyWidthEm < 100) {
       document.body.classList.remove('body-map')
       document.getElementById('navigation').appendChild(document.getElementById('map-container'))
-    }
-    else {
+    } else {
       document.body.classList.add('body-map')
       document.body.appendChild(document.getElementById('map-container'))
     }
@@ -148,7 +152,7 @@ module.exports = class Map {
 
       this.path.decoration = L.polylineDecorator(this.path, {
         patterns: [
-          { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'currentRoute', stroke: 0, color: 'red', fillOpacity: 1 }})}
+          { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'currentRoute', stroke: 0, color: 'red', fillOpacity: 1 } }) }
         ]
       }).addTo(this.map)
 
@@ -236,7 +240,7 @@ module.exports = class Map {
   notifyClick (latlng) {
     const result = []
 
-    let blocker = this.modules.filter(module => module.blockPopup && module.blockPopup())
+    const blocker = this.modules.filter(module => module.blockPopup && module.blockPopup())
     if (blocker.length) {
       return
     }

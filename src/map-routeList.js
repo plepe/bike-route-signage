@@ -16,13 +16,12 @@ class RouteList {
 
     let prev = null
     let start = 0
-    let path = [ null ]
     let segment
-    let segments = []
+    const segments = []
     let segmentDir = 0
 
     route.data.coordinates.map((lonLat, index) => {
-      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      const poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
       if (!(poi in this.latLonIndex)) {
         this.latLonIndex[poi] = {}
       }
@@ -35,7 +34,7 @@ class RouteList {
       if (!segment) {
         let match = null
         forEach(this.latLonIndex[poi], (i, s) => {
-          if (s in prev && (prev[s] === i + 1) || (prev[s] === i - 1)) {
+          if (s in prev && ((prev[s] === i + 1) || (prev[s] === i - 1))) {
             match = s
           }
         })
@@ -49,11 +48,11 @@ class RouteList {
           }
 
           segment = this.segments[match]
-          let segmentIndex = this.latLonIndex[poi][match]
-          let segmentPrevIndex = prev[match]
+          const segmentIndex = this.latLonIndex[poi][match]
+          const segmentPrevIndex = prev[match]
           segmentDir = segmentIndex - segmentPrevIndex
 
-          segment = segment.split(segmentPrevIndex, segmentDir);
+          segment = segment.split(segmentPrevIndex, segmentDir)
           if (segmentDir === -1) {
             segment.backward = true
           }
@@ -61,7 +60,7 @@ class RouteList {
       } else {
         if (!(segment.id in this.latLonIndex[poi]) ||
             (segment.id in this.latLonIndex[poi] && (prev[segment.id] + segmentDir !== this.latLonIndex[poi][segment.id]))) {
-          let segmentPrevIndex = prev[segment.id]
+          const segmentPrevIndex = prev[segment.id]
           segment.split(segmentPrevIndex, segmentDir)
           segments.push(segment)
           segment = null
@@ -73,9 +72,9 @@ class RouteList {
     })
 
     if (segment) {
-      let lonLat = route.data.coordinates[route.data.coordinates.length - 1]
-      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
-      let segmentIndex = this.latLonIndex[poi][segment.id]
+      const lonLat = route.data.coordinates[route.data.coordinates.length - 1]
+      const poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      const segmentIndex = this.latLonIndex[poi][segment.id]
       segment.split(segmentIndex)
       segments.push(segment)
     } else {
@@ -88,7 +87,6 @@ class RouteList {
 
   addRoute (route) {
     this.addToIndex(route)
-
   }
 
   showRoute (route, options) {
@@ -116,7 +114,7 @@ class Segment {
     this.coordinates = coord
 
     coord.forEach((lonLat, index) => {
-      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      const poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
       this.routeList.latLonIndex[poi][this.id] = index
     })
 
@@ -125,7 +123,7 @@ class Segment {
 
   _unsetCoordinates () {
     this.coordinates.forEach((lonLat, index) => {
-      let poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
+      const poi = lonLat[1].toFixed(5) + '|' + lonLat[0].toFixed(5)
       delete this.routeList.latLonIndex[poi][this.id]
     })
   }
@@ -148,12 +146,12 @@ class Segment {
 
         this.decoration = L.polylineDecorator(this.path, {
           patterns: [
-            { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'otherRoutes', stroke: 0, color: 'red', fillOpacity: 1 }})}
+            { offset: 30.5, repeat: 35, polygon: true, symbol: L.Symbol.arrowHead({ pixelSize: 9, pathOptions: { pane: 'otherRoutes', stroke: 0, color: 'red', fillOpacity: 1 } }) }
           ]
         }).addTo(this.map)
       }
 
-      //this.path.bindPopup(this.id + ': ' + this.routes.map(route => route.id).join(',') + ' (' + (this.backward ? 'both' : 'forward') + ')')
+      // this.path.bindPopup(this.id + ': ' + this.routes.map(route => route.id).join(',') + ' (' + (this.backward ? 'both' : 'forward') + ')')
     }
   }
 
@@ -175,7 +173,7 @@ class Segment {
       return this
     }
 
-    let segment = new Segment(this.routeList)
+    const segment = new Segment(this.routeList)
     segment.routes = this.routes.concat([])
     this._unsetCoordinates()
 

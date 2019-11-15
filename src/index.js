@@ -1,4 +1,4 @@
-/* global FileReader:false, alert:false, location:false */
+/* global alert:false, location:false */
 
 const queryString = require('query-string')
 const yaml = require('yaml')
@@ -8,7 +8,6 @@ const Tab = require('modulekit-tabs').Tab
 
 const Route = require('./Route')
 const httpGet = require('./httpGet')
-const clearDomNode = require('./clearDomNode')
 const getEmSize = require('./getEmSize')
 const App = require('./App')
 const Modules = {
@@ -21,7 +20,7 @@ const Modules = {
 }
 
 const modules = {}
-let app = new App()
+const app = new App()
 let options
 let route
 let environmentTab
@@ -163,7 +162,7 @@ global.loadList = loadList
 window.onload = function () {
   options = queryString.parse(location.search)
 
-  let tabs = new Tabs(document.getElementById('menu'))
+  const tabs = new Tabs(document.getElementById('menu'))
 
   app.modules = modules
   app.tabs = tabs
@@ -217,7 +216,7 @@ function checkResponsive () {
     document.body.classList.add('environment-tabbed')
   }
   if (bodyWidthEm >= 50 && environmentTab) {
-    let isSelected = environmentTab.isSelected()
+    const isSelected = environmentTab.isSelected()
     document.body.appendChild(environment)
     app.tabs.remove(environmentTab)
     environmentTab = null

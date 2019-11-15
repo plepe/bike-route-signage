@@ -7,7 +7,7 @@ let control
 function polylineMeasure (map) {
   // Measurement plugin
   if (L.control.polylineMeasure) {
-    control =  L.control.polylineMeasure({
+    control = L.control.polylineMeasure({
     }).addTo(map)
   }
 

@@ -40,9 +40,9 @@ class Route extends EventEmitter {
 
   setCoordinates (coordinates) {
     let geojson = this.GeoJSON()
-    let nodeLatLons = this.data.route.map(entry => {
-      let poi = turf.along(geojson, entry.at / 1000)
-      return {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]}
+    const nodeLatLons = this.data.route.map(entry => {
+      const poi = turf.along(geojson, entry.at / 1000)
+      return { lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0] }
     })
 
     this.data.coordinates = coordinates
