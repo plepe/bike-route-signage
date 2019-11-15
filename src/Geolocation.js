@@ -34,7 +34,7 @@ module.exports = class Geolocation {
 
     const trackEvent = 'locationfound'
     // trackEvent = 'mousemove' // enable for testing
-    this.map.on(trackEvent, e => this.update({ lat: 48.20040, lng: 16.36659 }))//e.latlng))
+    this.map.on(trackEvent, e => this.update(e.latlng))
 
     if (!('file' in this.app.options) && !('at' in this.app.options)) {
       this.map.once('locationfound', () => {
