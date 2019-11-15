@@ -5,6 +5,8 @@ A route is defined by a simple YAML file. This application renders how a sign wo
 
 There's also an editor included. You can download the modified file.
 
+The route data for bike-route-signage is maintained in a separate repository: https://github.com/plepe/bike-route-signage-wien
+
 ## Installation
 For running bike-route-signage yourself, you need:
 * [Node.js](https://nodejs.org/)

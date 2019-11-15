@@ -25,6 +25,7 @@ module.exports = class Map {
     document.getElementById('map-container').appendChild(div)
 
     this.map = L.map('map')
+    this.map.attributionControl.setPrefix('<a target="_blank" href="https://github.com/plepe/bike-route-signage/">plepe/bike-route-signage</a>')
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
