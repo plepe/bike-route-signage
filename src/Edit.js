@@ -38,7 +38,7 @@ module.exports = class Edit {
         type: 'text/vnd.yaml;charset=utf-8'
       })
 
-      saveAs(blob, 'x.yml')
+      saveAs(blob, this.route.id + '.yml')
       return false
     }
     a.appendChild(document.createTextNode('Download file'))
