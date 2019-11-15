@@ -62,6 +62,7 @@ body {
   left: 28em;
   width: 28em;
   bottom: 10px;
+  height: auto;
   box-sizing: border-box;
 }
 #menu a:after {
@@ -99,12 +100,14 @@ body {
   height: 100%;
 }
 
+body.body-map.map-fullscreen > #map-container,
 body.map-fullscreen #map-container {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+  width: auto;
 }
 
 .warning {
