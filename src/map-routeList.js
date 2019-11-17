@@ -9,7 +9,7 @@ class RouteList {
     this.segments = []
   }
 
-  addToIndex (route) {
+  addRoute (route) {
     if (!route.data.coordinates) {
       return
     }
@@ -83,16 +83,6 @@ class RouteList {
       segments.push(segment)
     }
     segments.forEach(segment => segment.addRoute(route))
-  }
-
-  addRoute (route) {
-    this.addToIndex(route)
-  }
-
-  showRoute (route, options) {
-    const path = L.polyline(route.data.coordinates.map(coord => [coord[1], coord[0]]), options.style)
-
-    return path
   }
 }
 
