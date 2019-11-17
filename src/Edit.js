@@ -7,6 +7,7 @@ const forEach = require('for-each')
 
 const Route = require('./Route')
 const clone = require('./clone')
+const clearDomNode = require('./clearDomNode')
 
 const turn = {
   left: 'right',
@@ -79,7 +80,56 @@ module.exports = class Edit {
   }
 
   setRoute (route) {
+    if (this.route) {
+      this.route.off('update', this._listRouteCB)
+    }
+
     this.route = route
+    this._listRouteCB = () => this.listRoute()
+    this.route.on('update', this._listRouteCB)
+    this.listRoute()
+  }
+
+  listRoute () {
+    if (this.table) {
+      clearDomNode(this.table)
+    } else {
+      this.table = document.createElement('table')
+      this.table.id = 'listRoute'
+      this.tab.content.appendChild(this.table)
+    }
+
+    if (!this.route.data.route) {
+      return
+    }
+
+    this.route.data.route.forEach(entry => {
+      const tr = document.createElement('tr')
+
+      let td = document.createElement('td')
+      td.className = 'at'
+      td.appendChild(document.createTextNode(entry.at))
+      tr.appendChild(td)
+
+      td = document.createElement('td')
+      td.className = 'name'
+      td.appendChild(document.createTextNode(entry.name))
+      tr.appendChild(td)
+
+      td = document.createElement('td')
+      td.className = 'edit'
+      let a = document.createElement('a')
+      a.href = '#'
+      a.onclick = () => {
+        this.edit(entry)
+        return false
+      }
+      a.appendChild(document.createTextNode('edit'))
+      td.appendChild(a)
+      tr.appendChild(td)
+
+      this.table.appendChild(tr)
+    })
   }
 
   clear () {
@@ -144,6 +194,7 @@ module.exports = class Edit {
 
   edit (entry) {
     this.clear()
+    this.tab.content.removeChild(this.table)
 
     this.form = new Form('data', require('./entry.json'))
 
@@ -167,6 +218,7 @@ module.exports = class Edit {
     input.value = 'Cancel'
     input.onclick = () => {
       this.clear()
+      this.tab.content.appendChild(this.table)
       return false
     }
     this.dom.appendChild(input)
@@ -183,6 +235,7 @@ module.exports = class Edit {
 
       this.clear()
       this.route.update()
+      this.tab.content.appendChild(this.table)
       global.updateStatus({})
       return false
     }

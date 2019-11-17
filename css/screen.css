@@ -168,3 +168,18 @@ body.map-fullscreen #map-container {
 .CodeMirror {
   height: auto;
 }
+
+table#listRoute {
+  border-collapse: collapse;
+  margin: 0.25em;
+  border: 1px solid black;
+}
+table#listRoute tr:nth-child(odd) {
+  background: #bfbfbf;
+}
+table#listRoute td {
+  padding: 0.25em;
+}
+table#listRoute td.at {
+  text-align: right;
+}
