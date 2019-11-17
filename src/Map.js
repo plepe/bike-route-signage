@@ -197,12 +197,21 @@ module.exports = class Map {
               return
             }
 
-            this.modules.forEach(module => module.addRoute && module.addRoute(route))
+            this.addRoute(route)
             callback()
           })
         }
       )
     })
+  }
+
+  addRoute (route) {
+    route.on('update', () => {
+      this.modules.forEach(module => module.removeRoute && module.removeRoute(route))
+      this.modules.forEach(module => module.addRoute && module.addRoute(route))
+    })
+
+    this.modules.forEach(module => module.addRoute && module.addRoute(route))
   }
 
   findRoutesNear (latlng, callback) {

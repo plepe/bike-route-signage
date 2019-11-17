@@ -5,8 +5,13 @@ const forEach = require('for-each')
 class RouteList {
   constructor (map) {
     this.map = map
+    this.init()
+  }
+
+  init () {
     this.latLonIndex = {}
     this.segments = []
+    this.routes = []
   }
 
   addRoute (route) {
@@ -14,6 +19,7 @@ class RouteList {
       return
     }
 
+    this.routes.push(route)
     let prev = null
     let start = 0
     let segment
@@ -83,6 +89,16 @@ class RouteList {
       segments.push(segment)
     }
     segments.forEach(segment => segment.addRoute(route))
+  }
+
+  removeRoute (route) {
+    if (this.routes.includes(route)) {
+      this.routes.splice(this.routes.indexOf(route), 1)
+      const routes = this.routes
+      this.segments.forEach(segment => segment.hide())
+      this.init()
+      routes.forEach(r => this.addRoute(r))
+    }
   }
 }
 
