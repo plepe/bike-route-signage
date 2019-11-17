@@ -81,7 +81,7 @@ module.exports = class Edit {
 
   setRoute (route) {
     if (this.route) {
-      this.route.off('update', this._listRouteCB)
+      this.route.removeListener('update', this._listRouteCB)
     }
 
     this.route = route
