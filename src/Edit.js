@@ -194,7 +194,9 @@ module.exports = class Edit {
 
   edit (entry) {
     this.clear()
-    this.tab.content.removeChild(this.table)
+    if (this.tab.content.contains(this.table)) {
+      this.tab.content.removeChild(this.table)
+    }
 
     this.form = new Form('data', require('./entry.json'))
 
@@ -210,12 +212,21 @@ module.exports = class Edit {
 
     let input = document.createElement('input')
     input.type = 'submit'
-    input.value = 'Update'
+    input.value = 'Speichern'
     this.dom.appendChild(input)
 
     input = document.createElement('input')
     input.type = 'button'
-    input.value = 'Cancel'
+    input.value = 'Speichern, weiter bearbeiten'
+    input.onclick = () => {
+      this.applyChanges(entry)
+      return false
+    }
+    this.dom.appendChild(input)
+
+    input = document.createElement('input')
+    input.type = 'button'
+    input.value = 'Abbrechen'
     input.onclick = () => {
       this.clear()
       this.tab.content.appendChild(this.table)
@@ -224,21 +235,25 @@ module.exports = class Edit {
     this.dom.appendChild(input)
 
     this.dom.onsubmit = () => {
-      const data = this.form.get_data()
-      for (const k in data) {
-        if (data[k] === null) {
-          delete entry[k]
-        } else {
-          entry[k] = data[k]
-        }
-      }
-
+      this.applyChanges(entry)
       this.clear()
-      this.route.update()
       this.tab.content.appendChild(this.table)
       global.updateStatus({})
       return false
     }
+  }
+
+  applyChanges (entry) {
+    const data = this.form.get_data()
+    for (const k in data) {
+      if (data[k] === null) {
+        delete entry[k]
+      } else {
+        entry[k] = data[k]
+      }
+    }
+
+    this.route.update()
   }
 
   updateStatus (options) {
